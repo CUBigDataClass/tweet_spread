@@ -7399,6 +7399,10 @@ Created using IcoMoon - icomoon.io
     }
 }
 
+my-rounded-circle {    
+    width: 100px;
+    height: 100px;
+}
 @media screen and (min-width: 768px) {
     .image-container.image-right {
         top: 80px;
