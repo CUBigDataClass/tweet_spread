@@ -46,10 +46,10 @@ chart1.on('draw', function(data) {
 });
 
 // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
-chart1.on('created', function() {
+/*chart1.on('created', function() {
   if(window.__anim21278907124) {
     clearTimeout(window.__anim21278907124);
     window.__anim21278907124 = null;
   }
   window.__anim21278907124 = setTimeout(chart1.update.bind(chart1), 10000);
-});
+});*/
