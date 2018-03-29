@@ -1,0 +1,7 @@
+storm.zookeeper.servers:
+    - "172.31.46.46"
+    - "172.31.41.95"
+    - "172.31.43.231"
+storm.zookeeper.port: 2181
+nimbus.seeds: ["172.31.47.141"]
+storm.local.dir: "tmp/storm-data"
