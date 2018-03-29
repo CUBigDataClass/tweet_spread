@@ -11,13 +11,7 @@ mv apache-storm-1.2.1 storm
 rm apache-storm-1.2.1.tar.gz
 
 # Download Kafka
-wget http://mirrors.sorengard.com/apache/kafka/1.1.0/kafka-1.1.0-src.tgz
-tar -zxf kafka-1.1.0-src.tgz
-mv kafka-1.1.0-src kafka
-rm kafka-1.1.0-src.tgz
-
-# Set ZooKeeper environment
-export ZK_HOME=~/zookeeper
-cp tweet_spread/config/zoo.cfg ./zookeeper/conf/
-sudo mkdir /var/zookeeper
-sudo chmod 777 /var/zookeeper
+wget http://apache.mirrors.lucidnetworks.net/kafka/1.1.0/kafka_2.11-1.1.0.tgz
+tar -zxf kafka_2.11-1.1.0.tgz
+mv kafka_2.11-1.1.0 kafka
+rm kafka_2.11-1.1.0.tgz
