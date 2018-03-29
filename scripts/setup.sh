@@ -15,3 +15,9 @@ wget http://mirrors.sorengard.com/apache/kafka/1.1.0/kafka-1.1.0-src.tgz
 tar -zxf kafka-1.1.0-src.tgz
 mv kafka-1.1.0-src kafka
 rm kafka-1.1.0-src.tgz
+
+# Set ZooKeeper environment
+export ZK_HOME=~/zookeeper
+cp tweet_spread/config/zoo.cfg ./zookeeper/conf/
+sudo mkdir /var/zookeeper
+sudo chmod 777 /var/zookeeper
