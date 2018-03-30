@@ -15,14 +15,14 @@ public class KafkaTopology {
 	public static void main(String[] args) {
 		try {
 			// zookeeper hosts for the Kafka cluster
-			BrokerHosts zkHosts = new ZkHosts("10.191.208.89:2183");
+			BrokerHosts zkHosts = new ZkHosts("172.31.21.76:2181");
 
 			// Create the KafkaSpout configuartion
 			// Second argument is the topic name
 			// Third argument is the zookeepr root for Kafka
 			// Fourth argument is consumer group id
 			SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "new_topic", "",
-					"id1");
+					"0");
 
 			// Specify that the kafka messages are String
 			// We want to consume all the first messages in the topic everytime
