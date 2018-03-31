@@ -15,7 +15,7 @@ class Producer(threading.Thread):
 
     def run(self):
         producer = KafkaProducer(bootstrap_servers='localhost:9092')
-        topic = "Donald Trump"
+        topic = "CU Boulder"
 
         r = batch_search(topic, "")
         # while not self.stop_event.is_set():
