@@ -14,8 +14,17 @@ public class SampleStormTopology {
 		// set the spout class
 		builder.setSpout("SampleSpout", new SampleSpout(), 2);
 		// set the bolt class
-		builder.setBolt("SampleBolt", new SampleBolt(), 4).shuffleGrouping(
+		// builder.setBolt("SampleBolt", new SampleBolt(), 4).shuffleGrouping(
+		// 		"SampleSpout");
+
+		// test python
+		SplitBolt splitBolt = new SplitBolt();
+		Map env = new HashMap();
+		env.put("PYTHONPATH", "/home/ec2-user/tweet_spread/examples/storm_example/src/main/java/com/stormadvance/storm_example");
+		SplitBolt.setEnv(env);
+		builder.setBolt("SplitBolt", splitBolt, 4).shuffleGrouping(
 				"SampleSpout");
+		
 		Config conf = new Config();
 		conf.setDebug(true);
 		// create an instance of LocalCluster class for
