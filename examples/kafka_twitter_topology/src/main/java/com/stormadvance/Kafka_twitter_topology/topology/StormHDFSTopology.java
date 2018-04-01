@@ -74,7 +74,7 @@ public class StormHDFSTopology {
 		builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
 		//
-		builder.setBolt("sentiment", new SentimentBolt("/home/centos/Desktop/workspace/storm_twitter/src/main/resources/AFINN-111.txt")).shuffleGrouping("json","stream2");
+		builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/examples/kafka_twitter_topology/src/main/resource/AFINN-111.txt")).shuffleGrouping("json","stream2");
 
 		//
 		builder.setBolt("HDFS2", hdfsBolt2).shuffleGrouping("sentiment");
