@@ -34,7 +34,7 @@ public class StormHDFSTopology {
 		// Third argument is the zookeeper root for Kafka
 		// Fourth argument is consumer group id
 		SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "twitterData", "",
-				"0");
+				"id");
 
 		// Specify that the kafka messages are String
 		kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
