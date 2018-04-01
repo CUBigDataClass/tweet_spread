@@ -1,0 +1,14 @@
+Host aws-1
+    Hostname ec2-54-245-62-87.us-west-2.compute.amazonaws.com
+    User ec2-user 
+    IdentityFile ~/.ssh/id_rsa.aws
+
+Host aws-2
+    Hostname ec2-34-214-51-180.us-west-2.compute.amazonaws.com
+    User ec2-user 
+    IdentityFile ~/.ssh/id_rsa.aws
+
+Host aws-3
+    Hostname ec2-54-218-84-101.us-west-2.compute.amazonaws.com
+    User ec2-user 
+    IdentityFile ~/.ssh/id_rsa.aws
