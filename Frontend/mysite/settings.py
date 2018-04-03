@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'homepage',
     'django.contrib.admin',
+    'mod_wsgi.server',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -114,6 +115,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_ROOT = '/var/www/mysite/static/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
