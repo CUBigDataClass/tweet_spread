@@ -39,7 +39,7 @@ class Consumer(multiprocessing.Process):
         consumer = KafkaConsumer(bootstrap_servers='localhost:9092',
                                  auto_offset_reset='earliest',
                                  consumer_timeout_ms=1000)
-        consumer.subscribe(['new'])
+        consumer.subscribe(['0403'])
 
         # while not self.stop_event.is_set():
         for message in consumer:
