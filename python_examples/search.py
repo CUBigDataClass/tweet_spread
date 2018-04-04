@@ -15,16 +15,16 @@ def batch_search(topic, n, ans):
 	results = json.loads(r.content)
 
 	
-	ans['results'] = results['results']
-	if 'next' in results:
-		# print(url)
-		# print(len(ans['results']))
-		print(results['requestParameters'])
-		n = results['next']
-		results = batch_search(topic, n, ans)
-		ans['results'] += results['results']
-	print(len(ans['results']))
-	return ans
+	# ans['results'] = results['results']
+	# if 'next' in results:
+	# 	# print(url)
+	# 	# print(len(ans['results']))
+	# 	# print(results['requestParameters'])
+	# 	n = results['next']
+	# 	results = batch_search(topic, n, ans)
+	# 	ans['results'] += results['results']
+	# print(len(ans['results']))
+	return results
 
 
 if __name__ == '__main__':
@@ -33,6 +33,10 @@ if __name__ == '__main__':
 	maxResults = 10
 	
 	results = batch_search(topic, '0', {})
+	while 'next' in results:
+		print("again")
+		n = results['next']
+		results = batch_search(topic, n, {})
 	# for i in results['results']:
 	# 	print(i)
 		# time.sleep(0.01)

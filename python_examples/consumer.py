@@ -5,28 +5,6 @@ import multiprocessing
 from kafka import KafkaConsumer, KafkaProducer
 from search import batch_search
 
-class Producer(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-        self.stop_event = threading.Event()
-
-    def stop(self):
-        self.stop_event.set()
-
-    def run(self):
-        producer = KafkaProducer(bootstrap_servers='localhost:9092')
-        topic = "CU Boulder"
-
-        r = batch_search(topic, "")
-        # while not self.stop_event.is_set():
-        #     for i in r:
-        #         producer.send('new', i)
-        #     time.sleep(5)
-        for i in results['results']:
-            producer.send('new', i)
-            time.sleep(0.01)
-        producer.close()
-
 class Consumer(multiprocessing.Process):
     def __init__(self):
         multiprocessing.Process.__init__(self)
@@ -39,7 +17,7 @@ class Consumer(multiprocessing.Process):
         consumer = KafkaConsumer(bootstrap_servers='localhost:9092',
                                  auto_offset_reset='earliest',
                                  consumer_timeout_ms=1000)
-        consumer.subscribe(['0403'])
+        consumer.subscribe(['0404'])
 
         # while not self.stop_event.is_set():
         for message in consumer:
