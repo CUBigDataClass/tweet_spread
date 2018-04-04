@@ -29,7 +29,7 @@ class Producer(threading.Thread):
 
         r = batch_search(topic, '0', {})
         for i in r['results']:
-            producer.send('0404', json.dumps(i))
+            producer.send('0404_new', json.dumps(i))
         # while not self.stop_event.is_set():
         while 'next' in r:
             n = r['next']
