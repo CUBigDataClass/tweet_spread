@@ -24,3 +24,7 @@ buildNumber.properties
 # Python
 __pycache__/
 *.py[cod]
+
+# IntelliJ
+.idea/
+*.iml
