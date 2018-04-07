@@ -5,8 +5,7 @@ import io
 import platform
 import struct
 
-from kafka.vendor import six
-from kafka.vendor.six.moves import xrange # pylint: disable=import-error
+from examples.python.kafka.vendor.six import * # pylint: disable=import-error
 
 _XERIAL_V1_HEADER = (-126, b'S', b'N', b'A', b'P', b'P', b'Y', 0, 1, 1)
 _XERIAL_V1_FORMAT = 'bccccccBii'
