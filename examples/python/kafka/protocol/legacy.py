@@ -3,23 +3,23 @@ from __future__ import absolute_import
 import logging
 import struct
 
-from kafka.vendor import six  # pylint: disable=import-error
+from examples.python.kafka.vendor import six  # pylint: disable=import-error
 
-import kafka.protocol.commit
-import kafka.protocol.fetch
-import kafka.protocol.message
-import kafka.protocol.metadata
-import kafka.protocol.offset
-import kafka.protocol.produce
-import kafka.structs
+import examples.python.kafka.protocol.commit
+import examples.python.kafka.protocol.fetch
+import examples.python.kafka.protocol.message
+import examples.python.kafka.protocol.metadata
+import examples.python.kafka.protocol.offset
+import examples.python.kafka.protocol.produce
+import examples.python.kafka.structs
 
-from kafka.codec import gzip_encode, snappy_encode
-from kafka.errors import ProtocolError, UnsupportedCodecError
-from kafka.structs import ConsumerMetadataResponse
-from kafka.util import (
+from examples.python.kafka.codec import gzip_encode, snappy_encode
+from examples.python.kafka.errors import ProtocolError, UnsupportedCodecError
+from examples.python.kafka.structs import ConsumerMetadataResponse
+from examples.python.kafka.util import (
     crc32, read_short_string, relative_unpack,
     write_int_string, group_by_topic_and_partition)
-from kafka.protocol.message import MessageSet
+from examples.python.kafka.protocol.message import MessageSet
 
 
 log = logging.getLogger(__name__)
