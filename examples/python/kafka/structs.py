@@ -96,4 +96,4 @@ RetryOptions = namedtuple("RetryOptions",
 
 
 # Support legacy imports from kafka.common
-from kafka.errors import *
+from examples.python.kafka import *
