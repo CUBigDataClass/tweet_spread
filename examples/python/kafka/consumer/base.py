@@ -6,11 +6,11 @@ import numbers
 from threading import Lock
 import warnings
 
-from kafka.errors import (
+from examples.python.kafka.errors import (
     UnknownTopicOrPartitionError, check_error, KafkaError)
-from kafka.structs import (
+from examples.python.kafka.structs import (
     OffsetRequestPayload, OffsetCommitRequestPayload, OffsetFetchRequestPayload)
-from kafka.util import ReentrantTimer
+from examples.python.kafka.util import ReentrantTimer
 
 
 log = logging.getLogger('kafka.consumer')
