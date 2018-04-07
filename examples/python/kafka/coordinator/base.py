@@ -986,7 +986,7 @@ class HeartbeatThread(threading.Thread):
 
     def _handle_heartbeat_failure(self, exception):
         with self.coordinator._lock:
-            if isinstance(exception, Errors.RebalanceInProgressError):
+            if isinstance(exception, errors.RebalanceInProgressError):
                 # it is valid to continue heartbeating while the group is
                 # rebalancing. This ensures that the coordinator keeps the
                 # member in the group for as long as the duration of the
