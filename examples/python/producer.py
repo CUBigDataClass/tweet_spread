@@ -33,7 +33,7 @@ class Producer(threading.Thread):
             producer.send(destination, json.dumps(i))
         # while not self.stop_event.is_set():
         while 'next' in r:
-            n = results['next']
+            n = r['next']
             r = batch_search(topic, n, {})
             for i in r['results']:
                 producer.send(destination, json.dumps(i))
