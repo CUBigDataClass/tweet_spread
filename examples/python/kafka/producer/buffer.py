@@ -5,9 +5,9 @@ import io
 import threading
 import time
 
-from kafka.metrics.stats import Rate
+from examples.python.kafka.metrics.stats import Rate
 
-import kafka.errors as Errors
+import examples.python.kafka.errors as Errors
 
 
 class SimpleBufferPool(object):

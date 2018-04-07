@@ -1,6 +1,6 @@
 import binascii
 
-from kafka.record._crc32c import crc as crc32c_py
+from examples.python.kafka.record._crc32c import crc as crc32c_py
 try:
     from crc32c import crc32 as crc32c_c
 except ImportError:

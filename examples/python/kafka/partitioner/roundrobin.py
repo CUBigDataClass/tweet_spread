@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from kafka.partitioner.base import Partitioner
+from examples.python.kafka.partitioner.base import Partitioner
 
 
 class RoundRobinPartitioner(Partitioner):

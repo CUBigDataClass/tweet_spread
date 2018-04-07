@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from kafka.protocol.struct import Struct
-from kafka.protocol.types import Array, Bytes, Int16, Int32, Schema, String
-from kafka.structs import TopicPartition
+from examples.python.kafka.protocol.struct import Struct
+from examples.python.kafka.protocol.types import Array, Bytes, Int16, Int32, Schema, String
+from examples.python.kafka.structs import TopicPartition
 
 
 class ConsumerProtocolMemberMetadata(Struct):

@@ -2,8 +2,8 @@ from __future__ import absolute_import
 
 import abc
 
-from kafka.metrics.measurable import AbstractMeasurable
-from kafka.metrics.stat import AbstractStat
+from examples.python.kafka.metrics.measurable import AbstractMeasurable
+from examples.python.kafka.metrics.stat import AbstractStat
 
 
 class AbstractMeasurableStat(AbstractStat, AbstractMeasurable):

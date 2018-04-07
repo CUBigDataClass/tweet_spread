@@ -44,14 +44,14 @@
 import struct
 import time
 
-from kafka.record.abc import ABCRecord, ABCRecordBatch, ABCRecordBatchBuilder
-from kafka.record.util import calc_crc32
+from examples.python.kafka.record.abc import ABCRecord, ABCRecordBatch, ABCRecordBatchBuilder
+from examples.python.kafka.record.util import calc_crc32
 
-from kafka.codec import (
+from examples.python.kafka.codec import (
     gzip_encode, snappy_encode, lz4_encode, lz4_encode_old_kafka,
     gzip_decode, snappy_decode, lz4_decode, lz4_decode_old_kafka
 )
-from kafka.errors import CorruptRecordException
+from examples.python.kafka.errors import CorruptRecordException
 
 
 class LegacyRecordBase(object):

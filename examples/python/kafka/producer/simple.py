@@ -4,9 +4,9 @@ from itertools import cycle
 import logging
 import random
 
-from kafka.vendor.six.moves import xrange # pylint: disable=import-error
+from examples.python.kafka.vendor.six.moves import xrange # pylint: disable=import-error
 
-from kafka.producer.base import Producer
+from examples.python.kafka.producer.base import Producer
 
 
 log = logging.getLogger(__name__)

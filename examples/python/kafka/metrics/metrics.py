@@ -5,8 +5,8 @@ import sys
 import time
 import threading
 
-from kafka.metrics import AnonMeasurable, KafkaMetric, MetricConfig, MetricName
-from kafka.metrics.stats import Sensor
+from examples.python.kafka.metrics import AnonMeasurable, KafkaMetric, MetricConfig, MetricName
+from examples.python.kafka.metrics.stats import Sensor
 
 logger = logging.getLogger(__name__)
 

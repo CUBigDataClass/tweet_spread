@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import abc
 
-from kafka.metrics.stat import AbstractStat
+from examples.python.kafka.metrics.stat import AbstractStat
 
 
 class AbstractCompoundStat(AbstractStat):

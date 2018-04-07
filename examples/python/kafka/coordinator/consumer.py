@@ -5,19 +5,19 @@ import copy
 import logging
 import time
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.coordinator.base import BaseCoordinator, Generation
-from kafka.coordinator.assignors.range import RangePartitionAssignor
-from kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
-from kafka.coordinator.protocol import ConsumerProtocol
-from kafka import errors as Errors
-from kafka.future import Future
-from kafka.metrics import AnonMeasurable
-from kafka.metrics.stats import Avg, Count, Max, Rate
-from kafka.protocol.commit import OffsetCommitRequest, OffsetFetchRequest
-from kafka.structs import OffsetAndMetadata, TopicPartition
-from kafka.util import WeakMethod
+from examples.python.kafka.coordinator.base import BaseCoordinator, Generation
+from examples.python.kafka.coordinator.assignors.range import RangePartitionAssignor
+from examples.python.kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
+from examples.python.kafka.coordinator.protocol import ConsumerProtocol
+from examples.python.kafka import errors as Errors
+from examples.python.kafka.future import Future
+from examples.python.kafka.metrics import AnonMeasurable
+from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
+from examples.python.kafka.protocol.commit import OffsetCommitRequest, OffsetFetchRequest
+from examples.python.kafka.structs import OffsetAndMetadata, TopicPartition
+from examples.python.kafka.util import WeakMethod
 
 
 log = logging.getLogger(__name__)

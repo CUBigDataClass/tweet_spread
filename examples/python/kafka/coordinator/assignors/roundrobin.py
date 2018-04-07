@@ -4,11 +4,11 @@ import collections
 import itertools
 import logging
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.coordinator.assignors.abstract import AbstractPartitionAssignor
-from kafka.common import TopicPartition
-from kafka.coordinator.protocol import ConsumerProtocolMemberMetadata, ConsumerProtocolMemberAssignment
+from examples.python.kafka.coordinator.assignors.abstract import AbstractPartitionAssignor
+from examples.python.kafka.common import TopicPartition
+from examples.python.kafka.coordinator.protocol import ConsumerProtocolMemberMetadata, ConsumerProtocolMemberAssignment
 
 log = logging.getLogger(__name__)
 

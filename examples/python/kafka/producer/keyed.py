@@ -3,8 +3,8 @@ from __future__ import absolute_import
 import logging
 import warnings
 
-from kafka.producer.base import Producer
-from kafka.partitioner import HashedPartitioner
+from examples.python.kafka.producer.base import Producer
+from examples.python.kafka.partitioner import HashedPartitioner
 
 
 log = logging.getLogger(__name__)

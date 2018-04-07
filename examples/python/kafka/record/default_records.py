@@ -57,11 +57,11 @@
 import io
 import struct
 import time
-from kafka.record.abc import ABCRecord, ABCRecordBatch, ABCRecordBatchBuilder
-from kafka.record.util import decode_varint, encode_varint, calc_crc32c, size_of_varint
+from examples.python.kafka.record.abc import ABCRecord, ABCRecordBatch, ABCRecordBatchBuilder
+from examples.python.kafka.record.util import decode_varint, encode_varint, calc_crc32c, size_of_varint
 
-from kafka.errors import CorruptRecordException
-from kafka.codec import (
+from examples.python.kafka.errors import CorruptRecordException
+from examples.python.kafka.codec import (
     gzip_encode, snappy_encode, lz4_encode,
     gzip_decode, snappy_decode, lz4_decode
 )

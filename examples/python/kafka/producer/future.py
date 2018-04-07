@@ -3,8 +3,8 @@ from __future__ import absolute_import
 import collections
 import threading
 
-from kafka import errors as Errors
-from kafka.future import Future
+from examples.python.kafka import errors as Errors
+from examples.python.kafka.future import Future
 
 
 class FutureProduceResult(Future):

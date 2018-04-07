@@ -8,15 +8,15 @@ import threading
 import time
 import weakref
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.coordinator.heartbeat import Heartbeat
-from kafka import errors as Errors
-from kafka.future import Future
-from kafka.metrics import AnonMeasurable
-from kafka.metrics.stats import Avg, Count, Max, Rate
-from kafka.protocol.commit import GroupCoordinatorRequest, OffsetCommitRequest
-from kafka.protocol.group import (HeartbeatRequest, JoinGroupRequest,
+from examples.python.kafka.coordinator.heartbeat import Heartbeat
+from examples.python.kafka import errors as Errors
+from examples.python.kafka.future import Future
+from examples.python.kafka.metrics import AnonMeasurable
+from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
+from examples.python.kafka.protocol.commit import GroupCoordinatorRequest, OffsetCommitRequest
+from examples.python.kafka.protocol.group import (HeartbeatRequest, JoinGroupRequest,
                             LeaveGroupRequest, SyncGroupRequest)
 
 log = logging.getLogger('kafka.coordinator')

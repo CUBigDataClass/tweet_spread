@@ -6,14 +6,14 @@ import logging
 import threading
 import time
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka import errors as Errors
-from kafka.metrics.measurable import AnonMeasurable
-from kafka.metrics.stats import Avg, Max, Rate
-from kafka.protocol.produce import ProduceRequest
-from kafka.structs import TopicPartition
-from kafka.version import __version__
+from examples.python.kafka import errors as Errors
+from examples.python.kafka.metrics.measurable import AnonMeasurable
+from examples.python.kafka.metrics.stats import Avg, Max, Rate
+from examples.python.kafka.protocol.produce import ProduceRequest
+from examples.python.kafka.structs import TopicPartition
+from examples.python.kafka.version import __version__
 
 log = logging.getLogger(__name__)
 
