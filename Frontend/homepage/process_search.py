@@ -11,9 +11,11 @@ consumer_secret = 'FSQPvpXy3YS3O9c19qysMibq4xNtzzYgzXX18nOFfRTaWYTXdY'
 t = Twitter(
     auth=OAuth(token, token_secret, consumer_key, consumer_secret))
 
+
 def connect_kafka(topic):
-        ya = produce(topic)
-        return ya
+	ya=produce(topic)
+	return ya
+
 
 def get_sentiment():
 	cluster = Cluster(['54.245.62.87'])
