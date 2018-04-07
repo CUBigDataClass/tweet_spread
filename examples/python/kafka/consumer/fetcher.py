@@ -17,7 +17,7 @@ from examples.python.kafka.protocol.offset import (
     OffsetRequest, OffsetResetStrategy, UNKNOWN_OFFSET
 )
 from examples.python.kafka.record import MemoryRecords
-#from examples.python.kafka.serializer import Deserializer
+from examples.python.kafka.serializer.abstract import Deserializer
 from examples.python.kafka.structs import TopicPartition, OffsetAndTimestamp
 
 log = logging.getLogger(__name__)
