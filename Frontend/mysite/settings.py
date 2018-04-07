@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [z
+INSTALLED_APPS = [
     'homepage',
     'django.contrib.admin',
     'mod_wsgi.server',
