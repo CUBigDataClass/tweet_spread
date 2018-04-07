@@ -117,6 +117,7 @@ USE_TZ = True
 
 STATIC_ROOT = '/var/www/mysite/static/'
 
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
