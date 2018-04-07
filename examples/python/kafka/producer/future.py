@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import collections
 import threading
 
-from examples.python.kafka import errors as Errors
+from examples.python.kafka import errors
 from examples.python.kafka.future import Future
 
 
@@ -58,7 +58,7 @@ class FutureRecordMetadata(Future):
 
     def get(self, timeout=None):
         if not self.is_done and not self._produce_future.wait(timeout):
-            raise Errors.KafkaTimeoutError(
+            raise errors.KafkaTimeoutError(
                 "Timeout after waiting for %s secs." % timeout)
         assert self.is_done
         if self.failed():

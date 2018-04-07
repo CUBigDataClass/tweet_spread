@@ -10,7 +10,7 @@ import weakref
 
 from examples.python.kafka.vendor import six
 
-from examples.python.kafka import errors as Errors
+from examples.python.kafka import errors
 from examples.python.kafka.client_async import KafkaClient, selectors
 from examples.python.kafka.codec import has_gzip, has_snappy, has_lz4
 from examples.python.kafka.metrics import MetricConfig, Metrics
@@ -573,7 +573,7 @@ class KafkaProducer(object):
             # handling exceptions and record the errors;
             # for API exceptions return them in the future,
             # for other exceptions raise directly
-        except Errors.BrokerResponseError as e:
+        except errors.BrokerResponseError as e:
             log.debug("Exception occurred during message send: %s", e)
             return FutureRecordMetadata(
                 FutureProduceResult(TopicPartition(topic, partition)),
@@ -612,12 +612,12 @@ class KafkaProducer(object):
     def _ensure_valid_record_size(self, size):
         """Validate that the record size isn't too large."""
         if size > self.config['max_request_size']:
-            raise Errors.MessageSizeTooLargeError(
+            raise errors.MessageSizeTooLargeError(
                 "The message is %d bytes when serialized which is larger than"
                 " the maximum request size you have configured with the"
                 " max_request_size configuration" % size)
         if size > self.config['buffer_memory']:
-            raise Errors.MessageSizeTooLargeError(
+            raise errors.MessageSizeTooLargeError(
                 "The message is %d bytes when serialized which is larger than"
                 " the total memory buffer you have configured with the"
                 " buffer_memory configuration." % size)
@@ -660,10 +660,10 @@ class KafkaProducer(object):
             metadata_event.wait(max_wait - elapsed)
             elapsed = time.time() - begin
             if not metadata_event.is_set():
-                raise Errors.KafkaTimeoutError(
+                raise errors.KafkaTimeoutError(
                     "Failed to update metadata after %.1f secs." % max_wait)
             elif topic in self._metadata.unauthorized_topics:
-                raise Errors.TopicAuthorizationFailedError(topic)
+                raise errors.TopicAuthorizationFailedError(topic)
             else:
                 log.debug("_wait_on_metadata woke after %s secs.", elapsed)
 
