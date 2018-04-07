@@ -18,7 +18,7 @@ class Consumer(multiprocessing.Process):
                                  auto_offset_reset='earliest',
                                  consumer_timeout_ms=1000)
 
-        consumer.subscribe(['0404_new'])
+        consumer.subscribe(['0407_1'])
 
         # while not self.stop_event.is_set():
         for message in consumer:

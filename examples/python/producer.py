@@ -27,15 +27,16 @@ class Producer(threading.Thread):
         #     for i in r['results']:
         #         producer.send('0403', json.dumps(i))
 
+        destination = '0407_1'
         r = batch_search(topic, '0', {})
         for i in r['results']:
-            producer.send('0404_new', json.dumps(i))
+            producer.send(destination, json.dumps(i))
         # while not self.stop_event.is_set():
         while 'next' in r:
             n = r['next']
             r = batch_search(topic, n, {})
             for i in r['results']:
-                producer.send('0404_new', json.dumps(i))
+                producer.send(destination, json.dumps(i))
 
         producer.close()
 
