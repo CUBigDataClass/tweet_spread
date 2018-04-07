@@ -20,6 +20,12 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+backend/.classpath
+backend/.settings
+backend/.project
+examples/kafka_producer/.classpath
+examples/kafka_producer/.project
+
 
 # Python
 __pycache__/
@@ -28,3 +34,14 @@ __pycache__/
 # IntelliJ
 .idea/
 *.iml
+*.prefs
+examples/kafka_producer_twitter/.classpath
+examples/kafka_producer_twitter/.project
+examples/storm_example/.classpath
+examples/search/.classpath
+examples/kafka_twitter_topology/.project
+examples/kafka_twitter_topology/.classpath
+examples/search/.project
+examples/storm_example/.project
+examples/storm_kafka_topology/.classpath
+examples/storm_kafka_topology/.project
