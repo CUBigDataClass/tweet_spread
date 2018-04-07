@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import abc
 
-from kafka.metrics.measurable_stat import AbstractMeasurableStat
+from examples.python.kafka.metrics.measurable_stat import AbstractMeasurableStat
 
 
 class AbstractSampledStat(AbstractMeasurableStat):

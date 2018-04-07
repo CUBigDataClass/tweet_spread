@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import sys
 
-from kafka.metrics.stats.sampled_stat import AbstractSampledStat
+from examples.python.kafka.metrics.stats.sampled_stat import AbstractSampledStat
 
 
 class Min(AbstractSampledStat):

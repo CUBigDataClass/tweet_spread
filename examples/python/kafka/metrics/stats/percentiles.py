@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
-from kafka.metrics import AnonMeasurable, NamedMeasurable
-from kafka.metrics.compound_stat import AbstractCompoundStat
-from kafka.metrics.stats import Histogram
-from kafka.metrics.stats.sampled_stat import AbstractSampledStat
+from examples.python.kafka.metrics import AnonMeasurable, NamedMeasurable
+from examples.python.kafka.metrics.compound_stat import AbstractCompoundStat
+from examples.python.kafka.metrics.stats import Histogram
+from examples.python.kafka.metrics.stats.sampled_stat import AbstractSampledStat
 
 
 class BucketSizing(object):

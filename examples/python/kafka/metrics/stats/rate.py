@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
-from kafka.metrics.measurable_stat import AbstractMeasurableStat
-from kafka.metrics.stats.sampled_stat import AbstractSampledStat
+from examples.python.kafka.metrics.measurable_stat import AbstractMeasurableStat
+from examples.python.kafka.metrics.stats.sampled_stat import AbstractSampledStat
 
 
 class TimeUnit(object):
