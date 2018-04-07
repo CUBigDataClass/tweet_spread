@@ -19,13 +19,13 @@ def connect_kafka(topic):
 
 def get_sentiment():
     cluster = Cluster(['54.245.62.87'])
-	session = cluster.connect()
-	result = session.execute("SELECT tweet, sentiment from tweetanalysis.tweet_sentiments;")
-	cluster.shutdown()
-	final_res = []
-	for elem in result:
-		final_res.append(elem)
-	return final_res
+    session = cluster.connect()
+    result = session.execute("SELECT tweet, sentiment from tweetanalysis.tweet_sentiments;")
+    cluster.shutdown()
+    final_res = []
+    for elem in result:
+        final_res.append(elem)
+    return final_res
 
 
 def get_top_tweets(search_string):
