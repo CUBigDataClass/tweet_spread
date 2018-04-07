@@ -6,17 +6,17 @@ from multiprocessing import Process, Manager as MPManager
 import time
 import warnings
 
-from kafka.vendor.six.moves import queue # pylint: disable=import-error
+from examples.python.kafka.vendor.six import * # pylint: disable=import-error
 
-from kafka.common import KafkaError
-from kafka.consumer.base import (
+from examples.python.kafka.common import KafkaError
+from examples.python.kafka.consumer.base import (
     Consumer,
     AUTO_COMMIT_MSG_COUNT, AUTO_COMMIT_INTERVAL,
     NO_MESSAGES_WAIT_TIME_SECONDS,
     FULL_QUEUE_WAIT_TIME_SECONDS,
     MAX_BACKOFF_SECONDS,
 )
-from kafka.consumer.simple import SimpleConsumer
+from examples.python.kafka.consumer.simple import SimpleConsumer
 
 
 log = logging.getLogger(__name__)

@@ -7,18 +7,18 @@ import random
 import sys
 import time
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-import kafka.errors as Errors
-from kafka.future import Future
-from kafka.metrics.stats import Avg, Count, Max, Rate
-from kafka.protocol.fetch import FetchRequest
-from kafka.protocol.offset import (
+import examples.python.kafka.errors as Errors
+from examples.python.kafka.future import Future
+from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
+from examples.python.kafka.protocol.fetch import FetchRequest
+from examples.python.kafka.protocol.offset import (
     OffsetRequest, OffsetResetStrategy, UNKNOWN_OFFSET
 )
-from kafka.record import MemoryRecords
-from kafka.serializer import Deserializer
-from kafka.structs import TopicPartition, OffsetAndTimestamp
+from examples.python.kafka.record import MemoryRecords
+#from examples.python.kafka.serializer import Deserializer
+from examples.python.kafka.structs import TopicPartition, OffsetAndTimestamp
 
 log = logging.getLogger(__name__)
 

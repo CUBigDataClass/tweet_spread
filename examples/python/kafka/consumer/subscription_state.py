@@ -4,11 +4,11 @@ import abc
 import logging
 import re
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.errors import IllegalStateError
-from kafka.protocol.offset import OffsetResetStrategy
-from kafka.structs import OffsetAndMetadata
+from examples.python.kafka.errors import IllegalStateError
+from examples.python.kafka.protocol.offset import OffsetResetStrategy
+from examples.python.kafka.structs import OffsetAndMetadata
 
 log = logging.getLogger(__name__)
 
