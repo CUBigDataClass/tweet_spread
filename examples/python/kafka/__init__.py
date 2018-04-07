@@ -1,7 +1,7 @@
 from __future__ import absolute_import
-import version
+from .version import *
 
-#from kafka.version import __version__
+
 __title__ = 'kafka'
 __author__ = 'Dana Powers'
 __license__ = 'Apache License 2.0'
