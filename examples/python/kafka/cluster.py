@@ -8,7 +8,7 @@ import time
 
 from examples.python.kafka.vendor import six
 
-from examples.python.kafka import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 from examples.python.kafka.structs import BrokerMetadata, PartitionMetadata, TopicPartition
 
@@ -207,7 +207,7 @@ class ClusterMetadata(object):
         # error, we should fail the future
         if len(metadata.topics) == 1 and metadata.topics[0][0] != 0:
             error_code, topic = metadata.topics[0][:2]
-            error = errors.for_code(error_code)(topic)
+            error = for_code(error_code)(topic)
             return self.failed_update(error)
 
         if not metadata.brokers:
@@ -242,8 +242,8 @@ class ClusterMetadata(object):
                 error_code, topic, is_internal, partitions = topic_data
             if is_internal:
                 _new_internal_topics.add(topic)
-            error_type = errors.for_code(error_code)
-            if error_type is errors.NoError:
+            error_type = for_code(error_code)
+            if error_type is NoError:
                 _new_partitions[topic] = {}
                 for p_error, partition, leader, replicas, isr in partitions:
                     _new_partitions[topic][partition] = PartitionMetadata(
@@ -253,15 +253,15 @@ class ClusterMetadata(object):
                         _new_broker_partitions[leader].add(
                             TopicPartition(topic, partition))
 
-            elif error_type is errors.LeaderNotAvailableError:
+            elif error_type is LeaderNotAvailableError:
                 log.warning("Topic %s is not available during auto-create"
                             " initialization", topic)
-            elif error_type is errors.UnknownTopicOrPartitionError:
+            elif error_type is UnknownTopicOrPartitionError:
                 log.error("Topic %s not found in cluster metadata", topic)
-            elif error_type is errors.TopicAuthorizationFailedError:
+            elif error_type is TopicAuthorizationFailedError:
                 log.error("Topic %s is not authorized for this client", topic)
                 _new_unauthorized_topics.add(topic)
-            elif error_type is errors.InvalidTopicError:
+            elif error_type is InvalidTopicError:
                 log.error("'%s' is not a valid topic name", topic)
             else:
                 log.error("Error fetching metadata for topic %s: %s",
@@ -317,8 +317,8 @@ class ClusterMetadata(object):
             bool: True if metadata is updated, False on error
         """
         log.debug("Updating coordinator for %s: %s", group, response)
-        error_type = errors.for_code(response.error_code)
-        if error_type is not errors.NoError:
+        error_type = for_code(response.error_code)
+        if error_type is not NoError:
             log.error("GroupCoordinatorResponse error: %s", error_type)
             self._groups[group] = -1
             return False
