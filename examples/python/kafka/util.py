@@ -7,9 +7,9 @@ import struct
 from threading import Thread, Event
 import weakref
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.errors import BufferUnderflowError
+from examples.python.kafka.errors import BufferUnderflowError
 
 
 if six.PY3:
