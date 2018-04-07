@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import collections
 import logging
 
-import examples.python.kafka.errors as Errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.protocol.api import RequestHeader
 from examples.python.kafka.protocol.commit import GroupCoordinatorResponse
 from examples.python.kafka.protocol.frame import KafkaBytes
@@ -105,7 +105,7 @@ class KafkaProtocol(object):
                     self._rbuffer = KafkaBytes(nbytes)
                     self._receiving = True
                 elif self._header.tell() > 4:
-                    raise Errors.KafkaError('this should not happen - are you threading?')
+                    raise KafkaError('this should not happen - are you threading?')
 
             if self._receiving:
                 total_bytes = len(self._rbuffer)
@@ -116,7 +116,7 @@ class KafkaProtocol(object):
 
                 staged_bytes = self._rbuffer.tell()
                 if staged_bytes > total_bytes:
-                    raise Errors.KafkaError('Receive buffer has more bytes than expected?')
+                    raise KafkaError('Receive buffer has more bytes than expected?')
 
                 if staged_bytes != total_bytes:
                     break
@@ -133,7 +133,7 @@ class KafkaProtocol(object):
         log.debug('Received correlation id: %d', recv_correlation_id)
 
         if not self.in_flight_requests:
-            raise Errors.CorrelationIdError(
+            raise CorrelationIdError(
                 'No in-flight-request found for server response'
                 ' with correlation ID %d'
                 % recv_correlation_id)
@@ -152,7 +152,7 @@ class KafkaProtocol(object):
 
         elif correlation_id != recv_correlation_id:
             # return or raise?
-            raise Errors.CorrelationIdError(
+            raise CorrelationIdError(
                 'Correlation IDs do not match: sent %d, recv %d'
                 % (correlation_id, recv_correlation_id))
 
@@ -167,7 +167,7 @@ class KafkaProtocol(object):
                       ' Unable to decode %d-byte buffer: %r',
                       correlation_id, request.RESPONSE_TYPE,
                       request, len(buf), buf)
-            raise Errors.KafkaProtocolError('Unable to decode response')
+            raise KafkaProtocolError('Unable to decode response')
 
         return (correlation_id, response)
 
