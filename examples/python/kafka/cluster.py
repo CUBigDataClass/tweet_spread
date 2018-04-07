@@ -6,11 +6,11 @@ import logging
 import threading
 import time
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka import errors as Errors
-from kafka.future import Future
-from kafka.structs import BrokerMetadata, PartitionMetadata, TopicPartition
+from examples.python.kafka import errors as Errors
+from examples.python.kafka.future import Future
+from examples.python.kafka.structs import BrokerMetadata, PartitionMetadata, TopicPartition
 
 log = logging.getLogger(__name__)
 

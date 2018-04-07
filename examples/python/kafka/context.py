@@ -5,8 +5,8 @@ from __future__ import absolute_import
 
 from logging import getLogger
 
-from kafka.errors import check_error, OffsetOutOfRangeError
-from kafka.structs import OffsetCommitRequestPayload
+from examples.python.kafka.errors import check_error, OffsetOutOfRangeError
+from examples.python.kafka.structs import OffsetCommitRequestPayload
 
 
 class OffsetCommitContext(object):

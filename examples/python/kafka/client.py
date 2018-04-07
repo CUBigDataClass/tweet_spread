@@ -8,19 +8,19 @@ import random
 import time
 import select
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-import kafka.errors
-from kafka.errors import (UnknownError, ConnectionError, FailedPayloadsError,
+import examples.python.kafka.errors
+from examples.python.kafka.errors import (UnknownError, ConnectionError, FailedPayloadsError,
                           KafkaTimeoutError, KafkaUnavailableError,
                           LeaderNotAvailableError, UnknownTopicOrPartitionError,
                           NotLeaderForPartitionError, ReplicaNotAvailableError)
-from kafka.structs import TopicPartition, BrokerMetadata
+from examples.python.kafka.structs import TopicPartition, BrokerMetadata
 
-from kafka.conn import (
+from examples.python.kafka.conn import (
     collect_hosts, BrokerConnection,
     ConnectionStates, get_ip_port_afi)
-from kafka.protocol import KafkaProtocol
+from examples.python.kafka.protocol import KafkaProtocol
 
 # New KafkaClient
 # this is not exposed in top-level imports yet,
