@@ -17,7 +17,10 @@ def get_sentiment():
 	session = cluster.connect()
 	result = session.execute("SELECT tweet from tweetanalysis.tweet_sentiments;")
 	cluster.shutdown()
-	return result
+	final_res = []
+	for elem in result:
+		final_res.append(elem)
+	return final_res
 
 
 def get_top_tweets(search_string):
