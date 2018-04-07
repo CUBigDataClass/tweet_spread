@@ -5,20 +5,20 @@ import logging
 import socket
 import time
 
-from kafka.errors import KafkaConfigurationError, UnsupportedVersionError
+from examples.python.kafka.errors import KafkaConfigurationError, UnsupportedVersionError
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.client_async import KafkaClient, selectors
-from kafka.consumer.fetcher import Fetcher
-from kafka.consumer.subscription_state import SubscriptionState
-from kafka.coordinator.consumer import ConsumerCoordinator
-from kafka.coordinator.assignors.range import RangePartitionAssignor
-from kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
-from kafka.metrics import MetricConfig, Metrics
-from kafka.protocol.offset import OffsetResetStrategy
-from kafka.structs import TopicPartition
-from kafka.version import __version__
+from examples.python.kafka.client_async import KafkaClient, selectors
+from examples.python.kafka.consumer.fetcher import Fetcher
+from examples.python.kafka.consumer.subscription_state import SubscriptionState
+from examples.python.kafka.coordinator.consumer import ConsumerCoordinator
+from examples.python.kafka.coordinator.assignors.range import RangePartitionAssignor
+from examples.python.kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
+from examples.python.kafka.metrics import MetricConfig, Metrics
+from examples.python.kafka.protocol.offset import OffsetResetStrategy
+from examples.python.kafka.structs import TopicPartition
+from examples.python.kafka.version import __version__
 
 log = logging.getLogger(__name__)
 
