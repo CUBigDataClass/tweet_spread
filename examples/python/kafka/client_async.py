@@ -18,21 +18,21 @@ except ImportError:
 import socket
 import time
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-from kafka.cluster import ClusterMetadata
-from kafka.conn import BrokerConnection, ConnectionStates, collect_hosts, get_ip_port_afi
-from kafka import errors as Errors
-from kafka.future import Future
-from kafka.metrics import AnonMeasurable
-from kafka.metrics.stats import Avg, Count, Rate
-from kafka.metrics.stats.rate import TimeUnit
-from kafka.protocol.metadata import MetadataRequest
-from kafka.util import Dict, WeakMethod
+from examples.python.kafka.cluster import ClusterMetadata
+from examples.python.kafka.conn import BrokerConnection, ConnectionStates, collect_hosts, get_ip_port_afi
+from examples.python.kafka import errors as Errors
+from examples.python.kafka.future import Future
+from examples.python.kafka.metrics import AnonMeasurable
+from examples.python.kafka.metrics.stats import Avg, Count, Rate
+from examples.python.kafka.metrics.stats.rate import TimeUnit
+from examples.python.kafka.protocol.metadata import MetadataRequest
+from examples.python.kafka.util import Dict, WeakMethod
 # Although this looks unused, it actually monkey-patches socket.socketpair()
 # and should be left in as long as we're using socket.socketpair() in this file
-from kafka.vendor import socketpair
-from kafka.version import __version__
+from examples.python.kafka.vendor import socketpair
+from examples.python.kafka.version import __version__
 
 if six.PY2:
     ConnectionError = None
