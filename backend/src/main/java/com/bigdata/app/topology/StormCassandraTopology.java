@@ -41,7 +41,7 @@ public class StormCassandraTopology {
         // Specify that the kafka messages are String
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 
-        // We want to consume all the first messages in the topic everytime
+        // We want to consume all the first messages in the topic every time
         // we run the topology to help in debugging. In production, this
         // property should be false
         kafkaConfig.startOffsetTime = kafka.api.OffsetRequest
