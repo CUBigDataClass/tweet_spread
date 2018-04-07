@@ -15,7 +15,7 @@ t = Twitter(
 def get_sentiment():
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	result = session.execute("SELECT * from tweetanalysis.tweetSentiments;")
+	result = session.execute("SELECT tweet from tweetanalysis.tweet_sentiments;")
 	cluster.shutdown()
 	return result
 
