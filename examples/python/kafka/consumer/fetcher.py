@@ -37,11 +37,11 @@ CompletedFetch = collections.namedtuple("CompletedFetch",
      "partition_data", "metric_aggregator"])
 
 
-class NoOffsetForPartitionError(Errors.KafkaError):
+class NoOffsetForPartitionError(KafkaError):
     pass
 
 
-class RecordTooLargeError(Errors.KafkaError):
+class RecordTooLargeError(KafkaError):
     pass
 
 
