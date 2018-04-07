@@ -414,7 +414,8 @@ def create_message(payload, key=None):
         key: bytes, a key used for partition routing (optional)
 
     """
-    return kafka.structs.Message(0, 0, key, payload)
+    from examples.python.kafka.structs import Message
+    return Message(0, 0, key, payload)
 
 
 def create_gzip_message(payloads, key=None, compresslevel=None):
@@ -435,7 +436,8 @@ def create_gzip_message(payloads, key=None, compresslevel=None):
     gzipped = gzip_encode(message_set, compresslevel=compresslevel)
     codec = ATTRIBUTE_CODEC_MASK & CODEC_GZIP
 
-    return kafka.structs.Message(0, 0x00 | codec, key, gzipped)
+    from examples.python.kafka.structs import Message
+    return Message(0, 0x00 | codec, key, gzipped)
 
 
 def create_snappy_message(payloads, key=None):
@@ -456,7 +458,8 @@ def create_snappy_message(payloads, key=None):
     snapped = snappy_encode(message_set)
     codec = ATTRIBUTE_CODEC_MASK & CODEC_SNAPPY
 
-    return kafka.structs.Message(0, 0x00 | codec, key, snapped)
+    from examples.python.kafka.structs import Message
+    return Message(0, 0x00 | codec, key, snapped)
 
 
 def create_message_set(messages, codec=CODEC_NONE, key=None, compresslevel=None):
