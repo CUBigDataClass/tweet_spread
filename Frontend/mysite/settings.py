@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [u'54.218.84.101']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cassandra_engine',
     'homepage',
     'django.contrib.admin',
     'mod_wsgi.server',
@@ -77,8 +78,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django_cassandra_engine',
+        'NAME': 'db',
+        'TEST_NAME': 'test_db',
+        'HOST': 'db1.example.com,db2.example.com',
+        'OPTIONS': {
+            'replication': {
+                'strategy_class': 'SimpleStrategy',
+                'replication_factor': 1
+            }
+        }
     }
 }
 
