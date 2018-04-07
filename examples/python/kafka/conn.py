@@ -19,17 +19,17 @@ import struct
 import sys
 import time
 
-from kafka.vendor import six
+from examples.python.kafka.vendor import six
 
-import kafka.errors as Errors
-from kafka.future import Future
-from kafka.metrics.stats import Avg, Count, Max, Rate
-from kafka.protocol.admin import SaslHandShakeRequest
-from kafka.protocol.commit import OffsetFetchRequest
-from kafka.protocol.metadata import MetadataRequest
-from kafka.protocol.parser import KafkaProtocol
-from kafka.protocol.types import Int32, Int8
-from kafka.version import __version__
+import examples.python.kafka.errors as Errors
+from examples.python.kafka.future import Future
+from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
+from examples.python.kafka.protocol.admin import SaslHandShakeRequest
+from examples.python.kafka.protocol.commit import OffsetFetchRequest
+from examples.python.kafka.protocol.metadata import MetadataRequest
+from examples.python.kafka.protocol.parser import KafkaProtocol
+from examples.python.kafka.protocol.types import Int32, Int8
+from examples.python.kafka.version import __version__
 
 
 if six.PY2:
