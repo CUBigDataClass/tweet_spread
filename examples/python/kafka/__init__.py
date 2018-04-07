@@ -19,25 +19,27 @@ except ImportError:
 logging.getLogger(__name__).addHandler(NullHandler())
 
 
-from kafka.consumer import KafkaConsumer
-from kafka.consumer.subscription_state import ConsumerRebalanceListener
-from kafka.producer import KafkaProducer
-from kafka.conn import BrokerConnection
-from kafka.protocol import (
+from .consumer import KafkaConsumer
+from .consumer.subscription_state import ConsumerRebalanceListener
+from .producer import KafkaProducer
+from .conn import BrokerConnection
+from .protocol import (
     create_message, create_gzip_message, create_snappy_message)
-from kafka.partitioner import RoundRobinPartitioner, HashedPartitioner, Murmur2Partitioner
-from kafka.structs import TopicPartition, OffsetAndMetadata
-from kafka.serializer import Serializer, Deserializer
+from .partitioner import RoundRobinPartitioner, HashedPartitioner, Murmur2Partitioner
+from .structs import TopicPartition, OffsetAndMetadata
+#from .serializer import Serializer, Deserializer
 
 # To be deprecated when KafkaProducer interface is released
-from kafka.client import SimpleClient
-from kafka.producer import SimpleProducer, KeyedProducer
+from .client import SimpleClient
+from .producer import SimpleProducer, KeyedProducer
 
 # deprecated in favor of KafkaConsumer
-from kafka.consumer import SimpleConsumer, MultiProcessConsumer
+from .consumer import SimpleConsumer, MultiProcessConsumer
 
 
 import warnings
+
+
 class KafkaClient(SimpleClient):
     def __init__(self, *args, **kwargs):
         warnings.warn('The legacy KafkaClient interface has been moved to'
