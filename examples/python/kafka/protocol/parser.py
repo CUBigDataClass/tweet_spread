@@ -3,12 +3,12 @@ from __future__ import absolute_import
 import collections
 import logging
 
-import kafka.errors as Errors
-from kafka.protocol.api import RequestHeader
-from kafka.protocol.commit import GroupCoordinatorResponse
-from kafka.protocol.frame import KafkaBytes
-from kafka.protocol.types import Int32
-from kafka.version import __version__
+import examples.python.kafka.errors as Errors
+from examples.python.kafka.protocol.api import RequestHeader
+from examples.python.kafka.protocol.commit import GroupCoordinatorResponse
+from examples.python.kafka.protocol.frame import KafkaBytes
+from examples.python.kafka.protocol.types import Int32
+from examples.python.kafka.version import __version__
 
 log = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
-from kafka.protocol.api import Request, Response
-from kafka.protocol.types import Array, Boolean, Bytes, Int16, Int32, Schema, String
+from examples.python.kafka.protocol.api import Request, Response
+from examples.python.kafka.protocol.types import Array, Boolean, Bytes, Int16, Int32, Schema, String
 
 
 class ApiVersionResponse_v0(Response):
