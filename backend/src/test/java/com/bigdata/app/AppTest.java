@@ -1,4 +1,4 @@
-package com.stormadvance.Kafka_twitter_topology;
+package com.bigdata.app;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
