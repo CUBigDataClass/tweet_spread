@@ -62,7 +62,7 @@ public class TopicModel {
         for (int position = 0; position < tokens.getLength(); position++) {
             out.format("%s-%d ", dataAlphabet.lookupObject(tokens.getIndexAtPosition(position)), topics.getIndexAtPosition(position));
         }
-        System.out.println(out);
+        System.out.println("out is: " + out);        
         
         // Estimate the topic distribution of the first instance, 
         //  given the current Gibbs state.
@@ -70,6 +70,7 @@ public class TopicModel {
 
         // Get an array of sorted sets of word ID/count pairs
         ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
+
         
         // Show top 5 words in topics with proportions for the first document
         for (int topic = 0; topic < numTopics; topic++) {
@@ -80,9 +81,9 @@ public class TopicModel {
             int rank = 0;
             while (iterator.hasNext() && rank < 5) {
                 IDSorter idCountPair = iterator.next();
-                out.format("%s (%.0f) ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
+                out.format("%s (%.0f)  ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
                 rank++;
-            }
+            }            
             System.out.println(out);
         }
         
@@ -96,14 +97,16 @@ public class TopicModel {
             topicZeroText.append(dataAlphabet.lookupObject(idCountPair.getID()) + " ");
             rank++;
         }
-
+        
         // Create a new instance named "test instance" with empty target and source fields.
         InstanceList testing = new InstanceList(instances.getPipe());
         testing.addThruPipe(new Instance(topicZeroText.toString(), null, "test instance", null));
-
+        System.out.println(testing.getAlphabets());
         TopicInferencer inferencer = model.getInferencer();
         double[] testProbabilities = inferencer.getSampledDistribution(testing.get(0), 10, 1, 5);
+        System.out.println("Final topic is:");
         System.out.println("0\t" + testProbabilities[0]);
+        
 		
 
 
