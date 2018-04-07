@@ -9,7 +9,7 @@ import time
 
 from examples.python.kafka.vendor import six
 
-import examples.python.kafka.errors as Errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
 from examples.python.kafka.protocol.fetch import FetchRequest
@@ -297,7 +297,7 @@ class Fetcher(six.Iterator):
             elapsed_ms = (time.time() - start_time) * 1000
             remaining_ms = timeout_ms - elapsed_ms
 
-        raise Errors.KafkaTimeoutError(
+        raise KafkaTimeoutError(
             "Failed to get offsets by timestamps in %s ms" % timeout_ms)
 
     def fetched_records(self, max_records=None):
@@ -507,12 +507,12 @@ class Fetcher(six.Iterator):
                 self._client.add_topic(partition.topic)
                 log.debug("Partition %s is unknown for fetching offset,"
                           " wait for metadata refresh", partition)
-                return Future().failure(Errors.StaleMetadata(partition))
+                return Future().failure(StaleMetadata(partition))
             elif node_id == -1:
                 log.debug("Leader for partition %s unavailable for fetching "
                           "offset, wait for metadata refresh", partition)
                 return Future().failure(
-                    Errors.LeaderNotAvailableError(partition))
+                    LeaderNotAvailableError(partition))
             else:
                 timestamps_by_node[node_id][partition] = timestamp
 
@@ -578,8 +578,8 @@ class Fetcher(six.Iterator):
             for partition_info in part_data:
                 partition, error_code = partition_info[:2]
                 partition = TopicPartition(topic, partition)
-                error_type = Errors.for_code(error_code)
-                if error_type is Errors.NoError:
+                error_type = for_code(error_code)
+                if error_type is NoError:
                     if response.API_VERSION == 0:
                         offsets = partition_info[2]
                         assert len(offsets) <= 1, 'Expected OffsetResponse with one offset'
@@ -598,18 +598,18 @@ class Fetcher(six.Iterator):
                                   partition, offset, timestamp)
                         if offset != UNKNOWN_OFFSET:
                             timestamp_offset_map[partition] = (offset, timestamp)
-                elif error_type is Errors.UnsupportedForMessageFormatError:
+                elif error_type is UnsupportedForMessageFormatError:
                     # The message format on the broker side is before 0.10.0,
                     # we simply put None in the response.
                     log.debug("Cannot search by timestamp for partition %s because the"
                               " message format version is before 0.10.0", partition)
-                elif error_type is Errors.NotLeaderForPartitionError:
+                elif error_type is NotLeaderForPartitionError:
                     log.debug("Attempt to fetch offsets for partition %s failed due"
                               " to obsolete leadership information, retrying.",
                               partition)
                     future.failure(error_type(partition))
                     return
-                elif error_type is Errors.UnknownTopicOrPartitionError:
+                elif error_type is UnknownTopicOrPartitionError:
                     log.warn("Received unknown topic or partition error in ListOffset "
                              "request for partition %s. The topic/partition " +
                              "may not exist or the user may not have Describe access "
@@ -754,7 +754,7 @@ class Fetcher(six.Iterator):
         parsed_records = None
 
         error_code, highwater = completed_fetch.partition_data[:2]
-        error_type = Errors.for_code(error_code)
+        error_type = for_code(error_code)
 
         try:
             if not self._subscriptions.is_fetchable(tp):
@@ -763,7 +763,7 @@ class Fetcher(six.Iterator):
                 log.debug("Ignoring fetched records for partition %s"
                           " since it is no longer fetchable", tp)
 
-            elif error_type is Errors.NoError:
+            elif error_type is NoError:
                 self._subscriptions.assignment[tp].highwater = highwater
 
                 # we are interested in this fetch only if the beginning
@@ -805,10 +805,10 @@ class Fetcher(six.Iterator):
                         record_too_large_partitions)
                 self._sensors.record_topic_fetch_metrics(tp.topic, num_bytes, records_count)
 
-            elif error_type in (Errors.NotLeaderForPartitionError,
-                                Errors.UnknownTopicOrPartitionError):
+            elif error_type in (NotLeaderForPartitionError,
+                                UnknownTopicOrPartitionError):
                 self._client.cluster.request_update()
-            elif error_type is Errors.OffsetOutOfRangeError:
+            elif error_type is OffsetOutOfRangeError:
                 position = self._subscriptions.assignment[tp].position
                 if position is None or position != fetch_offset:
                     log.debug("Discarding stale fetch response for partition %s"
@@ -818,12 +818,12 @@ class Fetcher(six.Iterator):
                     log.info("Fetch offset %s is out of range for topic-partition %s", fetch_offset, tp)
                     self._subscriptions.need_offset_reset(tp)
                 else:
-                    raise Errors.OffsetOutOfRangeError({tp: fetch_offset})
+                    raise OffsetOutOfRangeError({tp: fetch_offset})
 
-            elif error_type is Errors.TopicAuthorizationFailedError:
+            elif error_type is TopicAuthorizationFailedError:
                 log.warn("Not authorized to read from topic %s.", tp.topic)
-                raise Errors.TopicAuthorizationFailedError(set(tp.topic))
-            elif error_type is Errors.UnknownError:
+                raise TopicAuthorizationFailedError(set(tp.topic))
+            elif error_type is UnknownError:
                 log.warn("Unknown error fetching data for topic-partition %s", tp)
             else:
                 raise error_type('Unexpected error while fetching data')
