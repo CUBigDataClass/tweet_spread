@@ -1,7 +1,7 @@
 from twitter import *
 import simplejson as json
 from cassandra.cluster import Cluster
-from examples.python.producer import produce
+from examples.python.producer import *
 
 token = '76608965-qok8bHTPepS7k0gGtbBg7tNHVtS6XgpbCL7kT8TDt'
 token_secret = 'KvjPjxjRbuqs08dqABMgzkl5zCJIDGNt1sOuisdhMUEM0'
@@ -13,12 +13,12 @@ t = Twitter(
 
 
 def connect_kafka(topic):
-	ya=produce(topic)
-	return ya
+    ya = produce(topic)
+    return ya
 
 
 def get_sentiment():
-	cluster = Cluster(['54.245.62.87'])
+    cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
 	result = session.execute("SELECT tweet, sentiment from tweetanalysis.tweet_sentiments;")
 	cluster.shutdown()
