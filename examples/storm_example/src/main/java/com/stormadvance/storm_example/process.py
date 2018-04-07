@@ -8,7 +8,7 @@ class SplitBoltPython(storm.BasicBolt):
 
     def process(self, tuple):
         word = tuple.values[0]
-        	word += "a"
+        word += "a"
         print("######### Name of input site is : " + word)
         storm.emit([word])  # return list object
 
