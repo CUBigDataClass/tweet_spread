@@ -6,6 +6,8 @@ import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
 
+import java.util.*;
+
 public class SampleStormTopology {
 	public static void main(String[] args) throws AlreadyAliveException,
 			InvalidTopologyException {
@@ -21,7 +23,7 @@ public class SampleStormTopology {
 		SplitBolt splitBolt = new SplitBolt();
 		Map env = new HashMap();
 		env.put("PYTHONPATH", "/home/ec2-user/tweet_spread/examples/storm_example/src/main/java/com/stormadvance/storm_example");
-		SplitBolt.setEnv(env);
+		splitBolt.setEnv(env);
 		builder.setBolt("SplitBolt", splitBolt, 4).shuffleGrouping(
 				"SampleSpout");
 		
