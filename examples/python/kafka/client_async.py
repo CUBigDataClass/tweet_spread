@@ -22,7 +22,7 @@ from examples.python.kafka.vendor import six
 
 from examples.python.kafka.cluster import ClusterMetadata
 from examples.python.kafka.conn import BrokerConnection, ConnectionStates, collect_hosts, get_ip_port_afi
-from examples.python.kafka import errors as Errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Count, Rate
@@ -502,7 +502,7 @@ class KafkaClient(object):
         """
         with self._lock:
             if not self._maybe_connect(node_id):
-                return Future().failure(Errors.NodeNotReadyError(node_id))
+                return Future().failure(NodeNotReadyError(node_id))
 
             return self._conns[node_id].send(request)
 
@@ -602,7 +602,7 @@ class KafkaClient(object):
                         log.warning('Protocol out of sync on %r, closing', conn)
                 except socket.error:
                     pass
-                conn.close(Errors.ConnectionError('Socket EVENT_READ without in-flight-requests'))
+                conn.close(ConnectionError('Socket EVENT_READ without in-flight-requests'))
                 continue
 
             self._idle_expiry_manager.update(conn.node_id)
@@ -619,7 +619,7 @@ class KafkaClient(object):
             if conn.requests_timed_out():
                 log.warning('%s timed out after %s ms. Closing connection.',
                             conn, conn.config['request_timeout_ms'])
-                conn.close(error=Errors.RequestTimedOutError(
+                conn.close(error=RequestTimedOutError(
                     'Request timed out after %s ms' %
                     conn.config['request_timeout_ms']))
 
@@ -816,7 +816,7 @@ class KafkaClient(object):
             # which can block for an increasing backoff period
             try_node = node_id or self.least_loaded_node()
             if try_node is None:
-                raise Errors.NoBrokersAvailable()
+                raise NoBrokersAvailable()
             self._maybe_connect(try_node)
             conn = self._conns[try_node]
 
@@ -827,7 +827,7 @@ class KafkaClient(object):
                 remaining = end - time.time()
                 version = conn.check_version(timeout=remaining, strict=strict)
                 return version
-            except Errors.NodeNotReadyError:
+            except NodeNotReadyError:
                 # Only raise to user if this is a node-specific request
                 if node_id is not None:
                     raise
@@ -836,7 +836,7 @@ class KafkaClient(object):
 
         # Timeout
         else:
-            raise Errors.NoBrokersAvailable()
+            raise NoBrokersAvailable()
 
     def wakeup(self):
         with self._wake_lock:
