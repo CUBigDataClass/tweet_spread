@@ -2,8 +2,8 @@ from __future__ import absolute_import
 
 import abc
 
-from kafka.protocol.struct import Struct
-from kafka.protocol.types import Int16, Int32, String, Schema
+from examples.python.kafka.protocol.struct import Struct
+from examples.python.kafka.protocol.types import Int16, Int32, String, Schema
 
 
 class RequestHeader(Struct):
