@@ -11,7 +11,7 @@ import weakref
 from examples.python.kafka.vendor import six
 
 from examples.python.kafka.coordinator.heartbeat import Heartbeat
-from examples.python.kafka import errors as Errors
+from examples.python.kafka import errors
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
@@ -40,7 +40,7 @@ Generation.NO_GENERATION = Generation(
     None)
 
 
-class UnjoinedGroupException(Errors.KafkaError):
+class UnjoinedGroupException(errors.KafkaError):
     retriable = True
 
 
@@ -118,7 +118,7 @@ class BaseCoordinator(object):
 
         if self.config['api_version'] < (0, 10, 1):
             if self.config['max_poll_interval_ms'] != self.config['session_timeout_ms']:
-                raise Errors.KafkaConfigurationError("Broker version %s does not support "
+                raise errors.KafkaConfigurationError("Broker version %s does not support "
                                                      "different values for max_poll_interval_ms "
                                                      "and session_timeout_ms")
 
@@ -404,9 +404,9 @@ class BaseCoordinator(object):
 
                 if future.failed():
                     exception = future.exception
-                    if isinstance(exception, (Errors.UnknownMemberIdError,
-                                              Errors.RebalanceInProgressError,
-                                              Errors.IllegalGenerationError)):
+                    if isinstance(exception, (errors.UnknownMemberIdError,
+                                              errors.RebalanceInProgressError,
+                                              errors.IllegalGenerationError)):
                         continue
                     elif not future.retriable():
                         raise exception  # pylint: disable-msg=raising-bad-type
@@ -423,11 +423,11 @@ class BaseCoordinator(object):
                 group leader
         """
         if self.coordinator_unknown():
-            e = Errors.GroupCoordinatorNotAvailableError(self.coordinator_id)
+            e = errors.GroupCoordinatorNotAvailableError(self.coordinator_id)
             return Future().failure(e)
 
         elif not self._client.ready(self.coordinator_id, metadata_priority=False):
-            e = Errors.NodeNotReadyError(self.coordinator_id)
+            e = errors.NodeNotReadyError(self.coordinator_id)
             return Future().failure(e)
 
         # send a join group request to the coordinator
@@ -437,7 +437,7 @@ class BaseCoordinator(object):
             for protocol, metadata in self.group_protocols()
         ]
         if self.config['api_version'] < (0, 9):
-            raise Errors.KafkaError('JoinGroupRequest api requires 0.9+ brokers')
+            raise errors.KafkaError('JoinGroupRequest api requires 0.9+ brokers')
         elif (0, 9) <= self.config['api_version'] < (0, 10, 1):
             request = JoinGroupRequest[0](
                 self.group_id,
@@ -476,14 +476,14 @@ class BaseCoordinator(object):
                   request.__class__.__name__, node_id, error)
         # Marking coordinator dead
         # unless the error is caused by internal client pipelining
-        if not isinstance(error, (Errors.NodeNotReadyError,
-                                  Errors.TooManyInFlightRequests)):
+        if not isinstance(error, (errors.NodeNotReadyError,
+                                  errors.TooManyInFlightRequests)):
             self.coordinator_dead(error)
         future.failure(error)
 
     def _handle_join_group_response(self, future, send_time, response):
-        error_type = Errors.for_code(response.error_code)
-        if error_type is Errors.NoError:
+        error_type = errors.for_code(response.error_code)
+        if error_type is errors.NoError:
             log.debug("Received successful JoinGroup response for group %s: %s",
                       self.group_id, response)
             self.sensors.join_latency.record((time.time() - send_time) * 1000)
@@ -506,35 +506,35 @@ class BaseCoordinator(object):
                 else:
                     self._on_join_follower().chain(future)
 
-        elif error_type is Errors.GroupLoadInProgressError:
+        elif error_type is errors.GroupLoadInProgressError:
             log.debug("Attempt to join group %s rejected since coordinator %s"
                       " is loading the group.", self.group_id, self.coordinator_id)
             # backoff and retry
             future.failure(error_type(response))
-        elif error_type is Errors.UnknownMemberIdError:
+        elif error_type is errors.UnknownMemberIdError:
             # reset the member id and retry immediately
             error = error_type(self._generation.member_id)
             self.reset_generation()
             log.debug("Attempt to join group %s failed due to unknown member id",
                       self.group_id)
             future.failure(error)
-        elif error_type in (Errors.GroupCoordinatorNotAvailableError,
-                            Errors.NotCoordinatorForGroupError):
+        elif error_type in (errors.GroupCoordinatorNotAvailableError,
+                            errors.NotCoordinatorForGroupError):
             # re-discover the coordinator and retry with backoff
             self.coordinator_dead(error_type())
             log.debug("Attempt to join group %s failed due to obsolete "
                       "coordinator information: %s", self.group_id,
                       error_type.__name__)
             future.failure(error_type())
-        elif error_type in (Errors.InconsistentGroupProtocolError,
-                            Errors.InvalidSessionTimeoutError,
-                            Errors.InvalidGroupIdError):
+        elif error_type in (errors.InconsistentGroupProtocolError,
+                            errors.InvalidSessionTimeoutError,
+                            errors.InvalidGroupIdError):
             # log the error and re-throw the exception
             error = error_type(response)
             log.error("Attempt to join group %s failed due to fatal error: %s",
                       self.group_id, error)
             future.failure(error)
-        elif error_type is Errors.GroupAuthorizationFailedError:
+        elif error_type is errors.GroupAuthorizationFailedError:
             future.failure(error_type(self.group_id))
         else:
             # unexpected error, throw the exception
@@ -587,7 +587,7 @@ class BaseCoordinator(object):
 
     def _send_sync_group_request(self, request):
         if self.coordinator_unknown():
-            e = Errors.GroupCoordinatorNotAvailableError(self.coordinator_id)
+            e = errors.GroupCoordinatorNotAvailableError(self.coordinator_id)
             return Future().failure(e)
 
         # We assume that coordinator is ready if we're sending SyncGroup
@@ -604,28 +604,28 @@ class BaseCoordinator(object):
         return future
 
     def _handle_sync_group_response(self, future, send_time, response):
-        error_type = Errors.for_code(response.error_code)
-        if error_type is Errors.NoError:
+        error_type = errors.for_code(response.error_code)
+        if error_type is errors.NoError:
             self.sensors.sync_latency.record((time.time() - send_time) * 1000)
             future.success(response.member_assignment)
             return
 
         # Always rejoin on error
         self.request_rejoin()
-        if error_type is Errors.GroupAuthorizationFailedError:
+        if error_type is errors.GroupAuthorizationFailedError:
             future.failure(error_type(self.group_id))
-        elif error_type is Errors.RebalanceInProgressError:
+        elif error_type is errors.RebalanceInProgressError:
             log.debug("SyncGroup for group %s failed due to coordinator"
                       " rebalance", self.group_id)
             future.failure(error_type(self.group_id))
-        elif error_type in (Errors.UnknownMemberIdError,
-                            Errors.IllegalGenerationError):
+        elif error_type in (errors.UnknownMemberIdError,
+                            errors.IllegalGenerationError):
             error = error_type()
             log.debug("SyncGroup for group %s failed due to %s", self.group_id, error)
             self.reset_generation()
             future.failure(error)
-        elif error_type in (Errors.GroupCoordinatorNotAvailableError,
-                            Errors.NotCoordinatorForGroupError):
+        elif error_type in (errors.GroupCoordinatorNotAvailableError,
+                            errors.NotCoordinatorForGroupError):
             error = error_type()
             log.debug("SyncGroup for group %s failed due to %s", self.group_id, error)
             self.coordinator_dead(error)
@@ -643,10 +643,10 @@ class BaseCoordinator(object):
         """
         node_id = self._client.least_loaded_node()
         if node_id is None:
-            return Future().failure(Errors.NoBrokersAvailable())
+            return Future().failure(errors.NoBrokersAvailable())
 
         elif not self._client.ready(node_id, metadata_priority=False):
-            e = Errors.NodeNotReadyError(node_id)
+            e = errors.NodeNotReadyError(node_id)
             return Future().failure(e)
 
         log.debug("Sending group coordinator request for group %s to broker %s",
@@ -661,14 +661,14 @@ class BaseCoordinator(object):
     def _handle_group_coordinator_response(self, future, response):
         log.debug("Received group coordinator response %s", response)
 
-        error_type = Errors.for_code(response.error_code)
-        if error_type is Errors.NoError:
+        error_type = errors.for_code(response.error_code)
+        if error_type is errors.NoError:
             with self._lock:
                 ok = self._client.cluster.add_group_coordinator(self.group_id, response)
                 if not ok:
                     # This could happen if coordinator metadata is different
                     # than broker metadata
-                    future.failure(Errors.IllegalStateError())
+                    future.failure(errors.IllegalStateError())
                     return
 
                 self.coordinator_id = response.coordinator_id
@@ -678,10 +678,10 @@ class BaseCoordinator(object):
                 self.heartbeat.reset_timeouts()
             future.success(self.coordinator_id)
 
-        elif error_type is Errors.GroupCoordinatorNotAvailableError:
+        elif error_type is errors.GroupCoordinatorNotAvailableError:
             log.debug("Group Coordinator Not Available; retry")
             future.failure(error_type())
-        elif error_type is Errors.GroupAuthorizationFailedError:
+        elif error_type is errors.GroupAuthorizationFailedError:
             error = error_type(self.group_id)
             log.error("Group Coordinator Request failed: %s", error)
             future.failure(error)
@@ -765,8 +765,8 @@ class BaseCoordinator(object):
             self.reset_generation()
 
     def _handle_leave_group_response(self, response):
-        error_type = Errors.for_code(response.error_code)
-        if error_type is Errors.NoError:
+        error_type = errors.for_code(response.error_code)
+        if error_type is errors.NoError:
             log.debug("LeaveGroup request for group %s returned successfully",
                       self.group_id)
         else:
@@ -776,11 +776,11 @@ class BaseCoordinator(object):
     def _send_heartbeat_request(self):
         """Send a heartbeat request"""
         if self.coordinator_unknown():
-            e = Errors.GroupCoordinatorNotAvailableError(self.coordinator_id)
+            e = errors.GroupCoordinatorNotAvailableError(self.coordinator_id)
             return Future().failure(e)
 
         elif not self._client.ready(self.coordinator_id, metadata_priority=False):
-            e = Errors.NodeNotReadyError(self.coordinator_id)
+            e = errors.NodeNotReadyError(self.coordinator_id)
             return Future().failure(e)
 
         version = 0 if self.config['api_version'] < (0, 11, 0) else 1
@@ -797,34 +797,34 @@ class BaseCoordinator(object):
 
     def _handle_heartbeat_response(self, future, send_time, response):
         self.sensors.heartbeat_latency.record((time.time() - send_time) * 1000)
-        error_type = Errors.for_code(response.error_code)
-        if error_type is Errors.NoError:
+        error_type = errors.for_code(response.error_code)
+        if error_type is errors.NoError:
             log.debug("Received successful heartbeat response for group %s",
                       self.group_id)
             future.success(None)
-        elif error_type in (Errors.GroupCoordinatorNotAvailableError,
-                            Errors.NotCoordinatorForGroupError):
+        elif error_type in (errors.GroupCoordinatorNotAvailableError,
+                            errors.NotCoordinatorForGroupError):
             log.warning("Heartbeat failed for group %s: coordinator (node %s)"
                         " is either not started or not valid", self.group_id,
                         self.coordinator())
             self.coordinator_dead(error_type())
             future.failure(error_type())
-        elif error_type is Errors.RebalanceInProgressError:
+        elif error_type is errors.RebalanceInProgressError:
             log.warning("Heartbeat failed for group %s because it is"
                         " rebalancing", self.group_id)
             self.request_rejoin()
             future.failure(error_type())
-        elif error_type is Errors.IllegalGenerationError:
+        elif error_type is errors.IllegalGenerationError:
             log.warning("Heartbeat failed for group %s: generation id is not "
                         " current.", self.group_id)
             self.reset_generation()
             future.failure(error_type())
-        elif error_type is Errors.UnknownMemberIdError:
+        elif error_type is errors.UnknownMemberIdError:
             log.warning("Heartbeat: local member_id was not recognized;"
                         " this consumer needs to re-join")
             self.reset_generation()
             future.failure(error_type)
-        elif error_type is Errors.GroupAuthorizationFailedError:
+        elif error_type is errors.GroupAuthorizationFailedError:
             error = error_type(self.group_id)
             log.error("Heartbeat failed: authorization error: %s", error)
             future.failure(error)

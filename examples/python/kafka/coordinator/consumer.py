@@ -11,7 +11,7 @@ from examples.python.kafka.coordinator.base import BaseCoordinator, Generation
 from examples.python.kafka.coordinator.assignors.range import RangePartitionAssignor
 from examples.python.kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
 from examples.python.kafka.coordinator.protocol import ConsumerProtocol
-from examples.python.kafka import errors as Errors
+from examples.python.kafka import errors
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
@@ -99,10 +99,10 @@ class ConsumerCoordinator(BaseCoordinator):
         if self.config['group_id'] is not None:
             if self.config['api_version'] >= (0, 9):
                 if not self.config['assignors']:
-                    raise Errors.KafkaConfigurationError('Coordinator requires assignors')
+                    raise errors.KafkaConfigurationError('Coordinator requires assignors')
             if self.config['api_version'] < (0, 10, 1):
                 if self.config['max_poll_interval_ms'] != self.config['session_timeout_ms']:
-                    raise Errors.KafkaConfigurationError("Broker version %s does not support "
+                    raise errors.KafkaConfigurationError("Broker version %s does not support "
                                                          "different values for max_poll_interval_ms "
                                                          "and session_timeout_ms")
 
@@ -135,7 +135,7 @@ class ConsumerCoordinator(BaseCoordinator):
     def group_protocols(self):
         """Returns list of preferred (protocols, metadata)"""
         if self._subscription.subscription is None:
-            raise Errors.IllegalStateError('Consumer has not subscribed to topics')
+            raise errors.IllegalStateError('Consumer has not subscribed to topics')
         # dpkp note: I really dislike this.
         # why? because we are using this strange method group_protocols,
         # which is seemingly innocuous, to set internal state (_joined_subscription)
@@ -157,7 +157,7 @@ class ConsumerCoordinator(BaseCoordinator):
     def _handle_metadata_update(self, cluster):
         # if we encounter any unauthorized topics, raise an exception
         if cluster.unauthorized_topics:
-            raise Errors.TopicAuthorizationFailedError(cluster.unauthorized_topics)
+            raise errors.TopicAuthorizationFailedError(cluster.unauthorized_topics)
 
         if self._subscription.subscribed_pattern:
             topics = []
@@ -516,9 +516,9 @@ class ConsumerCoordinator(BaseCoordinator):
 
             # The three main group membership errors are known and should not
             # require a stacktrace -- just a warning
-            except (Errors.UnknownMemberIdError,
-                    Errors.IllegalGenerationError,
-                    Errors.RebalanceInProgressError):
+            except (errors.UnknownMemberIdError,
+                    errors.IllegalGenerationError,
+                    errors.RebalanceInProgressError):
                 log.warning("Offset commit failed: group membership out of date"
                             " This is likely to cause duplicate message"
                             " delivery.")
@@ -550,7 +550,7 @@ class ConsumerCoordinator(BaseCoordinator):
 
         node_id = self.coordinator()
         if node_id is None:
-            return Future().failure(Errors.GroupCoordinatorNotAvailableError)
+            return Future().failure(errors.GroupCoordinatorNotAvailableError)
 
 
         # create the offset commit request
@@ -567,7 +567,7 @@ class ConsumerCoordinator(BaseCoordinator):
         # (and we expect to be). The only thing we can do is fail the commit
         # and let the user rejoin the group in poll()
         if self.config['api_version'] >= (0, 9) and generation is None:
-            return Future().failure(Errors.CommitFailedError())
+            return Future().failure(errors.CommitFailedError())
 
         if self.config['api_version'] >= (0, 9):
             request = OffsetCommitRequest[2](
@@ -626,49 +626,49 @@ class ConsumerCoordinator(BaseCoordinator):
                 tp = TopicPartition(topic, partition)
                 offset = offsets[tp]
 
-                error_type = Errors.for_code(error_code)
-                if error_type is Errors.NoError:
+                error_type = errors.for_code(error_code)
+                if error_type is errors.NoError:
                     log.debug("Group %s committed offset %s for partition %s",
                               self.group_id, offset, tp)
                     if self._subscription.is_assigned(tp):
                         self._subscription.assignment[tp].committed = offset.offset
-                elif error_type is Errors.GroupAuthorizationFailedError:
+                elif error_type is errors.GroupAuthorizationFailedError:
                     log.error("Not authorized to commit offsets for group %s",
                               self.group_id)
                     future.failure(error_type(self.group_id))
                     return
-                elif error_type is Errors.TopicAuthorizationFailedError:
+                elif error_type is errors.TopicAuthorizationFailedError:
                     unauthorized_topics.add(topic)
-                elif error_type in (Errors.OffsetMetadataTooLargeError,
-                                    Errors.InvalidCommitOffsetSizeError):
+                elif error_type in (errors.OffsetMetadataTooLargeError,
+                                    errors.InvalidCommitOffsetSizeError):
                     # raise the error to the user
                     log.debug("OffsetCommit for group %s failed on partition %s"
                               " %s", self.group_id, tp, error_type.__name__)
                     future.failure(error_type())
                     return
-                elif error_type is Errors.GroupLoadInProgressError:
+                elif error_type is errors.GroupLoadInProgressError:
                     # just retry
                     log.debug("OffsetCommit for group %s failed: %s",
                               self.group_id, error_type.__name__)
                     future.failure(error_type(self.group_id))
                     return
-                elif error_type in (Errors.GroupCoordinatorNotAvailableError,
-                                    Errors.NotCoordinatorForGroupError,
-                                    Errors.RequestTimedOutError):
+                elif error_type in (errors.GroupCoordinatorNotAvailableError,
+                                    errors.NotCoordinatorForGroupError,
+                                    errors.RequestTimedOutError):
                     log.debug("OffsetCommit for group %s failed: %s",
                               self.group_id, error_type.__name__)
                     self.coordinator_dead(error_type())
                     future.failure(error_type(self.group_id))
                     return
-                elif error_type in (Errors.UnknownMemberIdError,
-                                    Errors.IllegalGenerationError,
-                                    Errors.RebalanceInProgressError):
+                elif error_type in (errors.UnknownMemberIdError,
+                                    errors.IllegalGenerationError,
+                                    errors.RebalanceInProgressError):
                     # need to re-join group
                     error = error_type(self.group_id)
                     log.debug("OffsetCommit for group %s failed: %s",
                               self.group_id, error)
                     self.reset_generation()
-                    future.failure(Errors.CommitFailedError())
+                    future.failure(errors.CommitFailedError())
                     return
                 else:
                     log.error("Group %s failed to commit partition %s at offset"
@@ -680,7 +680,7 @@ class ConsumerCoordinator(BaseCoordinator):
         if unauthorized_topics:
             log.error("Not authorized to commit to topics %s for group %s",
                       unauthorized_topics, self.group_id)
-            future.failure(Errors.TopicAuthorizationFailedError(unauthorized_topics))
+            future.failure(errors.TopicAuthorizationFailedError(unauthorized_topics))
         else:
             future.success(None)
 
@@ -703,13 +703,13 @@ class ConsumerCoordinator(BaseCoordinator):
 
         node_id = self.coordinator()
         if node_id is None:
-            return Future().failure(Errors.GroupCoordinatorNotAvailableError)
+            return Future().failure(errors.GroupCoordinatorNotAvailableError)
 
         # Verify node is ready
         if not self._client.ready(node_id):
             log.debug("Node %s not ready -- failing offset fetch request",
                       node_id)
-            return Future().failure(Errors.NodeNotReadyError)
+            return Future().failure(errors.NodeNotReadyError)
 
         log.debug("Group %s fetching committed offsets for partitions: %s",
                   self.group_id, partitions)
@@ -741,19 +741,19 @@ class ConsumerCoordinator(BaseCoordinator):
         for topic, partitions in response.topics:
             for partition, offset, metadata, error_code in partitions:
                 tp = TopicPartition(topic, partition)
-                error_type = Errors.for_code(error_code)
-                if error_type is not Errors.NoError:
+                error_type = errors.for_code(error_code)
+                if error_type is not errors.NoError:
                     error = error_type()
                     log.debug("Group %s failed to fetch offset for partition"
                               " %s: %s", self.group_id, tp, error)
-                    if error_type is Errors.GroupLoadInProgressError:
+                    if error_type is errors.GroupLoadInProgressError:
                         # just retry
                         future.failure(error)
-                    elif error_type is Errors.NotCoordinatorForGroupError:
+                    elif error_type is errors.NotCoordinatorForGroupError:
                         # re-discover the coordinator and retry
                         self.coordinator_dead(error_type())
                         future.failure(error)
-                    elif error_type is Errors.UnknownTopicOrPartitionError:
+                    elif error_type is errors.UnknownTopicOrPartitionError:
                         log.warning("OffsetFetchRequest -- unknown topic %s"
                                     " (have you committed any offsets yet?)",
                                     topic)

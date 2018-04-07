@@ -6,7 +6,7 @@ import logging
 import threading
 import time
 
-from examples.python.kafka import errors as Errors
+from examples.python.kafka import errors
 from examples.python.kafka.producer.buffer import SimpleBufferPool
 from examples.python.kafka.producer.future import FutureRecordMetadata, FutureProduceResult
 from examples.python.kafka.structs import TopicPartition
@@ -108,7 +108,7 @@ class ProducerBatch(object):
 
         if error:
             self.records.close()
-            self.done(-1, None, Errors.KafkaTimeoutError(
+            self.done(-1, None, errors.KafkaTimeoutError(
                 "Batch for %s containing %s record(s) expired: %s" % (
                 self.topic_partition, self.records.next_offset(), error)))
             return True
@@ -524,9 +524,9 @@ class RecordAccumulator(object):
                 log.debug('Waiting on produce to %s',
                           batch.produce_future.topic_partition)
                 if not batch.produce_future.wait(timeout=timeout):
-                    raise Errors.KafkaTimeoutError('Timeout waiting for future')
+                    raise errors.KafkaTimeoutError('Timeout waiting for future')
                 if not batch.produce_future.is_done:
-                    raise Errors.UnknownError('Future not done')
+                    raise errors.UnknownError('Future not done')
 
                 if batch.produce_future.failed():
                     log.warning(batch.produce_future.exception)
@@ -554,7 +554,7 @@ class RecordAccumulator(object):
 
     def _abort_batches(self):
         """Go through incomplete batches and abort them."""
-        error = Errors.IllegalStateError("Producer is closed forcefully.")
+        error = errors.IllegalStateError("Producer is closed forcefully.")
         for batch in self._incomplete.all():
             tp = batch.topic_partition
             # Close the batch before aborting

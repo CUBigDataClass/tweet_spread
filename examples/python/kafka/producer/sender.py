@@ -8,7 +8,7 @@ import time
 
 from examples.python.kafka.vendor import six
 
-from examples.python.kafka import errors as Errors
+from examples.python.kafka import errors
 from examples.python.kafka.metrics.measurable import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Max, Rate
 from examples.python.kafka.protocol.produce import ProduceRequest
@@ -200,7 +200,7 @@ class Sender(threading.Thread):
                     else:
                         partition, error_code, offset, ts = partition_info
                     tp = TopicPartition(topic, partition)
-                    error = Errors.for_code(error_code)
+                    error = errors.for_code(error_code)
                     batch = batches_by_partition[tp]
                     self._complete_batch(batch, error, offset, ts)
 
@@ -222,7 +222,7 @@ class Sender(threading.Thread):
             timestamp_ms (int, optional): The timestamp returned by the broker for this batch
         """
         # Standardize no-error to None
-        if error is Errors.NoError:
+        if error is errors.NoError:
             error = None
 
         if error is not None and self._can_retry(batch, error):
@@ -235,7 +235,7 @@ class Sender(threading.Thread):
             self._accumulator.reenqueue(batch)
             self._sensors.record_retries(batch.topic_partition.topic, batch.record_count)
         else:
-            if error is Errors.TopicAuthorizationFailedError:
+            if error is errors.TopicAuthorizationFailedError:
                 error = error(batch.topic_partition.topic)
 
             # tell the user the result of their request
