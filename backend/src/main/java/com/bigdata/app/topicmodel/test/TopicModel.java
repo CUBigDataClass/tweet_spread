@@ -19,7 +19,7 @@ public class TopicModel {
 
 		ClassLoader classLoader = TopicModel.class.getClassLoader();
 		File en_txt = new File(classLoader.getResource("en.txt").getFile());
-		File ap_txt = new File(classLoader.getResource("ap.txt").getFile());
+		File ap_txt = new File(classLoader.getResource("original-ap.txt").getFile());
 		
 		// Pipes: lowercase, tokenize, remove stopwords, map to features
 		pipeList.add( new CharSequenceLowercase() );
