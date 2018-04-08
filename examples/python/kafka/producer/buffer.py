@@ -7,7 +7,7 @@ import time
 
 from examples.python.kafka.metrics.stats import Rate
 
-import examples.python.kafka.errors as Errors
+import examples.python.kafka.errors
 
 
 class SimpleBufferPool(object):
@@ -74,7 +74,7 @@ class SimpleBufferPool(object):
                         buf = self._free.popleft()
                     else:
                         self._waiters.remove(more_memory)
-                        raise Errors.KafkaTimeoutError(
+                        raise errors.KafkaTimeoutError(
                             "Failed to allocate memory within the configured"
                             " max blocking time")
 
@@ -195,7 +195,7 @@ class BufferPool(object):
                 while (accumulated < size):
                     start_wait = time.time()
                     if not more_memory.wait(max_time_to_block_ms / 1000.0):
-                        raise Errors.KafkaTimeoutError(
+                        raise errors.KafkaTimeoutError(
                             "Failed to allocate memory within the configured"
                             " max blocking time")
                     end_wait = time.time()
