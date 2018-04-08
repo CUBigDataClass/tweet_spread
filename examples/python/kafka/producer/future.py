@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import collections
 import threading
 
-from examples.python.kafka import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 
 
