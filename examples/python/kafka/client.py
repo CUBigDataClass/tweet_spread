@@ -25,7 +25,7 @@ from examples.python.kafka.protocol import KafkaProtocol
 # New KafkaClient
 # this is not exposed in top-level imports yet,
 # due to conflicts with legacy SimpleConsumer / SimpleProducer usage
-from kafka.client_async import KafkaClient
+from examples.python.kafka.client_async import KafkaClient
 
 
 log = logging.getLogger(__name__)

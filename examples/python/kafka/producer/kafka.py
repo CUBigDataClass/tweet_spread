@@ -10,7 +10,7 @@ import weakref
 
 from examples.python.kafka.vendor import six
 
-from examples.python.kafka.errors import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.client_async import KafkaClient, selectors
 from examples.python.kafka.codec import has_gzip, has_snappy, has_lz4
 from examples.python.kafka.metrics import MetricConfig, Metrics
