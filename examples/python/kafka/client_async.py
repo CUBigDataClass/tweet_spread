@@ -25,7 +25,7 @@ from examples.python.kafka.conn import BrokerConnection, ConnectionStates, colle
 from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics import AnonMeasurable
-from examples.python.kafka.metrics.stats import Avg, Count, Rate
+from examples.python.kafka.metrics.stats import *
 from examples.python.kafka.metrics.stats.rate import TimeUnit
 from examples.python.kafka.protocol.metadata import MetadataRequest
 from examples.python.kafka.util import Dict, WeakMethod
