@@ -11,7 +11,7 @@ from examples.python.kafka.coordinator.base import BaseCoordinator, Generation
 from examples.python.kafka.coordinator.assignors.range import RangePartitionAssignor
 from examples.python.kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
 from examples.python.kafka.coordinator.protocol import ConsumerProtocol
-from examples.python.kafka import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate

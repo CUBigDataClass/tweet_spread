@@ -6,7 +6,7 @@ import logging
 import threading
 import time
 
-from examples.python.kafka import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.producer.buffer import SimpleBufferPool
 from examples.python.kafka.producer.future import FutureRecordMetadata, FutureProduceResult
 from examples.python.kafka.structs import TopicPartition

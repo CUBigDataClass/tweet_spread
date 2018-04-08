@@ -8,7 +8,7 @@ import time
 
 from examples.python.kafka.vendor import six
 
-from examples.python.kafka import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.metrics.measurable import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Max, Rate
 from examples.python.kafka.protocol.produce import ProduceRequest

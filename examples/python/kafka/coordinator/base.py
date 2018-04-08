@@ -11,7 +11,7 @@ import weakref
 from examples.python.kafka.vendor import six
 
 from examples.python.kafka.coordinator.heartbeat import Heartbeat
-from examples.python.kafka import errors
+from examples.python.kafka.errors import *
 from examples.python.kafka.future import Future
 from examples.python.kafka.metrics import AnonMeasurable
 from examples.python.kafka.metrics.stats import Avg, Count, Max, Rate
