@@ -18,19 +18,14 @@ class Producer(threading.Thread):
         producer = KafkaProducer(bootstrap_servers='localhost:9092')
         topic = self.topic
 
-        # while not self.stop_event.is_set():
-            #producer.send('0403', b"test")
-            #time.sleep(1)
-
-        # r = batch_search(topic, '0', {})
-        # while not self.stop_event.is_set():
         #     for i in r['results']:
         #         producer.send('0403', json.dumps(i))
 
-        destination = '0407_1'
+        destination = '0411_1'
         r = batch_search(topic, '0', {})
         for i in r['results']:
-            producer.send(destination, json.dumps(i))
+            producer.send(destination, key=topic.encode('ascii'), value=json.dumps(i))
+            # producer.send(destination, json.dumps(i))
         # while not self.stop_event.is_set():
         while 'next' in r:
             n = r['next']
