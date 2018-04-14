@@ -83,16 +83,78 @@
         </dependency>
 
         <dependency>
-            <groupId>com.hmsonline</groupId>
-            <artifactId>storm-cassandra</artifactId>
-            <version>0.4.0-rc4</version>
+            <groupId>org.apache.cassandra</groupId>
+            <artifactId>cassandra-all</artifactId>
+            <version>1.2.0</version>
         </dependency>
-        <!-- Topic Model: https://mvnrepository.com/artifact/cc.mallet/mallet -->
-		<dependency>
-		    <groupId>cc.mallet</groupId>
-		    <artifactId>mallet</artifactId>
-		    <version>2.0.8</version>
-		</dependency>        
+
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax-cassandra</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax-thrift</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax-contrib</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax-core</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax-cql</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.astyanax</groupId>
+            <artifactId>astyanax</artifactId>
+            <version>3.8.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/cc.mallet/mallet -->
+        <dependency>
+            <groupId>cc.mallet</groupId>
+            <artifactId>mallet</artifactId>
+            <version>2.0.8</version>
+        </dependency>
+
+
+        <!--<dependency>-->
+            <!--<groupId>com.hmsonline</groupId>-->
+            <!--<artifactId>storm-cassandra</artifactId>-->
+            <!--<version>0.4.0-rc4</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; Topic Model: https://mvnrepository.com/artifact/cc.mallet/mallet &ndash;&gt;-->
+		<!--<dependency>-->
+		    <!--<groupId>cc.mallet</groupId>-->
+		    <!--<artifactId>mallet</artifactId>-->
+		    <!--<version>2.0.8</version>-->
+		<!--</dependency>        -->
     </dependencies>
 
     <repositories>
@@ -104,6 +166,26 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>2.18.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-testng</artifactId>
+                        <version>2.18.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <threadCount>1</threadCount>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2.1</version>
