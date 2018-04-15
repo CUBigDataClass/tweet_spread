@@ -62,9 +62,9 @@ public class StormCassandraTopology {
 
         // TODO: Create cassandra bot
         // Create a CassandraBolt that writes to the column family and use Tuple field as the row key
-//        CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
-//                new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
-//        cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
+        CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
+                new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
+        cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
 
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
@@ -72,7 +72,7 @@ public class StormCassandraTopology {
         builder.setBolt("sentiment", new SentimentBolt("AFINN-111.txt")).shuffleGrouping("json", "stream2");
 
         // TODO: Create cassandra bot
-//        builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
+        builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
 
         // create an instance of LocalCluster class for executing topology in
         // local mode.
