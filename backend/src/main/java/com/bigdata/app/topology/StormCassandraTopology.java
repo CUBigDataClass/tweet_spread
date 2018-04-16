@@ -69,7 +69,7 @@ public class StormCassandraTopology {
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
 
-        builder.setBolt("sentiment", new SentimentBolt("AFINN-111.txt")).shuffleGrouping("json", "stream2");
+        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json", "stream2");
 
         // TODO: Create cassandra bot
         builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
