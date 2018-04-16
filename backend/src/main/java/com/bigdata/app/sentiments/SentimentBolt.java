@@ -1,7 +1,6 @@
 package com.bigdata.app.sentiments;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,9 +45,7 @@ public final class SentimentBolt extends BaseRichBolt {
         // Bolt will read the AFINN Sentiment file [which is in the classpath]
         // and stores the key, value pairs to a Map.
         try {
-            ClassLoader loader = SentimentBolt.class.getClassLoader();
-            File file = new File(loader.getResource(path).getFile());
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new FileReader(path));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] tabSplit = line.split("\t");

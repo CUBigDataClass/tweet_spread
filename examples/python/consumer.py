@@ -18,11 +18,14 @@ class Consumer(multiprocessing.Process):
                                  auto_offset_reset='earliest',
                                  consumer_timeout_ms=1000)
 
-        consumer.subscribe(['0407_1'])
+        consumer.subscribe(['0415_2'])
 
         # while not self.stop_event.is_set():
         for message in consumer:
-            print message 
+            print ("%s:%d:%d: key=%s value=%s" % (message.topic, message.partition,
+                                          message.offset, message.key,
+                                          message.value))
+            # print message 
                 # if self.stop_event.is_set():
                     # break
 

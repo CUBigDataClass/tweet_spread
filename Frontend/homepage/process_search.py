@@ -1,7 +1,8 @@
 from twitter import *
 import simplejson as json
 from cassandra.cluster import Cluster
-
+import requests
+from requests import put, get
 
 token = '76608965-qok8bHTPepS7k0gGtbBg7tNHVtS6XgpbCL7kT8TDt'
 token_secret = 'KvjPjxjRbuqs08dqABMgzkl5zCJIDGNt1sOuisdhMUEM0'
@@ -12,15 +13,22 @@ t = Twitter(
     auth=OAuth(token, token_secret, consumer_key, consumer_secret))
 
 
+def connect_kafka(topic):
+    url = 'http://ec2-54-218-84-101.us-west-2.compute.amazonaws.com:5000/' + topic
+    print(url)
+    r = get(url).json()
+    return r
+
+
 def get_sentiment():
-	cluster = Cluster(['54.245.62.87'])
-	session = cluster.connect()
-	result = session.execute("SELECT tweet, sentiment from tweetanalysis.tweet_sentiments;")
-	cluster.shutdown()
-	final_res = []
-	for elem in result:
-		final_res.append(elem)
-	return final_res
+    cluster = Cluster(['54.245.62.87'])
+    session = cluster.connect()
+    result = session.execute("SELECT tweet, sentiment from tweetanalysis.tweet_sentiments;")
+    cluster.shutdown()
+    final_res = []
+    for elem in result:
+        final_res.append(elem)
+    return final_res
 
 
 def get_top_tweets(search_string):
