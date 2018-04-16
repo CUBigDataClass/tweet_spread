@@ -1,6 +1,9 @@
 from search import batch_search
 from producer import produce
 import time
+import requests
+from requests import put, get
+
 
 if __name__ == "__main__":
         n = "0"
