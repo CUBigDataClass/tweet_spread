@@ -24,12 +24,12 @@ import java.util.HashMap;
 public class StormCassandraTopology {
 
     private static final String CASSANDRA_KEYSPACE = "tweetanalysis";
-    private static final String CASSANDRA_COLUMN_FAMILY = "tweet_senitiments";
+    private static final String CASSANDRA_COLUMN_FAMILY = "tweetSenitiments";
     private static final String CASSANDRA_ROWKEY_FIELD = "id";
 
     public static void main(String[] args) {
         // zookeeper hosts for the Kafka cluster
-        BrokerHosts zkHosts = new ZkHosts("localhost:2181");
+        BrokerHosts zkHosts = new ZkHosts("54.245.62.87:2181");
 
         // Create the KafkaSpout configuartion
         // Second argument is the topic name
@@ -56,7 +56,7 @@ public class StormCassandraTopology {
         Config config = new Config();
         String configKey = "cassandra-config";
         HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "localhost:9042");
+        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "54.245.62.87:9042");
         clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
         config.put(configKey, clientConfig);
 
