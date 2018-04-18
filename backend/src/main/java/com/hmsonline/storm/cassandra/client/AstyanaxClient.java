@@ -109,11 +109,26 @@ public class AstyanaxClient<K, C, V> {
     // them
     // between bolts
     private final Map<String, Object> DEFAULTS = new ImmutableMap.Builder<String, Object>()
-            .put(CASSANDRA_CLUSTER_NAME, "ClusterName")
+            .put(CASSANDRA_CLUSTER_NAME, "bigDataProject")
             .put(ASTYANAX_CONFIGURATION, new AstyanaxConfigurationImpl().setDiscoveryType(NodeDiscoveryType.RING_DESCRIBE)
             		.setConnectionPoolType(ConnectionPoolType.TOKEN_AWARE))
             .put(ASTYANAX_CONNECTION_POOL_CONFIGURATION,
-                    new ConnectionPoolConfigurationImpl("MyConnectionPool"))
+                    new ConnectionPoolConfigurationImpl("MyConnectionPool").setPort(9160)
+                            .setSeeds("172.31.21.76:9160")
+                            .setMaxConnsPerHost(3)
+                            .setMaxOperationsPerConnection(100) // 10000
+                            .setMaxPendingConnectionsPerHost(20) // 2
+                            .setConnectionLimiterMaxPendingCount(20) // 20
+                            .setTimeoutWindow(10000) // 10000
+                            .setConnectionLimiterWindowSize(1000) // 2000
+                            .setMaxTimeoutCount(3) // 3
+                            .setConnectTimeout(5000) // 2000
+                            .setMaxFailoverCount(-1) // -1
+                            .setLatencyAwareBadnessThreshold(20)// float DEFAULT_LATENCY_AWARE_BADNESS_THRESHOLD = 0.10f
+                            .setLatencyAwareUpdateInterval(1000) //10000
+                            .setLatencyAwareResetInterval(10000) //60000
+                            .setLatencyAwareWindowSize(100) // 100
+                            .setLatencyAwareSentinelCompare(100f))
             .put(ASTYANAX_CONNECTION_POOL_MONITOR, new Slf4jConnectionPoolMonitorImpl()).build();
 
     protected List<AstyanaxContext<Keyspace>> createContext(Map<String, Object> config) {

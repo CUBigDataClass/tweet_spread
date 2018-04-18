@@ -25,7 +25,7 @@ public class StormCassandraTopology {
 
     private static final String CASSANDRA_KEYSPACE = "tweetanalysis";
     private static final String CASSANDRA_COLUMN_FAMILY = "tweetSenitiments";
-    private static final String CASSANDRA_ROWKEY_FIELD = "id";
+    private static final String CASSANDRA_ROWKEY_FIELD = "tweet";
 
     public static void main(String[] args) {
         // zookeeper hosts for the Kafka cluster
@@ -56,7 +56,8 @@ public class StormCassandraTopology {
         Config config = new Config();
         String configKey = "cassandra-config";
         HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "54.245.62.87:9042");
+        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "172.31.21.76");
+        clientConfig.put(StormCassandraConstants.CASSANDRA_PORT, "9160");
         clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
         config.put(configKey, clientConfig);
 
