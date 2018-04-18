@@ -80,7 +80,7 @@ public class StormCassandraTopology {
         Config conf = new Config();
 
         // Submit topology for execution
-        cluster.submitTopology("KafkaToplogy", conf, builder.createTopology());
+        cluster.submitTopology("KafkaToplogy", config, builder.createTopology());
 
         try {
             // Wait for some time before exiting
