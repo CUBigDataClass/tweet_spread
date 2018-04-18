@@ -56,8 +56,8 @@ public class StormCassandraTopology {
         Config config = new Config();
         String configKey = "cassandra-config";
         HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "172.31.21.76");
-        clientConfig.put(StormCassandraConstants.CASSANDRA_PORT, "9160");
+        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "172.31.21.76:9160");
+//        clientConfig.put(StormCassandraConstants.CASSANDRA_PORT, "9160");
         clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
         config.put(configKey, clientConfig);
 
@@ -66,6 +66,9 @@ public class StormCassandraTopology {
         CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
                 new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
         cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
+//        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(insertInto("album").values(with(all()).build())
+//                .withResultHandler(new MyCustomResultHandler()));
+
 
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
