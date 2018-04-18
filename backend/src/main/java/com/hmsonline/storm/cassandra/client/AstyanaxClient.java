@@ -97,7 +97,7 @@ import com.netflix.astyanax.util.RangeBuilder;
  */
 public class AstyanaxClient<K, C, V> {
     private static final Logger LOG = LoggerFactory.getLogger(AstyanaxClient.class);
-    public static final String CASSANDRA_CLUSTER_NAME = "cassandra.ClusterName";
+    public static final String CASSANDRA_CLUSTER_NAME = "cassandra.clusterName";
     public static final String ASTYANAX_CONFIGURATION = "astyanax.configuration";
     public static final String ASTYANAX_CONNECTION_POOL_CONFIGURATION = "astyanax.connectionPoolConfiguration";
     public static final String ASTYANAX_CONNECTION_POOL_MONITOR = "astyanax.connectioPoolMonitor";
