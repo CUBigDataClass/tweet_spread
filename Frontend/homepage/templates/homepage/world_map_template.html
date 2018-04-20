@@ -5,6 +5,19 @@
   <body>
     <div id="chart"></div>
     <script>
+
+    function read_json(file, callback){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        alert(xhr.status);
+        if(xhr.readyState === 4 && xhr.status === 200){
+            alert(xhr.responseText);
+        }
+    }
+    xhr.open('GET', file, true);
+    xhr.send();
+  }
+    read_json('world.json')
     var loc = window.location.pathname;
     var dir = loc.substring(0, loc.lastIndexOf('/'));
     alert(dir);
