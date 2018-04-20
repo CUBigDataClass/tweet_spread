@@ -158,8 +158,10 @@
         <div class="container">
         	<div class="row">
         		<p class="category">World Map</p>
-                <div id="chartdiv"></div>
-                <script type="text/javascript" src="{% static 'homepage/charts/worldmap.js' %}"></script>
+                <div id="world_map"></div>
+                <script type="text/javascript" src="{% static 'homepage/charts/new-worldmap.js' %}">
+				plot_world_map('homepage/templates/tweet_plot.json')
+				</script>
         	</div>
     	</div>
 	</div>
