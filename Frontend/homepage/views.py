@@ -3,10 +3,11 @@ from . import process_search
 #from producer import produce
 #import logging
 #log = logging.getLogger(__name__)
-
+import json
 
 def index(request):
-	return render(request, 'homepage/world_map_template.html')
+	world_json = json.loads('homepage/templates/homepage/world.json')
+	return render(request, 'homepage/world_map_template.html', {'world': world_json})
 
 
 def home(request):
