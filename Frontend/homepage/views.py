@@ -6,7 +6,7 @@ from . import process_search
 
 
 def index(request):
-	return render(request, 'homepage/header.html')
+	return render(request, 'homepage/world_map_template.html')
 
 
 def home(request):
