@@ -9,6 +9,7 @@ import org.apache.storm.kafka.StringScheme;
 import org.apache.storm.kafka.ZkHosts;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
+import com.hmsonline.storm.cassandra.bolt.CassandraWriterBolt;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -20,16 +21,19 @@ import com.hmsonline.storm.cassandra.bolt.mapper.DefaultTupleMapper;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.io.InputStream;
+import java.util.Properties;
+import java.io.IOException;
 
 public class StormCassandraTopology {
 
     private static final String CASSANDRA_KEYSPACE = "tweetanalysis";
-    private static final String CASSANDRA_COLUMN_FAMILY = "tweet_senitiments";
-    private static final String CASSANDRA_ROWKEY_FIELD = "id";
+    private static final String CASSANDRA_COLUMN_FAMILY = "tweetSenitiments";
+    private static final String CASSANDRA_ROWKEY_FIELD = "tweet";
 
     public static void main(String[] args) {
         // zookeeper hosts for the Kafka cluster
-        BrokerHosts zkHosts = new ZkHosts("localhost:2181");
+        BrokerHosts zkHosts = new ZkHosts("54.245.62.87:2181");
 
         // Create the KafkaSpout configuartion
         // Second argument is the topic name
@@ -53,18 +57,43 @@ public class StormCassandraTopology {
         // Set kafka spout
         builder.setSpout("KafkaSpout", new KafkaSpout(kafkaConfig), 1);
 
-        Config config = new Config();
-        String configKey = "cassandra-config";
-        HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "localhost:9042");
-        clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
-        config.put(configKey, clientConfig);
+//        Config config = new Config();
+//        String configKey = "cassandra-config";
+//        HashMap<String, Object> clientConfig = new HashMap<String, Object>();
+//        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "172.31.21.76:9160");
+////        clientConfig.put(StormCassandraConstants.CASSANDRA_PORT, "9160");
+//        clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
+//        config.put(configKey, clientConfig);
 
         // TODO: Create cassandra bot
         // Create a CassandraBolt that writes to the column family and use Tuple field as the row key
-        CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
-                new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
-        cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
+//        CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
+//                new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
+//        cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
+        //Load properties file
+        Properties props = new Properties();
+        try {
+            InputStream is = StormCassandraTopology.class.getClassLoader().getResourceAsStream("cassandra.properties");
+
+            if (is == null)
+                throw new RuntimeException("Classpath missing cassandra.properties file");
+
+            props.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Config conf = new Config();
+        conf.setDebug(true);
+
+        //Copy properies to storm config
+        for (String name : props.stringPropertyNames()) {
+            conf.put(name, props.getProperty(name));
+        }
+
+        conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
+        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt();
+
 
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
@@ -77,7 +106,6 @@ public class StormCassandraTopology {
         // create an instance of LocalCluster class for executing topology in
         // local mode.
         LocalCluster cluster = new LocalCluster();
-        Config conf = new Config();
 
         // Submit topology for execution
         cluster.submitTopology("KafkaToplogy", conf, builder.createTopology());
