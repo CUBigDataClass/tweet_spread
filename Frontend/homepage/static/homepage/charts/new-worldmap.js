@@ -1,6 +1,7 @@
 
   function plot_world_map(tweet_plot)
   {
+  console.log("Hello World");
   var margin = 75;
     var width = 960-margin,height = 500-margin;
 
