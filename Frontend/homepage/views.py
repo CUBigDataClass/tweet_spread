@@ -6,7 +6,7 @@ from . import process_search
 import simplejson
 
 def index(request):
-	world_json = simplejson.loads('world.json')
+	world_json = simplejson.load('world.json')
 	return render(request, 'homepage/world_map_template.html', {'world': world_json})
 
 
