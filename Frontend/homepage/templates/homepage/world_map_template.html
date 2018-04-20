@@ -17,7 +17,7 @@
     xhr.open('GET', file, true);
     xhr.send();
   }
-    read_json('world.json')
+    read_json("file://world.json")
     var loc = window.location.pathname;
     var dir = loc.substring(0, loc.lastIndexOf('/'));
     alert(dir);
