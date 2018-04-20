@@ -1,3 +1,6 @@
+  function plot_world_map(tweet_plot)
+  {
+alert("tweet_plot: " + tweet_plot);
   var margin = 75;
     var width = 960-margin,height = 500-margin;
 
@@ -18,7 +21,7 @@
         .append('path')
         .attr('d',path)
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
-      d3.json('tweet_plot.json',function(data){ // Amruta just add stuff to this file. And it will plot it
+      d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
 
         data = data.map(function(d){
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
@@ -39,3 +42,4 @@
           .attr('fill','#F26247') // Just change things here. For the color of what ever. and you are done.
       })
     })
+    }
