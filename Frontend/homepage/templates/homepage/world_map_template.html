@@ -6,6 +6,9 @@
     <div id="chart"></div>
     <script src ="world.json"> </script>
     <script src ="tweet_plot.json">
+    var loc = window.location.pathname;
+    var dir = loc.substring(0, loc.lastIndexOf('/'));
+    alert(dir);
      alert(jsonstr[0].text);
     var margin = 75;
     var width = 960-margin,height = 500-margin;
