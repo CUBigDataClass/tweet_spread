@@ -9,6 +9,7 @@ import org.apache.storm.kafka.StringScheme;
 import org.apache.storm.kafka.ZkHosts;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
+import com.hmsonline.storm.cassandra.bolt.CassandraWriterBolt;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -20,6 +21,9 @@ import com.hmsonline.storm.cassandra.bolt.mapper.DefaultTupleMapper;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.io.InputStream;
+import java.util.Properties;
+import java.io.IOException;
 
 public class StormCassandraTopology {
 
@@ -69,7 +73,7 @@ public class StormCassandraTopology {
         //Load properties file
         Properties props = new Properties();
         try {
-            InputStream is = LocalRunner.class.getClassLoader().getResourceAsStream("cassandra.properties");
+            InputStream is = StormCassandraTopology.class.getClassLoader().getResourceAsStream("cassandra.properties");
 
             if (is == null)
                 throw new RuntimeException("Classpath missing cassandra.properties file");
@@ -88,7 +92,6 @@ public class StormCassandraTopology {
         }
 
         conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
-        conf.setDebug(false);
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt();
 
 

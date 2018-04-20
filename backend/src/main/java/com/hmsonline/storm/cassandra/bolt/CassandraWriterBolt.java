@@ -55,7 +55,7 @@ public class CassandraWriterBolt extends BaseRichBolt {
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
         this.outputCollector = outputCollector;
         config = (Map<String,String>) map;
-        logger.info("................" + config + "...................")
+        logger.info("................" + config + "...................");
         cassandraCluster = setupCassandraClient(config.get("cassandra.nodes").split(","));
         session = CassandraWriterBolt.getSessionWithRetry(cassandraCluster,config.get("cassandra.keyspace"));
 
