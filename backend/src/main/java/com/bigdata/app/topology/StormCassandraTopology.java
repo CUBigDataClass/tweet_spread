@@ -53,21 +53,43 @@ public class StormCassandraTopology {
         // Set kafka spout
         builder.setSpout("KafkaSpout", new KafkaSpout(kafkaConfig), 1);
 
-        Config config = new Config();
-        String configKey = "cassandra-config";
-        HashMap<String, Object> clientConfig = new HashMap<String, Object>();
-        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "172.31.21.76:9160");
-//        clientConfig.put(StormCassandraConstants.CASSANDRA_PORT, "9160");
-        clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
-        config.put(configKey, clientConfig);
+//        Config config = new Config();
+//        String configKey = "cassandra-config";
+//        HashMap<String, Object> clientConfig = new HashMap<String, Object>();
+//        clientConfig.put(StormCassandraConstants.CASSANDRA_HOST, "172.31.21.76:9160");
+////        clientConfig.put(StormCassandraConstants.CASSANDRA_PORT, "9160");
+//        clientConfig.put(StormCassandraConstants.CASSANDRA_KEYSPACE, Arrays.asList(new String[]{"tweetanalysis"}));
+//        config.put(configKey, clientConfig);
 
         // TODO: Create cassandra bot
         // Create a CassandraBolt that writes to the column family and use Tuple field as the row key
-        CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
-                new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
-        cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
-//        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(insertInto("album").values(with(all()).build())
-//                .withResultHandler(new MyCustomResultHandler()));
+//        CassandraBatchingBolt<String, String, String> cassandraBolt = new CassandraBatchingBolt<String, String, String>(configKey,
+//                new DefaultTupleMapper(CASSANDRA_KEYSPACE, CASSANDRA_COLUMN_FAMILY, CASSANDRA_ROWKEY_FIELD));
+//        cassandraBolt.setAckStrategy(AckStrategy.ACK_ON_WRITE);
+        //Load properties file
+        Properties props = new Properties();
+        try {
+            InputStream is = LocalRunner.class.getClassLoader().getResourceAsStream("cassandra.properties");
+
+            if (is == null)
+                throw new RuntimeException("Classpath missing cassandra.properties file");
+
+            props.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Config conf = new Config();
+        conf.setDebug(true);
+
+        //Copy properies to storm config
+        for (String name : props.stringPropertyNames()) {
+            conf.put(name, props.getProperty(name));
+        }
+
+        conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
+        conf.setDebug(false);
+        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt();
 
 
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
@@ -81,10 +103,9 @@ public class StormCassandraTopology {
         // create an instance of LocalCluster class for executing topology in
         // local mode.
         LocalCluster cluster = new LocalCluster();
-        Config conf = new Config();
 
         // Submit topology for execution
-        cluster.submitTopology("KafkaToplogy", config, builder.createTopology());
+        cluster.submitTopology("KafkaToplogy", conf, builder.createTopology());
 
         try {
             // Wait for some time before exiting
