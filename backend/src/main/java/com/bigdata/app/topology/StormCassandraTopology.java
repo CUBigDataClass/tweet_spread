@@ -17,9 +17,13 @@ import com.hmsonline.storm.cassandra.StormCassandraConstants;
 import com.hmsonline.storm.cassandra.bolt.AckStrategy;
 import com.hmsonline.storm.cassandra.bolt.CassandraBatchingBolt;
 import com.hmsonline.storm.cassandra.bolt.mapper.DefaultTupleMapper;
+import com.hmsonline.storm.cassandra.bolt.CassandraWriterBolt;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class StormCassandraTopology {
 
