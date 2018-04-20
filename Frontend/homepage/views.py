@@ -6,8 +6,7 @@ from . import process_search
 import json
 
 def index(request):
-	world_json = json.load(open('homepage/world.json'))
-	return render(request, 'homepage/world_map_template.html', {'world': world_json})
+	return render(request, 'homepage/header.html')
 
 
 def home(request):
