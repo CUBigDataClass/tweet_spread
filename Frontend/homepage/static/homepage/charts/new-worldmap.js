@@ -1,7 +1,7 @@
-
+	{% load staticfiles %}
   function plot_world_map(tweet_plot)
   {
-
+alert("tweet_plot: " + tweet_plot);
   var margin = 75;
     var width = 960-margin,height = 500-margin;
 
@@ -11,11 +11,11 @@
       .attr('height',height + margin)
       .append('g')
       .attr('class','map');
-alert("hello i got executed");
+
     var projection = d3.geo.mercator().scale(120).translate([width/2,height/1.5])
     var path = d3.geo.path().projection(projection);
 
-    d3.json('world.json',function(geo_data){
+    d3.json('{% static 'homepage/chart/world.json' %}',function(geo_data){
       var map = svg.selectAll('path')
         .data(geo_data.features)
         .enter()
