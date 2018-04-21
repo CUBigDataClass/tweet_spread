@@ -36,7 +36,7 @@ public class TopicModel {
         // Create a model with 100 topics, alpha_t = 0.01, beta_w = 0.01
         //  Note that the first parameter is passed as the sum over topics, while
         //  the second is the parameter for a single dimension of the Dirichlet prior.
-        int numTopics = 100;
+        int numTopics = 10;
         ParallelTopicModel model = new ParallelTopicModel(numTopics, 1.0, 0.01);
         
         model.addInstances(instances);
@@ -71,7 +71,7 @@ public class TopicModel {
         // Get an array of sorted sets of word ID/count pairs
         ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
-        
+        int topicsToDisplay = 10;
         // Show top 5 words in topics with proportions for the first document
         for (int topic = 0; topic < numTopics; topic++) {
             Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
@@ -79,7 +79,7 @@ public class TopicModel {
             out = new Formatter(new StringBuilder(), Locale.US);
             out.format("%d\t%.3f\t", topic, topicDistribution[topic]);
             int rank = 0;
-            while (iterator.hasNext() && rank < 5) {
+            while (iterator.hasNext() && rank < topicsToDisplay) {
                 IDSorter idCountPair = iterator.next();
                 out.format("%s (%.0f)  ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
                 rank++;
