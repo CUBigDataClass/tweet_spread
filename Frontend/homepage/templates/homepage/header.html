@@ -56,9 +56,9 @@
     }
 
 
-	function plot_world_map(world_map)
+	function plot_world_map()
   {
-	alert("tweet_plot: " + world_map);
+	alert("iminsideworldmap");
 	  var margin = 75;
 		var width = 960-margin,height = 500-margin;
 
@@ -72,7 +72,7 @@
 		var projection = d3.geo.mercator().scale(120).translate([width/2,height/1.5])
 		var path = d3.geo.path().projection(projection);
 
-		d3.json(world_map,function(geo_data){
+		d3.json({% static "homepage/charts/world.json" %},function(geo_data){
 		  var map = svg.selectAll('path')
 			.data(geo_data.features)
 			.enter()
@@ -209,10 +209,7 @@
 				<script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
 				<script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
 				<script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
-				<script type="text/javascript">
-					var worldmap = {% static "homepage/charts/world.json" %};
-					alert(worldmap);
-					plot_world_map(worldmap);</script>
+				<script type="text/javascript">plot_world_map();</script>
         	</div>
     	</div>
 	</div>
