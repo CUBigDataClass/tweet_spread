@@ -61,8 +61,8 @@ var defaultSettings = {
 		location: "left"
 	},
 	size: {
-		canvasHeight: 500,
-		canvasWidth: 500,
+		canvasHeight: 400,
+		canvasWidth: 400,
 		pieInnerRadius: "0%",
 		pieOuterRadius: null
 	},
