@@ -30,10 +30,10 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
       //d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
 
-        places = data.map(function(d){
+        /*places = data.map(function(d){
           alert("in data.map ... d is: " + d);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
-        })
+        })*/
         //alert("data is:" + data);
         var rScale = d3.scale.sqrt()
           .domain(d3.extent(places,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
