@@ -163,7 +163,8 @@
 				<script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
 				<script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
                 <script type="text/javascript" src="{% static 'homepage/charts/new-worldmap.js' %}"></script>
-				<script> plot_world_map("homepage/templates/tweet_plot.json");</script>
+				var temp = {{ data | safe }}
+				<script> plot_world_map({{ temp }});</script>
         	</div>
     	</div>
 	</div>

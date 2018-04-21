@@ -1,6 +1,6 @@
-  function plot_world_map(world_map,tweet_plot)
+  function plot_world_map(world_map)
   {
-alert("tweet_plot: " + tweet_plot);
+alert("tweet_plot: " + world_map);
   var margin = 75;
     var width = 960-margin,height = 500-margin;
 

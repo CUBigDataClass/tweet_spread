@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from . import process_search
-#from producer import produce
-#import logging
-#log = logging.getLogger(__name__)
 import json
+import os
+from Frontend.mysite.settings import STATIC_ROOT
+
 
 def index(request):
-	return render(request, 'homepage/header.html')
+	json_file = open(os.path.join(STATIC_ROOT, 'homepage/world.json'))
+	data = json.load(json_file)
+	return render(request, 'homepage/header.html', {"data": data})
 
 
 def home(request):
