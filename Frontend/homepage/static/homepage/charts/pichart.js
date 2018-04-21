@@ -22,7 +22,8 @@ var pie = new d3pie("pieChart", {
     "location": "bottom-left"
   },*/
   "size": {
-    //"canvasWidth": 590,
+    "canvasWidth": 300,
+    "canvasWidth": 300,
     "pieOuterRadius": "90%"
   },
   "data": {
