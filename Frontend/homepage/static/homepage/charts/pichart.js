@@ -2,25 +2,25 @@
 
 var pie = new d3pie("pieChart", {
   "header": {
-    "title": {
+    /*"title": {
       "text": "Sentiment Analysis",
       "fontSize": 24,
       "font": "open sans"
-    },
-    "subtitle": {
+    },*/
+    /*"subtitle": {
       "text": "Sentiment analysis of the extracted tweets",
       "color": "#999999",
       "fontSize": 12,
       "font": "open sans"
     },
-    "titleSubtitlePadding": 9
+    "titleSubtitlePadding": 9*/
   },
-  "footer": {
+  /*"footer": {
     "color": "#999999",
     "fontSize": 10,
     "font": "open sans",
     "location": "bottom-left"
-  },
+  }*/,
   "size": {
     //"canvasWidth": 590,
     "pieOuterRadius": "90%"
@@ -30,17 +30,17 @@ var pie = new d3pie("pieChart", {
     "content": [
       {
         "label": "POS",
-        "value": 264131,
+        "value": 1,
         "color": "#2484c1"
       },
       {
         "label": "NEG",
-        "value": 218812,
+        "value": 2,
         "color": "#830909"
       },
       {
         "label": "NEU",
-        "value": 157618,
+        "value": 7,
         "color": "#4daa4b"
       }
     ]
