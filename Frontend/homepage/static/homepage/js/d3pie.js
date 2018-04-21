@@ -255,8 +255,8 @@ var helpers = {
 		var backgroundColor = pie.options.misc.colors.background;
 
 		var svg = d3.select(element).append("svg:svg")
-			.attr("width", 50)
-			.attr("height", 50);
+			.attr("width", canvasWidth)
+			.attr("height", canvasHeight);
 
 		if (backgroundColor !== "transparent") {
 			svg.style("background-color", function() { return backgroundColor; });
