@@ -20,8 +20,8 @@
 
     var projection = d3.geo.mercator().scale(120).translate([width/2,height/1.5])
     var path = d3.geo.path().projection(projection);
-    //alert(projection)
-    //alert(path)
+    alert("projection is:" + projection)
+    alert("path is:" + path)
     alert('world_map is: '+ world_map);
     d3.json(world_map,function(geo_data){
       alert("geo data is: "+ geo_data);
