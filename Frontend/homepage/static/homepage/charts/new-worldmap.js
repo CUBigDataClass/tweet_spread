@@ -3,11 +3,13 @@
   Example parameters: 
 
   var my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
+
   var my_world = 'world.json';
 
 
   */
   function plot_world_map(my_json,my_world) {
+    my_json = JSON.parse(my_json);
     var margin = 75;
     var width = 960-margin,height = 500-margin;
 
