@@ -40,13 +40,13 @@
           .range([2,4])*/
           alert("places is:" + places);
           alert("places.my_place: " + places.my_place);
-          
-          svg.selectAll('.bubble')
+
+          vat bubble = svg.selectAll('.bubble')
           .data(places)
           .enter()
           .append('g','circle')
-          .attr('class','bubble')
-        //bubble.append('circle')
+          .attr('class')
+          bubble.append('circle')
           .attr('cx',function(d){alert("d is:"+d);alert("coords is: "+d.coords);return d.coords[0]})
           .attr('cy',function(d){return d.coords[1]})
           //.attr('r',function(d){return rScale(d.frequency)})
