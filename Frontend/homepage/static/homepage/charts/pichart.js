@@ -20,7 +20,7 @@ var pie = new d3pie("pieChart", {
     "fontSize": 10,
     "font": "open sans",
     "location": "bottom-left"
-  }*/,
+  },*/
   "size": {
     //"canvasWidth": 590,
     "pieOuterRadius": "90%"
