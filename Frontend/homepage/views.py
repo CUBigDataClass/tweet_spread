@@ -9,7 +9,7 @@ def index(request):
 	my_json  = {"test":123};
 	#js_data = json.dumps(my_json)	
 
-	return render(request, 'homepage/header.html', {'my_json': my_json});
+	return render(request, 'homepage/header.html', {'my_json': str(my_json)});
 
 
 def home(request):
