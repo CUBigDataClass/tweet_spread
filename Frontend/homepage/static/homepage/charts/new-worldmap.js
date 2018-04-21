@@ -1,4 +1,4 @@
-  function plot_world_map(world_map)
+  function plot_world_map(world_map, tweet_plot)
   {
 //alert("tweet_plot: " + world_map);
   var margin = 75;
