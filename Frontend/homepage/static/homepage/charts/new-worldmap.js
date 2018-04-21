@@ -20,6 +20,8 @@
 
     var projection = d3.geo.mercator().scale(120).translate([width/2,height/1.5])
     var path = d3.geo.path().projection(projection);
+    alert(projection)
+    alert(path)
 
     d3.json(world_map,function(geo_data){
       var map = svg.selectAll('path')
@@ -30,10 +32,10 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
       //d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
 
-        /*places = data.map(function(d){
+        places = data.map(function(d){
           alert("in data.map ... d is: " + d);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
-        })*/
+        })
         //alert("data is:" + data);
         var rScale = d3.scale.sqrt()
           .domain(d3.extent(places,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
