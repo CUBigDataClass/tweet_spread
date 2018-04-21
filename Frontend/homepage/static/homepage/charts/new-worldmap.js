@@ -1,14 +1,14 @@
   
-  function plot_world_map(world_map, data)
-  {
-    places = {"my_place":[{
-    "coords": [-63.2425206, -32.4079042],
-    "frequency": 1200
-}, {
-    "coords": [12.57994249, 55.68087366],
-    "frequency": 1300
-}]};
-  var margin = 75;
+  /*
+  Example parameters: 
+
+  var my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
+  var my_world = 'world.json';
+
+
+  */
+  function plot_world_map(my_json,my_world) {
+    var margin = 75;
     var width = 960-margin,height = 500-margin;
 
     var svg = d3.select('body')
@@ -20,41 +20,37 @@
 
     var projection = d3.geo.mercator().scale(120).translate([width/2,height/1.5])
     var path = d3.geo.path().projection(projection);
-    //alert("projection is:" + projection)
-    //alert("path is:" + path)
-    //alert('world_map is: '+ world_map);
 
-    d3.json(world_map,function(geo_data){
-      alert("geo data is: "+ geo_data.features);
+    d3.json('world.json',function(geo_data){
       var map = svg.selectAll('path')
         .data(geo_data.features)
         .enter()
         .append('path')
         .attr('d',path)
-        .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})        
-        alert("data.map is: " + geo_data.features);
-        alert("map is: " + map);
+        .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
+      
+        alert("my_json is:" + my_json);
 
-      //d3.json(places,function(data){ // Amruta just add stuff to this file. And it will plot it               
-        data = data.map(function(d){
-          alert("in data.map ... d is: " + d);
+        my_json = my_json.map(function(d){
+          alert("d.coords is: "+ d.coords);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
         })
-        //alert("data is:" + data);
-        var rScale = d3.scale.sqrt()
-          .domain(d3.extent(places,function(d){return d.frequency}))
-          .range([2,4])
 
-          var bubble = svg.selectAll('.bubble')
-          .data(data)
+        var rScale = d3.scale.sqrt()
+          .domain(d3.extent(my_json,function(d){return d.frequency}))
+          .range([2,4])
+        var bubble = svg.selectAll('.bubble')
+          .data(my_json)
           .enter()
           .append('g')
           .attr('class','bubble')
-          bubble.append('circle')
+        bubble.append('circle')
           .attr('cx',function(d){return d.coords[0]})
           .attr('cy',function(d){return d.coords[1]})
           .attr('r',function(d){return rScale(d.frequency)})
-          .attr('fill','#F26247') // Just change things here. For the color of what ever. and you are done.
-      })
-    //})
-    }
+          .attr('fill','#F26247') 
+    })
+
+  }
+  
+    
