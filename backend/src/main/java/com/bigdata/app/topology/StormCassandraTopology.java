@@ -1,7 +1,10 @@
 package com.bigdata.app.topology;
 
 import org.apache.storm.Config;
-import org.apache.storm.LocalCluster;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.generated.AlreadyAliveException;
+import org.apache.storm.generated.AuthorizationException;
+import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.kafka.BrokerHosts;
 import org.apache.storm.kafka.KafkaSpout;
 import org.apache.storm.kafka.SpoutConfig;
@@ -108,26 +111,16 @@ public class StormCassandraTopology {
         // TODO: Create cassandra bot
         builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
 
-        // create an instance of LocalCluster class for executing topology in
-        // local mode.
-        LocalCluster cluster = new LocalCluster();
-
         // Submit topology for execution
-        cluster.submitTopology("KafkaToplogy", conf, builder.createTopology());
-
         try {
-            // Wait for some time before exiting
-            System.out.println("Waiting to consume from kafka");
-            Thread.sleep(6000000);
-        } catch (Exception exception) {
-            System.out.println("Thread interrupted exception : " + exception);
+            StormSubmitter.submitTopology("KafkaToplogy", conf, builder.createTopology());
+        } catch (AlreadyAliveException alreadyAliveException) {
+            System.out.println(alreadyAliveException);
+        } catch (InvalidTopologyException invalidTopologyException) {
+            System.out.println(invalidTopologyException);
+        } catch (AuthorizationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-
-        // kill the KafkaTopology
-        cluster.killTopology("KafkaToplogy");
-
-        // shut down the storm test cluster
-        cluster.shutdown();
-
     }
 }
