@@ -222,7 +222,7 @@
                     alert("plots is:"+plots);
                     var parsed = JSON.parse(plots);
                     alert("parsed String is: "+parsed);*/
-                    var data =  {{ my_json | tojson | safe }}
+                    var data =  {{ my_json  | safe }}
                     alert("data is: "+data);
 
                 plot_world_map(data   ,"/static/homepage/charts/world.json");</script>
