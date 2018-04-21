@@ -209,8 +209,10 @@
 				<script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
 				<script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
 				<script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
-				{% static "homepage/charts/world.json" as worldmap %}
-				<script type="text/javascript">plot_world_map(worldmap);</script>
+				<script type="text/javascript">
+					var worldmap = {% static "homepage/charts/world.json" %};
+					alert(worldmap);
+					plot_world_map(worldmap);</script>
         	</div>
     	</div>
 	</div>
