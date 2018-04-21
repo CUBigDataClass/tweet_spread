@@ -1,7 +1,13 @@
+  
   function plot_world_map(world_map, places)
   {
-  //alert("world_map: " + world_map);
-  //alert("data: " + data);
+    places = {"my_place":[{
+    "coords": [-63.2425206, -32.4079042],
+    "frequency": 9
+}, {
+    "coords": [12.57994249, 55.68087366],
+    "frequency": 3
+}]};
   var margin = 75;
     var width = 960-margin,height = 500-margin;
 
@@ -32,6 +38,7 @@
         /*var rScale = d3.scale.sqrt()
           .domain(d3.extent(data,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
           .range([2,4])*/
+          alert("places is:" + places)
           svg.selectAll('.bubble')
           .data(places)
           .enter()
