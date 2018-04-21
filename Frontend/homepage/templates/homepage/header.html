@@ -223,9 +223,12 @@
                     var parsed = JSON.parse(plots);
                     alert("parsed String is: "+parsed);*/
                     var data =  {{ my_json  | safe }}
-                    alert("data is: "+data);
+                    var stringified = JSON.stringify(data)
 
-                plot_world_map(data   ,"/static/homepage/charts/world.json");</script>
+                    alert("data is: "+data);
+                    alert("string is:"  + stringified);
+
+                plot_world_map(stringified   ,"/static/homepage/charts/world.json");</script>
         	</div>
     	</div>
 	</div>
