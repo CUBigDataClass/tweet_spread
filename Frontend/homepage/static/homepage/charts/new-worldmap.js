@@ -22,7 +22,7 @@
     var path = d3.geo.path().projection(projection);
     //alert(projection)
     //alert(path)
-
+    alert('world_map is: '+ world_map);
     d3.json(world_map,function(geo_data){
       var map = svg.selectAll('path')
         .data(geo_data.features)
