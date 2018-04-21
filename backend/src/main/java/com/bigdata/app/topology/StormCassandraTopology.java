@@ -9,6 +9,8 @@ import org.apache.storm.kafka.StringScheme;
 import org.apache.storm.kafka.ZkHosts;
 import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
+import static org.apache.storm.cassandra.DynamicStatementBuilder.*;
+import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -17,7 +19,7 @@ import com.hmsonline.storm.cassandra.StormCassandraConstants;
 import com.hmsonline.storm.cassandra.bolt.AckStrategy;
 import com.hmsonline.storm.cassandra.bolt.CassandraBatchingBolt;
 import com.hmsonline.storm.cassandra.bolt.mapper.DefaultTupleMapper;
-import com.hmsonline.storm.cassandra.bolt.CassandraWriterBolt;
+//import com.hmsonline.storm.cassandra.bolt.CassandraWriterBolt;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -73,7 +75,7 @@ public class StormCassandraTopology {
         //Load properties file
         Properties props = new Properties();
         try {
-            InputStream is = LocalRunner.class.getClassLoader().getResourceAsStream("cassandra.properties");
+            InputStream is = StormCassandraTopology.class.getClassLoader().getResourceAsStream("cassandra.properties");
 
             if (is == null)
                 throw new RuntimeException("Classpath missing cassandra.properties file");
@@ -93,7 +95,9 @@ public class StormCassandraTopology {
 
         conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
         conf.setDebug(false);
-        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt();
+        String cql = "INSERT INTO tweet_sentiments (tweet, sentiment) values(?, ?);";
+        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
+                simpleQuery(cql).with(fields("tweet", "sentiment"))));
 
 
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
