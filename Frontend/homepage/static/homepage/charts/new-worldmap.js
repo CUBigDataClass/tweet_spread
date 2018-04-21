@@ -1,7 +1,7 @@
-  function plot_world_map(world_map, data)
+  function plot_world_map(world_map, places)
   {
-  alert("world_map: " + world_map);
-  alert("data: " + data);
+  //alert("world_map: " + world_map);
+  //alert("data: " + data);
   var margin = 75;
     var width = 960-margin,height = 500-margin;
 
@@ -24,23 +24,23 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
       //d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
 
-        data = data.map(function(d){
+        /*data = data.map(function(d){
           alert("in data.map ... d is: " + d);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
-        })
-        alert("data is:" + data);
-        var rScale = d3.scale.sqrt()
+        })*/
+        //alert("data is:" + data);
+        /*var rScale = d3.scale.sqrt()
           .domain(d3.extent(data,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
-          .range([2,4])
-        var bubble = svg.selectAll('.bubble')
-          .data(data)
+          .range([2,4])*/
+          svg.selectAll('.bubble')
+          .data(places)
           .enter()
           .append('g')
           .attr('class','bubble')
         bubble.append('circle')
-          .attr('cx',function(d){alert("coords is: "+d.coords);return d.coords[0]})
+          .attr('cx',function(d){alert("d is:"+d);alert("coords is: "+d.coords);return d.coords[0]})
           .attr('cy',function(d){return d.coords[1]})
-          .attr('r',function(d){return rScale(d.frequency)})
+          //.attr('r',function(d){return rScale(d.frequency)})
           .attr('fill','#F26247') // Just change things here. For the color of what ever. and you are done.
       //})
     })
