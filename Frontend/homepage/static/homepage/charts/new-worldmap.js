@@ -24,9 +24,9 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
       //d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
 
-        data = data.map(function(d){
+        /*data = data.map(function(d){
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
-        })
+        })*/
 
         var rScale = d3.scale.sqrt()
           .domain(d3.extent(data,function(d){return d.frequency}))
