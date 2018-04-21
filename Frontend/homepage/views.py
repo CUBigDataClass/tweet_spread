@@ -7,9 +7,8 @@ import json
 def index(request):
 	#my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
 	my_json  = {"test":123};
-	#js_data = json.dumps(my_json)	
-
-	return render(request, 'homepage/header.html', {'my_json': str(my_json)});
+	#js_data = json.dumps(my_json)		
+	return render(request, 'homepage/header.html', {'my_json': my_json});
 
 
 def home(request):
