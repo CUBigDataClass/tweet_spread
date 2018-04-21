@@ -24,7 +24,7 @@
     alert("path is:" + path)
     alert('world_map is: '+ world_map);
     d3.json(world_map,function(geo_data){
-      alert("geo data is: "+ geo_data);
+      alert("geo data is: "+ geo_data.features);
       var map = svg.selectAll('path')
         .data(geo_data.features)
         .enter()
@@ -33,7 +33,7 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
         alert("map is: "+map); 
       d3.json(places,function(data){ // Amruta just add stuff to this file. And it will plot it               
-        places = geo_data.map(function(d){
+        places = data.map(function(d){
           alert("in data.map ... d is: " + d);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
         })
