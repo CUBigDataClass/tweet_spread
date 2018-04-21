@@ -3,10 +3,10 @@
   {
     places = {"my_place":[{
     "coords": [-63.2425206, -32.4079042],
-    "frequency": 9
+    "frequency": 1200
 }, {
     "coords": [12.57994249, 55.68087366],
-    "frequency": 3
+    "frequency": 1300
 }]};
   var margin = 75;
     var width = 960-margin,height = 500-margin;
