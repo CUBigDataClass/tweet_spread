@@ -113,7 +113,7 @@ public class StormCassandraTopology {
 
         // Submit topology for execution
         try {
-            StormSubmitter.submitTopology("KafkaToplogy", conf, builder.createTopology());
+            StormSubmitter.submitTopology("StormCassandraToplogy", conf, builder.createTopology());
         } catch (AlreadyAliveException alreadyAliveException) {
             System.out.println(alreadyAliveException);
         } catch (InvalidTopologyException invalidTopologyException) {
