@@ -217,7 +217,18 @@
 				<script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
 				<script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
                 <script type="text/javascript" src="{% static 'homepage/charts/new-worldmap.js' %}"></script>                
-				<script> plot_world_map("/static/homepage/charts/world.json", "{{json_dummy}}");</script>
+				<script> 
+                    /*var plots = "{{ my_json }}";
+                    alert("plots is:"+plots);
+                    var parsed = JSON.parse(plots);
+                    alert("parsed String is: "+parsed);*/
+                    var data =  {{ my_json  | safe }}
+                    var stringified = JSON.stringify(data)
+
+                    alert("data is: "+data);
+                    alert("string is:"  + stringified);
+
+                plot_world_map(stringified   ,"/static/homepage/charts/world.json");</script>
         	</div>
     	</div>
 	</div>

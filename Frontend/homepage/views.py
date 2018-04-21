@@ -1,17 +1,14 @@
 from django.shortcuts import render
 from . import process_search
+import json
+
 
 
 def index(request):
-	json_dummy = [{
-				    "coords": [-63.2425206, -32.4079042],
-				    "frequency": 9
-				}, {
-				    "coords": [12.57994249, 55.68087366],
-				    "frequency": 3
-				}]
-
-	return render(request, 'homepage/header.html', {'json_dummy': json_dummy})
+	my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
+	#my_json  = {"test":123};
+	#js_data = json.dumps(my_json)		
+	return render(request, 'homepage/header.html', {'my_json': my_json});
 
 
 def home(request):

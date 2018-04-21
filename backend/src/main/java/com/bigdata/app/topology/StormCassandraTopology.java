@@ -33,7 +33,7 @@ import java.util.Properties;
 public class StormCassandraTopology {
 
     private static final String CASSANDRA_KEYSPACE = "tweetanalysis";
-    private static final String CASSANDRA_COLUMN_FAMILY = "tweetSenitiments";
+    private static final String CASSANDRA_COLUMN_FAMILY = "tweetSentiments";
     private static final String CASSANDRA_ROWKEY_FIELD = "tweet";
 
     public static void main(String[] args) {
@@ -98,7 +98,7 @@ public class StormCassandraTopology {
 
         conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
         conf.setDebug(false);
-        String cql = "INSERT INTO tweet_sentiments (tweet, sentiment) values(?, ?);";
+        String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
                 simpleQuery(cql).with(fields("tweet", "sentiment"))));
 
