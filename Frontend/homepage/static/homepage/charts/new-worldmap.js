@@ -35,9 +35,9 @@
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
         })*/
         //alert("data is:" + data);
-        /*var rScale = d3.scale.sqrt()
+        var rScale = d3.scale.sqrt()
           .domain(d3.extent(data,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
-          .range([2,4])*/
+          .range([2,4])
           alert("places is:" + places);
           alert("places.my_place: " + places.my_place);
 
@@ -49,7 +49,7 @@
           bubble.append('circle')
           .attr('cx',function(d){alert("d is:"+d);alert("coords is: "+d.coords);return d.coords[0]})
           .attr('cy',function(d){return d.coords[1]})
-          //.attr('r',function(d){return rScale(d.frequency)})
+          .attr('r',function(d){return rScale(d.frequency)})
           .attr('fill','#F26247') // Just change things here. For the color of what ever. and you are done.
       //})
     })
