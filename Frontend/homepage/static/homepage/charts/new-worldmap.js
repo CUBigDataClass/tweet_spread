@@ -30,7 +30,7 @@
         .append('path')
         .attr('d',path)
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
-      //d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
+      d3.json(places,function(data){ // Amruta just add stuff to this file. And it will plot it
         alert(map);        
         places = data.map(function(d){
           alert("in data.map ... d is: " + d);
@@ -53,6 +53,6 @@
           .attr('cy',function(d){return d.coords[1]})
           .attr('r',function(d){return rScale(d.frequency)})
           .attr('fill','#000000') // Just change things here. For the color of what ever. and you are done.
-      //})
+      })
     })
     }
