@@ -41,7 +41,7 @@
           alert("places is:" + places);
           alert("places.my_place: " + places.my_place);
 
-          vat bubble = svg.selectAll('.bubble')
+          var bubble = svg.selectAll('.bubble')
           .data(places)
           .enter()
           .append('g','circle')
