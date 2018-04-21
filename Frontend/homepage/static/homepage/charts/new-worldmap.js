@@ -36,7 +36,7 @@
         })*/
         //alert("data is:" + data);
         var rScale = d3.scale.sqrt()
-          .domain(d3.extent(data,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
+          .domain(d3.extent(places,function(d){ alert("d is: "+d);alert("d.freq:" + d.frequency);return d.frequency}))
           .range([2,4])
           alert("places is:" + places);
           alert("places.my_place: " + places.my_place);
