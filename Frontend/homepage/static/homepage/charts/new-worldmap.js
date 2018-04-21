@@ -33,7 +33,7 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
         alert("map is: "+map); 
       d3.json(places,function(data){ // Amruta just add stuff to this file. And it will plot it               
-        places = data.map(function(d){
+        places = geo_data.map(function(d){
           alert("in data.map ... d is: " + d);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
         })
