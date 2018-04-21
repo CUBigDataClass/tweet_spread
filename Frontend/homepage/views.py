@@ -1,14 +1,9 @@
 from django.shortcuts import render
 from . import process_search
-import json
-import os
-from Frontend.mysite.settings import *
 
 
 def index(request):
-	json_file = open(os.path.join(STATIC_ROOT, 'homepage/world.json'))
-	data = json.load(json_file)
-	return render(request, 'homepage/header.html', {"data": data})
+	return render(request, 'homepage/header.html')
 
 
 def home(request):
