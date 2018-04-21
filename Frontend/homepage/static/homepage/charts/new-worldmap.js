@@ -50,7 +50,7 @@
           .attr('cx',function(d){alert("d is:"+d);alert("coords is: "+d.coords);return d.coords[0]})
           .attr('cy',function(d){return d.coords[1]})
           .attr('r',function(d){return rScale(d.frequency)})
-          .attr('fill','#F26247') // Just change things here. For the color of what ever. and you are done.
+          .attr('fill','#000000') // Just change things here. For the color of what ever. and you are done.
       //})
     })
     }
