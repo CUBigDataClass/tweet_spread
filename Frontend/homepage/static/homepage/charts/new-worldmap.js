@@ -1,4 +1,4 @@
-  function plot_world_map(world_map, tweet_plot)
+  function plot_world_map(world_map, data)
   {
 //alert("tweet_plot: " + world_map);
   var margin = 75;
@@ -23,7 +23,7 @@
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
       //d3.json(tweet_plot,function(data){ // Amruta just add stuff to this file. And it will plot it
 
-        data = tweet_plot.map(function(d){
+        data = data.map(function(d){
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
         })
 
