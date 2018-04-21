@@ -992,7 +992,6 @@ var labels = {
 		var lineGroups = pie.svg.insert("g", "." + pie.cssPrefix + "pieChart") // meaning, BEFORE .pieChart
 			.attr("class", pie.cssPrefix + "lineGroups")
 			.style("opacity", 0);
-			.attr()
 
 		var lineGroup = lineGroups.selectAll("." + pie.cssPrefix + "lineGroup")
 			.data(pie.lineCoordGroups)
@@ -1311,8 +1310,6 @@ var segments = {
 		var pieChartElement = pie.svg.insert("g", "#" + pie.cssPrefix + "title")
 			.attr("transform", function() { return math.getPieTranslateCenter(pieCenter); })
 			.attr("class", pie.cssPrefix + "pieChart");
-			.attr("width", 50)
-			.attr("height", 50);
 
 		var arc = d3.arc()
 			.innerRadius(pie.innerRadius)
