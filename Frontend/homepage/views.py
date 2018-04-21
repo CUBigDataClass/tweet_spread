@@ -2,7 +2,7 @@ from django.shortcuts import render
 from . import process_search
 import json
 import os
-from ..mysite.settings import *
+from Frontend.mysite.settings import *
 
 
 def index(request):
