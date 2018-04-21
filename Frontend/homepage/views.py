@@ -1,8 +1,5 @@
 from django.shortcuts import render
 from . import process_search
-#from producer import produce
-#import logging
-#log = logging.getLogger(__name__)
 
 
 def index(request):
