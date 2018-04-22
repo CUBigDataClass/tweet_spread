@@ -248,9 +248,87 @@
 		<br><br><br><br><br>
     <div class="container">
         <script type="text/javascript">
-            function get_data(element) {
-                alert("in body");
-            }
+    function get_data(element) {
+      document.getElementById("cloud").innerHTML = "";
+      var id = element.id;            
+      var skillsToDraw = []
+      // Amruta give the JSON as a parameter here.            
+      var topic_json = {"t1":[{"word":"donald", "count":10}, {"word":"president", "count":20}], "t2":[{"word":"hi", "count":5}], "t3" : {"word":"hiiiiiii", "count":15}};      
+      
+      //alert('id is:' + id);
+      //alert(topic_json[id]);  
+      
+      word_data = topic_json[id];      
+      for(var i=0; i<word_data.length;i++) {
+        //alert("i is : "+ i + "word is: " + word_data[i]["word"] + " count is: "+ word_data[i]["count"]);
+        temp_json = {"text":word_data[i]["word"]  , "size":word_data[i]["count"] };
+        skillsToDraw.push(temp_json);
+        //alert("skillsToDraw: " + skillsToDraw);
+      }
+     // alert("right function");
+
+// Next you need to use the layout script to calculate the placement, rotation and size of each word:
+
+var width = 500;
+var height = 500;
+var fill = d3.scale.category20();
+
+    d3.layout.cloud()
+      .size([width, height])
+      .words(skillsToDraw)
+      .rotate(function() {
+        return ~~(Math.random() * 2) * 90;
+      })
+      .font("Impact")
+      .fontSize(function(d) {
+        return d.size;
+      })
+      .on("end", drawSkillCloud)
+      .start();
+
+// Finally implement `drawSkillCloud`, which performs the D3 drawing:
+
+    // apply D3.js drawing API
+    function drawSkillCloud(words) {
+      d3.select("#cloud").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + ~~(width / 2) + "," + ~~(height / 2) + ")")
+        .selectAll("text")
+        .data(words)
+        .enter().append("text")
+        .style("font-size", function(d) {
+          return d.size + "px";
+        })
+        .style("-webkit-touch-callout", "none")
+        .style("-webkit-user-select", "none")
+        .style("-khtml-user-select", "none")
+        .style("-moz-user-select", "none")
+        .style("-ms-user-select", "none")
+        .style("user-select", "none")
+        .style("cursor", "default")
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) {
+          return fill(i);
+        })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) {
+          return d.text;
+        });
+    }
+    
+// set the viewbox to content bounding box (zooming in on the content, effectively trimming whitespace)
+
+    var svg = document.getElementsByTagName("svg")[0];
+    var bbox = svg.getBBox();
+    var viewBox = [bbox.x, bbox.y, bbox.width, bbox.height].join(" ");
+    svg.setAttribute("viewBox", viewBox);
+}
+
         </script>
         <div class="row">
             <div class="col-md-10 col-lg-8 col-xl-6 ml-auto mr-auto">
