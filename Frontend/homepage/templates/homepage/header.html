@@ -44,8 +44,6 @@
     <script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
     <script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>    
 	<script type="text/javascript">
-
-
         alert("correct my son");
 
 
@@ -227,8 +225,8 @@
                     var data =  {{ my_json  | safe }}
                     var stringified = JSON.stringify(data)
 
-                    alert("data is: "+data);
-                    alert("string is:"  + stringified);
+                    //alert("data is: "+data);
+                    //alert("string is:"  + stringified);
 
                 plot_world_map(stringified   ,"/static/homepage/charts/world.json");</script>
         	</div>
