@@ -221,15 +221,15 @@
                         // Amruta give the JSON as a parameter here.            
                         var topic_json = {"t1":[{"word":"donald", "count":10}, {"word":"president", "count":20}], "t2":[{"word":"hi", "count":5}], "t3" : {"word":"hiiiiiii", "count":15}};      
 
-                        //alert('id is:' + id);
-                        //alert(topic_json[id]);  
+                        alert('id is:' + id);
+                        alert(topic_json[id]);  
 
                         word_data = topic_json[id];      
                         for(var i=0; i<word_data.length;i++) {
-                        //alert("i is : "+ i + "word is: " + word_data[i]["word"] + " count is: "+ word_data[i]["count"]);
+                        alert("i is : "+ i + "word is: " + word_data[i]["word"] + " count is: "+ word_data[i]["count"]);
                         temp_json = {"text":word_data[i]["word"]  , "size":word_data[i]["count"] };
                         skillsToDraw.push(temp_json);
-                        //alert("skillsToDraw: " + skillsToDraw);
+                        alert("skillsToDraw: " + skillsToDraw);
                         }
                         // alert("right function");
 
