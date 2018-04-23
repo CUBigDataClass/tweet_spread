@@ -197,6 +197,12 @@
     <br><br><br><br><br>
         <div class="container">
             <div class="row">
+                <script type="text/javascript">
+                    function get_data(element) {
+                        var id = element.id;            
+                        alert("id is: " +id);
+                    }
+                </script>
                 <div class="col-md-10 col-lg-8 col-xl-6 ml-auto mr-auto">
                     <p class="category" id="recommended">Select Topic </p>
                     <!-- Nav tabs -->
@@ -206,16 +212,16 @@
                                 <div class="tab-content text-center">
                                     <div class="tab-pane active" id="home" role="tabpanel">
                                         <div class="row">
-                                                <button class="btn btn-link">Topic 1</button>
-                                                <button class="btn btn-link btn-primary ">Topic 2</button>
-                                                <button class="btn btn-link btn-info">Topic </button>
-                                                <button class="btn btn-link btn-success">Topic 4</button>
-                                                <button class="btn btn-link btn-warning">Topic 5 </button>
-                                                <button class="btn btn-link btn-danger">Topic 6</button>
-                                                <button class="btn btn-link">Topic 7</button>
-                                                <button class="btn btn-link btn-primary ">Topic 8</button>
-                                                <button class="btn btn-link btn-info">Topic 9</button>
-                                                <button class="btn btn-link btn-success">Topic 10</button>
+                                                <button class="btn btn-link " onclick="get_data(this)" id="t1">Topic 1</button>
+                                                <button class="btn btn-link btn-primary "onclick="get_data(this)" id="t2">Topic 2</button>
+                                                <button class="btn btn-link btn-info"onclick="get_data(this)" id="t3">Topic 3</button>
+                                                <button class="btn btn-link btn-success"onclick="get_data(this)" id="t4">Topic 4</button>
+                                                <button class="btn btn-link btn-warning"onclick="get_data(this)" id="t5">Topic 5 </button>
+                                                <button class="btn btn-link btn-danger"onclick="get_data(this)" id="t6">Topic 6</button>
+                                                <button class="btn btn-link"onclick="get_data(this)" id="t7">Topic 7</button>
+                                                <button class="btn btn-link btn-primary " onclick="get_data(this)" id="t8">Topic 8</button>
+                                                <button class="btn btn-link btn-info" onclick="get_data(this)" id="t9">Topic 9</button>
+                                                <button class="btn btn-link btn-success" onclick="get_data(this)" id="t10">Topic 10</button>
                                         </div>
                                     </div>
                             </div>
@@ -224,6 +230,7 @@
                     <br><br><br><br><br>
                 </div>
             </div>
+
         </div>             
                                
         </div>
