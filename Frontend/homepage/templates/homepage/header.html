@@ -45,8 +45,8 @@
     <script src="{% static 'homepage/js/jqcloud-1.0.4.js' %}" type="text/javascript"></script>
 
     <script type="text/javascript">
-         function get_data(event) {
-            event.preventDefault();
+         function get_data() {
+            //event.preventDefault();
             alert("this is:" +this)
             alert(this.id)
             document.getElementById("cloud").innerHTML = "";
@@ -78,7 +78,7 @@
               // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
               $("#example").jQCloud(word_array);
             });
-            
+
         }
         
         $(".topic-class").click(get_data(this));
