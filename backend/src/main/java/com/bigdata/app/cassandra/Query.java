@@ -8,8 +8,8 @@ public class Query {
     public static void main(String args[]) {
 
         //query
-        String query = "update tweetanalysis.tweetSentiments set sentiment = 1 where tweet = " +
-                "@Andersson_123 @Niklas14_ Skrev jag det? Är du Cathy Newman? Börjar bli lite misstänkt likt henne här."+";";
+        String query = "update tweetanalysis.tweetSentiments set sentiment = 10 where tweet = '@Andersson_123 @Niklas14_ Skrev jag det? Är du Cathy Newman? Börjar bli lite misstänkt likt henne här.';"
+        ;
 
         //Creating Cluster object
         Cluster cluster = Cluster.builder().addContactPoint("54.245.62.87").build();
