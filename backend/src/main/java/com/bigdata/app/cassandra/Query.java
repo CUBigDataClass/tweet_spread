@@ -8,7 +8,14 @@ public class Query {
     public static void main(String args[]) {
 
         //query
-        String query = "update tweetanalysis.tweetSentiments set sentiment = 10 where tweet = '@Andersson_123 @Niklas14_ Skrev jag det? Är du Cathy Newman? Börjar bli lite misstänkt likt henne här.';"
+        String query = "insert into tweetanalysis.sentiments (hashtag, positive_sentiment, negative_sentiment, neutral_sentiment)"+
+                " values ('hash1', 1, 0, 0) if not exists;"+
+                "update tweetanalysis.sentiments set positive_sentiment = positive_sentiment + 1, "+
+                "negative_sentiment = negative_sentiment + 2, neutral_sentiment = neutral_sentiment + 3 "+
+                "where hashtag = 'hash1' if exists;" +
+                "update tweetanalysis.sentiments set positive_sentiment = positive_sentiment + 1, "+
+                "negative_sentiment = negative_sentiment + 2, neutral_sentiment = neutral_sentiment + 3 "+
+                "where hashtag = 'hash2' if exists;"
         ;
 
         //Creating Cluster object
