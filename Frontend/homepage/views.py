@@ -6,7 +6,7 @@ import json
 def topic_model(request):
 	# amruta : Todo .. pass this to the front end.
 	'''
-	var topic_json = {"t1":[{"word1":10, "word2":20, "word3":30}]}; # this is how it should look on the javascript side. 
+	   var topic_json = {"t1":[{"text":"donald", weight:10}, {"text":"president", weight:20}], "t2":[{"text":"hi", weight:5}], "t3" : {"text":"hiiiiiii", weight:15}};
 	'''
 	pass
 
