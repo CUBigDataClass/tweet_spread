@@ -45,22 +45,40 @@
     <script src="{% static 'homepage/js/jqcloud-1.0.4.js' %}" type="text/javascript"></script>
 
     <script type="text/javascript">
-         function get_data() {
+         function get_data(event) {
+            event.preventDefault();
             alert("this is:" +this)
             alert(this.id)
             document.getElementById("cloud").innerHTML = "";
-            var id = this.id;
+            
+            /*var id = this.id;
             alert(this.id);
             //amruta populate this
             var topic_json = {"t1":[{"text":"donald", weight:10}, {"text":"president", weight:20}], "t2":[{"text":"hi", weight:5}], "t3" : {"text":"hiiiiiii", weight:15}};
 
             word_data = topic_json[id];      
-            alert(word_data)
+            //alert(word_data)
+            alert("calling jQCloud .... word_data="+word_data);*/
+
+            /*$(function() {
+              // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+              $("#cloud").jQCloud(word_data);
+            });*/
+
+            var word_array = [
+                {text: "Lorem", weight: 15},
+                {text: "Ipsum", weight: 9, link: "http://jquery.com/"},
+                {text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
+                {text: "Sit", weight: 7},
+                {text: "Amet", weight: 5}
+                // ...as many words as you want
+            ];
 
             $(function() {
               // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-              $("#cloud").jQCloud(word_data);
+              $("#example").jQCloud(word_array);
             });
+            
         }
         
         $(".topic-class").click(get_data(this));
