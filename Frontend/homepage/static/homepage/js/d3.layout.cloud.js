@@ -362,16 +362,18 @@
 
   if (typeof document !== "undefined") {
     canvas = document.createElement("canvas");
-    canvas.width = 200;
-    canvas.height = 200;
-    //ratio = Math.sqrt(canvas.getContext("2d").getImageData(0, 0, 1, 1).data.length >> 2);
-    //canvas.width = (cw << 5) / ratio;
-    //canvas.height = ch / ratio;
+    canvas.width = 1;
+    canvas.height = 1;    
+    //canvas.width = 200;
+    //canvas.height = 200;
+    ratio = Math.sqrt(canvas.getContext("2d").getImageData(0, 0, 1, 1).data.length >> 2);
+    canvas.width = (cw << 5) / ratio;
+    canvas.height = ch / ratio;
   } else {
     // node-canvas support
     var Canvas = require("canvas");
-    //canvas = new Canvas(cw << 5, ch);
-    canvas = new Canvas(200,200);
+    canvas = new Canvas(cw << 5, ch);
+    //canvas = new Canvas(200,200);
   }
 
   var c = canvas.getContext("2d"),
