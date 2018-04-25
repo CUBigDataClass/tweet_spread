@@ -10,10 +10,7 @@ public class Query {
         //query
         String query = "update tweetanalysis.sentiments set positive_sentiments = positive_sentiments + 1, "+
                 "negative_sentiments = negative_sentiments + 2, neutral_sentiments = neutral_sentiments + 3 "+
-                "where hashtag = 'hash1';" +
-                "update tweetanalysis.sentiments set positive_sentiments = positive_sentiments + 1, "+
-                "negative_sentiments = negative_sentiments + 2, neutral_sentiments = neutral_sentiments + 3 "+
-                "where hashtag = 'hash2';"
+                "where hashtag = 'hash1';"
         ;
 
         //Creating Cluster object
