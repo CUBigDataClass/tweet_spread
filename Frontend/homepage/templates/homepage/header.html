@@ -52,7 +52,7 @@
             var id = this.id;
             alert(this.id);
             //amruta populate this
-            /*var topic_json = {"t1":[{"text":"donald", weight:10}, {"text":"president", weight:20}], "t2":[{"text":"hi", weight:5}], "t3" : {"text":"hiiiiiii", weight:15}};
+            var topic_json = {"t1":[{"text":"donald", weight:10}, {"text":"president", weight:20}], "t2":[{"text":"hi", weight:5}], "t3" : {"text":"hiiiiiii", weight:15}};
 
             word_data = topic_json[id];      
             //alert(word_data)
@@ -61,7 +61,7 @@
             /*$(function() {
               // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
               $("#cloud").jQCloud(word_data);
-            });*/
+            });
 
             var word_array = [
                 {text: "Lorem", weight: 15},
@@ -70,11 +70,11 @@
                 {text: "Sit", weight: 7},
                 {text: "Amet", weight: 5}
                 // ...as many words as you want
-            ];
+            ];*/
 
             $(function() {
               // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-              $("#cloud").jQCloud(word_array);
+              $("#cloud").jQCloud(word_data);
             });
 
         }
