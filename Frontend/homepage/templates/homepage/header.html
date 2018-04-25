@@ -45,11 +45,11 @@
     <script src="{% static 'homepage/js/jqcloud-1.0.4.js' %}" type="text/javascript"></script>
 
     <script type="text/javascript">
-         function get_data() {
-            alert("this is:"+this);
+         function get_data(element) {
+            alert("this is:"+element.id);
             document.getElementById("cloud").innerHTML = "";
-            var id = this.id;
-            alert(this.id);
+            var id = element.id;
+            alert(element.id);
             //amruta populate this
             var topic_json = {"t1":[{"text":"donald", weight:10}, {"text":"president", weight:20}], "t2":[{"text":"hi", weight:5}], "t3" : {"text":"hiiiiiii", weight:15}};
 
@@ -62,7 +62,7 @@
             });
         }
         
-        $(".topic-class").click(get_data);
+        $(".topic-class").click(get_data(this));
     </script>
     
 	<script type="text/javascript">        
@@ -245,13 +245,13 @@
                                                 <button class="btn btn-link topic-class" onclick="get_data(this)" id="t1">Topic 1</button>
                                                 <button class="btn btn-link btn-primary topic-class"onclick="get_data(this)" id="t2">Topic 2</button>
                                                 <button class="btn btn-link btn-info topic-class"onclick="get_data(this)" id="t3">Topic 3</button>
-                                                <button class="btn btn-link btn-success"onclick="get_data(this)" id="t4">Topic 4</button>
-                                                <button class="btn btn-link btn-warning"onclick="get_data(this)" id="t5">Topic 5 </button>
-                                                <button class="btn btn-link btn-danger"onclick="get_data(this)" id="t6">Topic 6</button>
-                                                <button class="btn btn-link"onclick="get_data(this)" id="t7">Topic 7</button>
-                                                <button class="btn btn-link btn-primary " onclick="get_data(this)" id="t8">Topic 8</button>
-                                                <button class="btn btn-link btn-info" onclick="get_data(this)" id="t9">Topic 9</button>
-                                                <button class="btn btn-link btn-success" onclick="get_data(this)" id="t10">Topic 10</button>
+                                                <button class="btn btn-link btn-success topic-class"onclick="get_data(this)" id="t4">Topic 4</button>
+                                                <button class="btn btn-link btn-warning topic-class"onclick="get_data(this)" id="t5">Topic 5 </button>
+                                                <button class="btn btn-link btn-danger topic-class"onclick="get_data(this)" id="t6">Topic 6</button>
+                                                <button class="btn btn-link topic-class"onclick="get_data(this)" id="t7">Topic 7</button>
+                                                <button class="btn btn-link btn-primary topic-class" onclick="get_data(this)" id="t8">Topic 8</button>
+                                                <button class="btn btn-link btn-info topic-class" onclick="get_data(this)" id="t9">Topic 9</button>
+                                                <button class="btn btn-link btn-success topic-class" onclick="get_data(this)" id="t10">Topic 10</button>
                                         </div>
                                     </div>
                             </div>
