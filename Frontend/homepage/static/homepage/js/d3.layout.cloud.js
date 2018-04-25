@@ -369,10 +369,13 @@
     ratio = Math.sqrt(canvas.getContext("2d").getImageData(0, 0, 1, 1).data.length >> 2);
     canvas.width = (cw << 5) / ratio;
     canvas.height = ch / ratio;
+    alert("in the if ... H:" + canvas.height +"  W:" + canvas.width +" ratio: "+ ratio);
   } else {
     // node-canvas support
     var Canvas = require("canvas");
     canvas = new Canvas(cw << 5, ch);
+    alert("in the else ... H:" + canvas.height +"  W:" + canvas.width +" ratio: "+ ratio);
+    alert("cw is: " + cw);
     //canvas = new Canvas(200,200);
   }
 

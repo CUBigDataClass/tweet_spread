@@ -223,7 +223,7 @@
 
                     function get_data(element) {
                         //alert("in get_data: " + element);
-                        alert(" in get_data id is: " + element.id);
+                        //alert(" in get_data id is: " + element.id);
                         document.getElementById("cloud").innerHTML = "";
                         var id = element.id;            
                         var skillsToDraw = []
@@ -231,7 +231,7 @@
                         var topic_json = {"t1":[{"word":"donald", "count":10}, {"word":"president", "count":20}], "t2":[{"word":"hi", "count":5}], "t3" : {"word":"hiiiiiii", "count":15}};      
 
                         //alert('id is:' + id);
-                        alert(topic_json[id]);  
+                        //alert(topic_json[id]);  
 
                         word_data = topic_json[id];
                         //alert("word_data is: " + word_data);      
