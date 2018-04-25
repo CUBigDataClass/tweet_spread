@@ -48,8 +48,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">               
 
     
-	<script type="text/javascript">
-        alert("correct my son");
+	<script type="text/javascript">        
 
 
     $(document).ready(function() {
@@ -215,10 +214,13 @@
     <br><br><br><br><br>
         <div class="container">
             <div class="row">
+                <div id="cloud"></div>
                 <script src="{% static 'homepage/js/d3.layout.cloud.js' %}" type="text/javascript"></script>
                 <script type="text/javascript">
 
                     function get_data(element) {
+                        alert("in get_data: " + element);
+                        alert("id is: " + element.id);
                         document.getElementById("cloud").innerHTML = "";
                         var id = element.id;            
                         var skillsToDraw = []
@@ -323,8 +325,7 @@
                                     </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="cloud"></div>
+                    </div>                    
                     <br><br><br><br><br>
                 </div>
             </div>
