@@ -14,6 +14,10 @@ import org.apache.storm.spout.SchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
 import static org.apache.storm.cassandra.DynamicStatementBuilder.*;
 import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
+import org.apache.storm.cassandra.query.CQLStatementTupleMapper;
+//import org.apache.storm.cassandra.trident.state.CassandraMapStateFactory;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.cassandra.CassandraContext;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -62,17 +66,33 @@ public class StormCassandraTopology {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         Config conf = new Config();
         conf.setDebug(true);
-
         // Copy properties to storm config
         for (String name : props.stringPropertyNames()) {
             conf.put(name, props.getProperty(name));
         }
-
         conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
         conf.setDebug(false);
+
+//        CQLStatementTupleMapper get = simpleQuery("SELECT state FROM words_ks.words_table WHERE word = ?")
+//                .with(fields("word"))
+//                .build();
+//
+//        CQLStatementTupleMapper put = simpleQuery("INSERT INTO words_ks.words_table (word, state) VALUES (?, ?)")
+//                .with(fields("word", "state"))
+//                .build();
+//
+//        CassandraBackingMap.Options<Integer> mapStateOptions = new CassandraBackingMap.Options<Integer>(new CassandraContext())
+//                .withBatching(BatchStatement.Type.UNLOGGED)
+//                .withKeys(new Fields("word"))
+//                .withNonTransactionalJSONBinaryState("state")
+//                .withMultiGetCQLStatementMapper(get)
+//                .withMultiPutCQLStatementMapper(put);
+//
+//        CassandraMapStateFactory factory = CassandraMapStateFactory.nonTransactional(mapStateOptions)
+//                .withCache(0);
+
         String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
                 simpleQuery(cql).with(fields("tweet", "sentiment"))));
