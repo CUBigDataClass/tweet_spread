@@ -31,10 +31,10 @@
         .attr('d',path)
         .style({'fill':'#E5DBD2','stroke':'#fff','stroke-width':.6})
       
-        alert("my_json is:" + my_json);
+        //alert("my_json is:" + my_json);
 
         my_json = my_json.map(function(d){
-          alert("d.coords is: "+ d.coords);
+          //alert("d.coords is: "+ d.coords);
           return {coords:projection([+d.coords[0],+d.coords[1]]),frequency:d.frequency}
         })
 
