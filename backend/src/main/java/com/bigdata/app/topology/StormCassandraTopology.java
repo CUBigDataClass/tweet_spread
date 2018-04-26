@@ -8,16 +8,12 @@ import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.kafka.BrokerHosts;
 import org.apache.storm.kafka.KafkaSpout;
 import org.apache.storm.kafka.SpoutConfig;
-import org.apache.storm.kafka.StringScheme;
+import org.apache.storm.kafka.StringKeyValueScheme;
 import org.apache.storm.kafka.ZkHosts;
-import org.apache.storm.spout.SchemeAsMultiScheme;
+import org.apache.storm.kafka.KeyValueSchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
 import static org.apache.storm.cassandra.DynamicStatementBuilder.*;
 import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
-import org.apache.storm.cassandra.query.CQLStatementTupleMapper;
-//import org.apache.storm.cassandra.trident.state.CassandraMapStateFactory;
-import org.apache.storm.tuple.Fields;
-import org.apache.storm.cassandra.CassandraContext;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -40,13 +36,14 @@ public class StormCassandraTopology {
                 "id");
 
         // Specify that the kafka messages are String
-        kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+        kafkaConfig.scheme = new KeyValueSchemeAsMultiScheme(new StringKeyValueScheme());
 
         // We want to consume all the first messages in the topic every time
         // we run the topology to help in debugging. In production, this
         // property should be false
         kafkaConfig.startOffsetTime = kafka.api.OffsetRequest
                 .EarliestTime();
+
 
         // Create storm topology
         TopologyBuilder builder = new TopologyBuilder();
