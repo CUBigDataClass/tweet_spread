@@ -74,11 +74,11 @@ public final class SentimentBolt extends BaseRichBolt {
             String text = (String) input.getValueByField("text");
             int sentiment = getSentimentOfTweet(text);
             if (sentiment > 0) {
-                collector.emit(new Values(1, 0, 0, hashtag));
+                collector.emit(new Values(1L, 0L, 0L, hashtag));
             } else if (sentiment < 0) {
-                collector.emit(new Values(0, 1, 0, hashtag));
+                collector.emit(new Values(0L, 1L, 0L, hashtag));
             } else {
-                collector.emit(new Values(0, 0, 1, hashtag));
+                collector.emit(new Values(0L, 0L, 1L, hashtag));
             }
             this.collector.ack(input);
         } catch (Exception exception) {
