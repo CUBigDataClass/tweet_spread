@@ -8,16 +8,12 @@ import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.kafka.BrokerHosts;
 import org.apache.storm.kafka.KafkaSpout;
 import org.apache.storm.kafka.SpoutConfig;
-import org.apache.storm.kafka.StringScheme;
+import org.apache.storm.kafka.StringKeyValueScheme;
 import org.apache.storm.kafka.ZkHosts;
-import org.apache.storm.spout.SchemeAsMultiScheme;
+import org.apache.storm.kafka.KeyValueSchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
 import static org.apache.storm.cassandra.DynamicStatementBuilder.*;
 import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
-import org.apache.storm.cassandra.query.CQLStatementTupleMapper;
-//import org.apache.storm.cassandra.trident.state.CassandraMapStateFactory;
-import org.apache.storm.tuple.Fields;
-import org.apache.storm.cassandra.CassandraContext;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -40,13 +36,14 @@ public class StormCassandraTopology {
                 "id");
 
         // Specify that the kafka messages are String
-        kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+        kafkaConfig.scheme = new KeyValueSchemeAsMultiScheme(new StringKeyValueScheme());
 
         // We want to consume all the first messages in the topic every time
         // we run the topology to help in debugging. In production, this
         // property should be false
         kafkaConfig.startOffsetTime = kafka.api.OffsetRequest
                 .EarliestTime();
+
 
         // Create storm topology
         TopologyBuilder builder = new TopologyBuilder();
@@ -93,15 +90,19 @@ public class StormCassandraTopology {
 //        CassandraMapStateFactory factory = CassandraMapStateFactory.nonTransactional(mapStateOptions)
 //                .withCache(0);
 
-        String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
+//        String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
+
+        // order of the outputs from previous bolt should be positive_sentiments, negative_sentiments,
+        // neutral_sentiments, hashtag
+        String query = "update sentiments set positive_sentiments = positive_sentiments + ?, negative_sentiments = negative_sentiments + ?, neutral_sentiments = neutral_sentiments + ? where hashtag = ?;";
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
-                simpleQuery(cql).with(fields("tweet", "sentiment"))));
+                simpleQuery(query).with(fields("positive_sentiments", "negative_sentiments", "neutral_sentiments", "hashtag"))));
 
         // Create JSON parser bolt
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
         // Create sentiment analysis bolt
-        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json", "stream2");
+        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json");
 
         // Create Cassandra writer bolt
         builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
