@@ -64,8 +64,8 @@ public final class SentimentBolt extends BaseRichBolt {
 
     public final void declareOutputFields(
             final OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("hashtag", "negative_sentiment",
-                "neutral_sentiment", "positive_sentiment"));
+        outputFieldsDeclarer.declare(new Fields("hashtag", "negative_sentiments",
+                "neutral_sentiments", "positive_sentiments"));
     }
 
     public final void execute(final Tuple input) {
