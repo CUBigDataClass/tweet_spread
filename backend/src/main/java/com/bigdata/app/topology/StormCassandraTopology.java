@@ -90,9 +90,16 @@ public class StormCassandraTopology {
 //        CassandraMapStateFactory factory = CassandraMapStateFactory.nonTransactional(mapStateOptions)
 //                .withCache(0);
 
-        String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
+//        String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
+
+        // order of the outputs from previous bolt should be positive_sentiments, negative_sentiments,
+        // neutral_sentiments, hashtag
+        String query = "update tweetanalysis.sentiments set positive_sentiments = positive_sentiments + ?, "+
+                "negative_sentiments = negative_sentiments + ?, neutral_sentiments = neutral_sentiments + ? "+
+                "where hashtag = '?';"
+                ;
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
-                simpleQuery(cql).with(fields("tweet", "sentiment"))));
+                simpleQuery(cql).with(fields("positive_sentiments", "negative_sentiments", "neutral_sentiments", "hashtag"))));
 
         // Create JSON parser bolt
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
