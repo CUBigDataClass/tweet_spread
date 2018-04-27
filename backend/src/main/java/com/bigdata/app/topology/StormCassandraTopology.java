@@ -92,13 +92,13 @@ public class StormCassandraTopology {
 
         String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
-                simpleQuery(cql).with(fields("tweet", "sentiment"))));
+                simpleQuery(cql).with(fields("hashtag", "negative_sentiment", "neutral_sentiment", "positive_sentiment"))));
 
         // Create JSON parser bolt
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
         // Create sentiment analysis bolt
-        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json", "stream2");
+        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json");
 
         // Create Cassandra writer bolt
         builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
