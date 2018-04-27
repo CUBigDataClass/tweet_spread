@@ -64,14 +64,22 @@ public final class SentimentBolt extends BaseRichBolt {
 
     public final void declareOutputFields(
             final OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("tweet", "sentiment"));
+        outputFieldsDeclarer.declare(new Fields("hashtag", "negative_sentiment",
+                "neutral_sentiment", "positive_sentiment"));
     }
 
     public final void execute(final Tuple input) {
         try {
-            final String tweet = (String) input.getValueByField("text");
-            final int sentimentCurrentTweet = getSentimentOfTweet(tweet);
-            collector.emit(new Values(tweet, sentimentCurrentTweet));
+            String hashtag = (String) input.getValueByField("hashtag");
+            String text = (String) input.getValueByField("text");
+            int sentiment = getSentimentOfTweet(text);
+            if (sentiment > 0) {
+                collector.emit(new Values(hashtag, 0, 0, 1));
+            } else if (sentiment < 0) {
+                collector.emit(new Values(hashtag, 1, 0, 0));
+            } else {
+                collector.emit(new Values(hashtag, 0, 1, 0));
+            }
             this.collector.ack(input);
         } catch (Exception exception) {
             exception.printStackTrace();
