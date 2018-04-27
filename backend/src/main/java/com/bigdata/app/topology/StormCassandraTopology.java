@@ -94,10 +94,7 @@ public class StormCassandraTopology {
 
         // order of the outputs from previous bolt should be positive_sentiments, negative_sentiments,
         // neutral_sentiments, hashtag
-        String query = "update tweetanalysis.sentiments set positive_sentiments = positive_sentiments + ?, "+
-                "negative_sentiments = negative_sentiments + ?, neutral_sentiments = neutral_sentiments + ? "+
-                "where hashtag = ?;"
-                ;
+        String query = "update sentiments set positive_sentiments = positive_sentiments + ?, negative_sentiments = negative_sentiments + ?, neutral_sentiments = neutral_sentiments + ? where hashtag = ?;";
         CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
                 simpleQuery(query).with(fields("positive_sentiments", "negative_sentiments", "neutral_sentiments", "hashtag"))));
 
