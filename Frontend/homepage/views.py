@@ -15,24 +15,25 @@ def index(request):
 	my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
 	#my_json  = {"test":123};
 	#js_data = json.dumps(my_json)		
-	return render(request, 'homepage/header.html', {'my_json': my_json});
+	return render(request, 'homepage/header.html', {'my_json': my_json})
 
 
 def home(request):
 	if request.method == 'GET':
 		query = request.GET['search']
 		if query:
-			try:
-				time.sleep(5)
-				sentiment = process_search.get_sentiment(query)
-				mode = "Fetched from cassandra"
-			except:
-				process_search.connect_kafka(query)
-				time.sleep(5)
-				sentiment = process_search.get_sentiment(query)
-				mode = "Fetched from kafka"
-			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
-
-
+			# try:
+			# 	time.sleep(5)
+			sentiment = process_search.get_sentiment(query)
+			mode = "Fetched from cassandra"
+			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode
+			# except:
+			# 	process_search.connect_kafka(query)
+			# 	time.sleep(5)
+			# 	sentiment = process_search.get_sentiment(query)
+			# 	mode = "Fetched from kafka"
+			# return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
+			#
+			#
 
 
