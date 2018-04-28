@@ -33,7 +33,7 @@ function plot_milestones() {
         },
         data: [{        
             type: "line",       
-            dataPoints: [
+            /*dataPoints: [
                 { x: new Date(2017, 0, 3), y: 450 },
                 { x: new Date(2017, 0, 4), y: 414},
                 { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
@@ -46,9 +46,8 @@ function plot_milestones() {
                 { x: new Date(2017, 0, 12), y: 500 },
                 { x: new Date(2017, 0, 13), y: 480 },
                 { x: new Date(2017, 1, 14), y: 510 }
-            ] 
-            alert("datapoints : " + dataPoints);
-            //dataPoints: dp;
+            ]*/             
+            dataPoints: dp
         }]
     });
     chart.render();
