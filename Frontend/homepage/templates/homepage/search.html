@@ -55,6 +55,7 @@
     });
 
 	function plot_pi_chart(my_json) {
+	alert("iaminplotpichart")
 	my_json = JSON.parse(my_json);
 	var pie = new d3pie("pieChart", {
 	  "header": {
@@ -216,7 +217,6 @@
 					<script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
 					<script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
 					<script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
-					<script type="text/javascript" src= "{% static 'homepage/charts/pichart.js' %}"></script>
 					<script>
 						var sent =  {{ sentiment  | safe }}
 						var stringify_sentiment = JSON.stringify(sent)
