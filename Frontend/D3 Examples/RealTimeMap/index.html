@@ -43,7 +43,7 @@
     <script src="world_countries.js" charset="utf-8"></script>
 
     <script type="text/javascript">
-        function plot_things(test_plots) {                       
+        function get_map(test_plots) {                       
             var getElemID = function(elem) {                
                 return $(elem.node).attr("data-id");
             };
@@ -60,6 +60,35 @@
                 plots: test_plots
             });
         };
+
+        var updateMap = function(new_plots) {
+            //alert("in updatemap");
+            var getElemID = function(elem) {                
+                return $(elem.node).attr("data-id");
+            };
+          $(".mapcontainer_equi").mapael({
+              map: {
+                  name: "world_countries",
+                  defaultArea: {
+                      tooltip: {
+                          content: getElemID
+                      }
+                  }
+              },
+              plots: new_plots
+          }); 
+           
+        };
+        var new_plots = {
+          "new delhi": {
+                latitude: 28.6139,
+                longitude: 77.2090,
+                tooltip: {
+                    content: "New Delhi"
+                }
+            }  
+        }
+        setInterval(function(){updateMap(new_plots)}, 2000);
     </script>
 
 </head>
@@ -163,7 +192,7 @@
                 }
             }
         };
-        plot_things(test_plots);
+        get_map(test_plots);
 
     </script>
 
