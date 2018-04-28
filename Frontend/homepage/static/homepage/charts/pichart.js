@@ -1,5 +1,7 @@
 
 function plot_pi_chart(my_json) {
+alert(my_json);
+alert(my_json['pos']);
 var pie = new d3pie("pieChart", {
   "header": {
     /*"title": {
