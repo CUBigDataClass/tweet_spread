@@ -31,6 +31,10 @@ public class JSONParsingBolt extends BaseRichBolt implements Serializable {
             collector.emit(new Values(key, map.get("text"), map.get("lang"),
                     map.get("geo_enabled"), map.get("geo")));
             this.collector.ack(input);
+            System.out.println("[bigdata] hashtag: " + key);
+            System.out.println("[bigdata] test: " + map.get("text"));
+            System.out.println("[bigdata] lang: " + map.get("lang"));
+            System.out.println("[bigdata] geo: " + map.get("geto"));
         } catch (Exception exception) {
             exception.printStackTrace();
             this.collector.fail(input);
