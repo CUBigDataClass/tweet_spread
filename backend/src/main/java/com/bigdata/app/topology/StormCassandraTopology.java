@@ -41,9 +41,7 @@ public class StormCassandraTopology {
         // We want to consume all the first messages in the topic every time
         // we run the topology to help in debugging. In production, this
         // property should be false
-        kafkaConfig.startOffsetTime = kafka.api.OffsetRequest
-                .EarliestTime();
-
+        kafkaConfig.startOffsetTime = kafka.api.OffsetRequest.LatestTime();
 
         // Create storm topology
         TopologyBuilder builder = new TopologyBuilder();
