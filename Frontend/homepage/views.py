@@ -32,7 +32,7 @@ def home(request):
 		# 		return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 		# except:
 		# 	raise
-	return render(request, 'homepage/search.html')
+	return render(request, 'homepage/header.html')
 
 
 
