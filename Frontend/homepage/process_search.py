@@ -26,9 +26,10 @@ def get_sentiment(topic):
 	result = session.execute("select * from tweetanalysis.sentiments where hashtag='english'")
 	cluster.shutdown()
 	final_res = []
-	final_res.append(result['negative_sentiments'])
-	final_res.append(result['neutral_sentiments'])
-	final_res.append(result['positive_sentiments'])
+	for elem in result:
+		final_res.append(elem)
+	final = []
+	final.append(final_res[0])
 	return final_res
 
 
