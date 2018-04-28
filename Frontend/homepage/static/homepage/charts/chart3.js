@@ -4,7 +4,11 @@ function convert_milestone_to_datapoints(milestone_json) {
 
     for(var i=0; i< milestone_json.length; i++){
         var each_json = milestone_json[i];
-        alert(each_json);        
+        alert(each_json);  
+        for(var key in each_json){
+            alert("key: "+key);
+            alert("value: "+ each_json[key]);
+        }      
         //datapoints.push( {x: new Date(each_json.year., each_json.month., each_json.day), each_json.count} );
     }
     /*var datapoints =  [
