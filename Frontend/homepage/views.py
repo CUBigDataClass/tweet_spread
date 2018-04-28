@@ -2,7 +2,7 @@ from django.shortcuts import render
 from . import process_search
 import json
 import time
-from urllib3.exceptions import NewConnectionError,
+from urllib3.exceptions import NewConnectionError
 
 def topic_model(request):
 	# amruta : Todo .. pass this to the front end.
