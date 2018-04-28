@@ -23,7 +23,7 @@ def connect_kafka(topic):
 def get_sentiment(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	result = session.execute("select english from tweetanalysis.sentiments;")
+	result = session.execute("select hashtag from tweetanalysis.sentiments where hashtag=english;")
 	cluster.shutdown()
 	final_res = []
 	for elem in result:
