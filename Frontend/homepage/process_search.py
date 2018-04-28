@@ -30,7 +30,7 @@ def get_sentiment(topic):
 		final_res.append(elem)
 	final = []
 	final.append(final_res[0])
-	return final_res
+	return final
 
 
 
