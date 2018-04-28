@@ -27,14 +27,13 @@ def get_sentiment(topic):
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = []
-	try:
-		if result:
-			for elem in result:
-				final_res.append(elem)
-			my_json = [{"pos": final_res[0][1], "neg": final_res[0][2], "neu": final_res[0][3]}]
-			return my_json
-	except IndexError:
-		raise
+	if result:
+		for elem in result:
+			final_res.append(elem)
+		my_json = [{"pos": final_res[0][1], "neg": final_res[0][2], "neu": final_res[0][3]}]
+		return my_json
+	else:
+		return None
 
 
 # def get_top_tweets(search_string):
