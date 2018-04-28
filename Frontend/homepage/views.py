@@ -18,9 +18,9 @@ def index(request):
 
 
 def home(request):
-	if request.method == 'GET':
-		# try:
-		query = request.GET['search']
+	# if request.method == 'GET':
+	# 	# try:
+	# 	query = request.GET['search']
 		# 	if query:
 		# 		try:
 		# 			sentiment = process_search.get_sentiment(query)
