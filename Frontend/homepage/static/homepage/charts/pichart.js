@@ -1,5 +1,5 @@
 	function plot_pi_chart(my_json) {
-	alert("iaminplotpichart")
+	alert("iaminplotpichart");
 	my_json = JSON.parse(my_json);
 	var pie = new d3pie("pieChart", {
 	  "header": {
