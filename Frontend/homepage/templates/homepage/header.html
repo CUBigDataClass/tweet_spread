@@ -241,9 +241,9 @@
                                 chart.render();
                                 var updateCount = 0;
                                 var sentiments = ["POS", "NEG", "NEU"];
-
+                            }
                                 var updateChart = function () {
-                                datapoints = []
+                                    var datapoints = []
                                 
                                 updateCount++;
                                 for(var i=0; i<3; i++){
@@ -251,7 +251,7 @@
                                     xVal = i;
                                     datapoints.push({y:yVal, x: sentiments[xVal]});
                                 }
-                                console.log(datapoints);        
+                                //console.log(datapoints);        
                                 
 
                                 chart = new CanvasJS.Chart("pieChart", {
@@ -268,7 +268,7 @@
                             };
                             // update chart every second
                             setInterval(function(){updateChart()}, 2000);
-                            }
+                            
                         
 
                     </script>
