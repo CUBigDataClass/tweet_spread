@@ -2,7 +2,7 @@ from django.shortcuts import render
 from . import process_search
 import json
 import time
-
+from urllib3.exceptions import NewConnectionError,
 
 def topic_model(request):
 	# amruta : Todo .. pass this to the front end.
@@ -20,20 +20,22 @@ def index(request):
 
 def home(request):
 	if request.method == 'GET':
-		query = request.GET['search']
-		if query:
-			# try:
-			# 	time.sleep(5)
-			sentiment = process_search.get_sentiment(query)
-			mode = "Fetched from cassandra"
-			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode
-			# except:
-			# 	process_search.connect_kafka(query)
-			# 	time.sleep(5)
-			# 	sentiment = process_search.get_sentiment(query)
-			# 	mode = "Fetched from kafka"
-			# return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
-			#
-			#
+		try:
+			query = request.GET['search']
+			if query:
+				try:
+					time.sleep(5)
+					sentiment = process_search.get_sentiment(query)
+					mode = "Fetched from cassandra"
+				except:
+					process_search.connect_kafka(query)
+					time.sleep(5)
+					sentiment = process_search.get_sentiment(query)
+					mode = "Fetched from kafka"
+				return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
+
+		except NewConnectionError:
+			raise
+
 
 
