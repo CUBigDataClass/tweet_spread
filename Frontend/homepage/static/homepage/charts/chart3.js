@@ -18,8 +18,8 @@ function convert_milestone_to_datapoints(milestone_json) {
 }
 
 function plot_milestones() {
-    milestone_json = {[{year:2017, month:0, day:3, count:450}]}
-    var datapoints = convert_milestone_to_datapoints(milestone_json)
+    milestone_json = [{year:2017, month:0, day:3, count:450}];
+    var datapoints = convert_milestone_to_datapoints(milestone_json);
 
     var chart = new CanvasJS.Chart("chart2", {
         animationEnabled: true,
