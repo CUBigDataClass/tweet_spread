@@ -26,10 +26,10 @@ function plot_milestones() {
         theme: "light2",
         /*title:{
             text: "MileStones"
-        },
+        },*/
         axisY:{
             includeZero: false
-        },
+        }/*,
         data: [{        
             type: "line",       
             dataPoints: [
