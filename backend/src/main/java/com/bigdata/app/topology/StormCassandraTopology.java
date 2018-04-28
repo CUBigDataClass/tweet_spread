@@ -17,6 +17,7 @@ import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
+import com.bigdata.app.bolt.GeoParsingBolt;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,40 +73,38 @@ public class StormCassandraTopology {
         conf.setMaxTaskParallelism(Runtime.getRuntime().availableProcessors());
         conf.setDebug(false);
 
-//        CQLStatementTupleMapper get = simpleQuery("SELECT state FROM words_ks.words_table WHERE word = ?")
-//                .with(fields("word"))
-//                .build();
-//
-//        CQLStatementTupleMapper put = simpleQuery("INSERT INTO words_ks.words_table (word, state) VALUES (?, ?)")
-//                .with(fields("word", "state"))
-//                .build();
-//
-//        CassandraBackingMap.Options<Integer> mapStateOptions = new CassandraBackingMap.Options<Integer>(new CassandraContext())
-//                .withBatching(BatchStatement.Type.UNLOGGED)
-//                .withKeys(new Fields("word"))
-//                .withNonTransactionalJSONBinaryState("state")
-//                .withMultiGetCQLStatementMapper(get)
-//                .withMultiPutCQLStatementMapper(put);
-//
-//        CassandraMapStateFactory factory = CassandraMapStateFactory.nonTransactional(mapStateOptions)
-//                .withCache(0);
-
-//        String cql = "INSERT INTO tweetSentiments (tweet, sentiment) values(?, ?);";
-
-        // order of the outputs from previous bolt should be positive_sentiments, negative_sentiments,
-        // neutral_sentiments, hashtag
-        String query = "update sentiments set positive_sentiments = positive_sentiments + ?, negative_sentiments = negative_sentiments + ?, neutral_sentiments = neutral_sentiments + ? where hashtag = ?;";
-        CassandraWriterBolt cassandraBolt = new CassandraWriterBolt(async(
-                simpleQuery(query).with(fields("positive_sentiments", "negative_sentiments", "neutral_sentiments", "hashtag"))));
+        /**
+         * LEVEL 1
+         **/
 
         // Create JSON parser bolt
         builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
 
+        /**
+         * LEVEL 2
+         **/
         // Create sentiment analysis bolt
         builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json");
 
+        // Create geo parsing bolt
+        builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
+
+        /**
+         * LEVEL 3
+         **/
         // Create Cassandra writer bolt
-        builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
+        // order of the outputs from previous bolt should be positive_sentiments, negative_sentiments,
+        // neutral_sentiments, hashtag
+        String query = "update sentiments set positive_sentiments = positive_sentiments + ?, negative_sentiments = negative_sentiments + ?, neutral_sentiments = neutral_sentiments + ? where hashtag = ?;";
+        CassandraWriterBolt cassandraSentimentBolt = new CassandraWriterBolt(async(
+                simpleQuery(query).with(fields("positive_sentiments", "negative_sentiments", "neutral_sentiments", "hashtag"))));
+        builder.setBolt("cassandraSentimentBolt", cassandraSentimentBolt, 3).shuffleGrouping("sentiment");
+
+        // create cassandra bolt for geo parsing
+        String query1 = "update geoparsing set loc =  loc + [{lon:'?', lat:'?'}] where hashtag = ?;";
+        CassandraWriterBolt cassandraGeoParsingBolt = new CassandraWriterBolt(async(
+                simpleQuery(query1).with(fields("longitude", "latitude", "hashtag"))));
+        builder.setBolt("cassandraGeoParsingBolt", cassandraGeoParsingBolt, 3).shuffleGrouping("geoparsing");
 
         // Submit topology for execution
         try {
