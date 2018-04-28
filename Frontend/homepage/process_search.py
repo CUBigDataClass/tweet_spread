@@ -14,38 +14,37 @@ t = Twitter(
 
 
 def connect_kafka(topic):
-    url = 'http://ec2-54-218-84-101.us-west-2.compute.amazonaws.com:5000/' + topic
-    print(url)
-    r = get(url).json()
-    return r
+	url = 'http://ec2-54-218-84-101.us-west-2.compute.amazonaws.com:5000/' + topic
+	print(url)
+	r = get(url).json()
+	return r
 
 
 def get_sentiment():
-    cluster = Cluster(['54.245.62.87'])
-    session = cluster.connect()
-    result = session.execute("SELECT tweet, sentiment from tweetanalysis.tweet_sentiments;")
-    cluster.shutdown()
-    final_res = []
-    for elem in result:
-        final_res.append(elem)
-    return final_res
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	result = session.execute("select * from tweetanalysis.sentiments;")
+	cluster.shutdown()
+	final_res = []
+	for elem in result:
+		final_res.append(elem)
+	return final_res
 
 
-def get_top_tweets(search_string):
-	tweets_file = t.search.tweets(q=search_string, result_type='recent', lang='en', count=10)
-	print(tweets_file)
-	print(type(t))
-	status = tweets_file['statuses']
-	top_tweets = []
-	for tweet in status:
-		tweet_id = tweet['id']
-		top_tweets.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
-	return top_tweets
+
+# def get_top_tweets(search_string):
+# 	tweets_file = t.search.tweets(q=search_string, result_type='recent', lang='en', count=10)
+# 	print(tweets_file)
+# 	print(type(t))
+# 	status = tweets_file['statuses']
+# 	top_tweets = []
+# 	for tweet in status:
+# 		tweet_id = tweet['id']
+# 		top_tweets.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+# 	return top_tweets
 
 
-def accept_input_for_processing(search_string):
-	top_tweets = get_top_tweets(search_string)
-	return top_tweets
+
 
 
 get_top_tweets('#nlproc')
