@@ -1,5 +1,6 @@
 function convert_milestone_to_datapoints(milestone_json) {
-    var datapoints =  [
+    
+    var datapoints =  {[
         { x: new Date(2017, 0, 3), y: 450 },
         { x: new Date(2017, 0, 4), y: 414},
         { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
@@ -12,9 +13,10 @@ function convert_milestone_to_datapoints(milestone_json) {
         { x: new Date(2017, 0, 12), y: 500 },
         { x: new Date(2017, 0, 13), y: 480 },
         { x: new Date(2017, 1, 14), y: 510 }
-    ];
+    ]};
     return datapoints;
 }
+
 function plot_milestones() {
     milestone_json = {[{year:2017, month:0, day:3, count:450}]}
     var datapoints = convert_milestone_to_datapoints(milestone_json)
