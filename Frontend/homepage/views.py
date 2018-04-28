@@ -29,7 +29,8 @@ def home(request):
 				sentiment = process_search.get_sentiment(query)
 				mode = "Fetched from kafka"
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
-	return render(request, 'homepage/search.html')
+	mode = "get request failed"
+	return render(request, 'homepage/search.html', {'mode': mode})
 
 
 
