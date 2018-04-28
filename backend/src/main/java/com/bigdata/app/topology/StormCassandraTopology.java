@@ -99,10 +99,10 @@ public class StormCassandraTopology {
                 simpleQuery(query).with(fields("positive_sentiments", "negative_sentiments", "neutral_sentiments", "hashtag"))));
 
         // Create JSON parser bolt
-        builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
+        builder.setBolt("json", new JSONParsingBolt(), 3).shuffleGrouping("KafkaSpout");
 
         // Create sentiment analysis bolt
-        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json");
+        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt"), 3).shuffleGrouping("json");
 
         // Create Cassandra writer bolt
         builder.setBolt("cassandra-bolt", cassandraBolt, 3).shuffleGrouping("sentiment");
