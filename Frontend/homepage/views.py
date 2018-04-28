@@ -18,20 +18,17 @@ def index(request):
 
 
 def home(request):
-	# if request.method == 'GET':
-	# 	# try:
-	# 	query = request.GET['search']
-		# 	if query:
-		# 		try:
-		# 			sentiment = process_search.get_sentiment(query)
-		# 			mode = "Fetched from cassandra"
-		# 		except:
-		# 			#process_search.connect_kafka(query)
-		# 			sentiment = process_search.get_sentiment(query)
-		# 			mode = "Fetched from kafka"
-		# 		return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
-		# except:
-		# 	raise
+	if request.method == 'GET':
+		query = request.GET['search']
+		if query:
+			try:
+				sentiment = process_search.get_sentiment(query)
+				mode = "Fetched from cassandra"
+			except:
+				#process_search.connect_kafka(query)
+				sentiment = process_search.get_sentiment(query)
+				mode = "Fetched from kafka"
+			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 	return render(request, 'homepage/search.html')
 
 
