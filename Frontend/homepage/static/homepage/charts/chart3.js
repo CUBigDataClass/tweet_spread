@@ -1,5 +1,9 @@
 function convert_milestone_to_datapoints(milestone_json) {
-    alert("in convert milestone");
+    //alert("in convert milestone");
+    for(var i=0; i< milestone_json.length; i++){
+        var each_json = milestone_json[i];
+        alert(each_json);
+    }
     var datapoints =  [
         { x: new Date(2017, 0, 3), y: 450 },
         { x: new Date(2017, 0, 4), y: 414},
@@ -18,7 +22,7 @@ function convert_milestone_to_datapoints(milestone_json) {
 }
 
 function plot_milestones() {
-    milestone_json = [{year:2017, month:0, day:3, count:450}];
+    milestone_json = [{year:2017, month:0, day:3, count:450}, {year:2018, month:1, day:2, count:350}];
     var dp = convert_milestone_to_datapoints(milestone_json);
     alert(dp);
 
