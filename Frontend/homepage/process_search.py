@@ -21,13 +21,13 @@ def connect_kafka(topic):
 
 
 def get_sentiment(topic):
-	# cluster = Cluster(['54.245.62.87'])
-	# session = cluster.connect()
-	# result = session.execute("select " + topic + " from tweetanalysis.sentiments;")
-	# cluster.shutdown()
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	result = session.execute("select " + topic + " from tweetanalysis.sentiments;")
+	cluster.shutdown()
 	final_res = []
-	# for elem in result:
-	# 	final_res.append(elem)
+	for elem in result:
+		final_res.append(elem)
 	return final_res
 
 
