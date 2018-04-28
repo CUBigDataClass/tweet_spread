@@ -1,4 +1,4 @@
-	function plot_pi_chart(my_json) {
+function plot_pi_chart(my_json) {
 	alert("iaminplotpichart")
 	my_json = JSON.parse(my_json);
 	var pie = new d3pie("pieChart", {
@@ -84,5 +84,5 @@
 		  "percentage": 100
 		}
 	  }
-	});
-	};
+	})
+}
