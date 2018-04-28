@@ -30,7 +30,7 @@ def get_sentiment(topic):
 	if result:
 		for elem in result:
 			final_res.append(elem)
-		my_json = [{"pos": final_res[0][1], "neg": final_res[0][2], "neu": final_res[0][3]}]
+		my_json = [{"pos": final_res[0][3], "neg": final_res[0][2], "neu": final_res[0][1]}]
 		return my_json
 	else:
 		return None
