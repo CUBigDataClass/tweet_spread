@@ -48,7 +48,17 @@
 
 	<script type="text/javascript">
 
-	setTimeout(function(){ alert("Hello"); }, 3000);
+	$(document).ready(function() {
+	  setInterval(function() {
+		cache_clear()
+	  }, 3000);
+	});
+
+	function cache_clear() {
+	  window.location.reload(true);
+	  alert("Page is refreshed");
+	  // window.location.reload(); use this if you do not remove cache
+	}
 
     $(document).ready(function() {
         // the body of this function is in assets/js/now-ui-kit.js
