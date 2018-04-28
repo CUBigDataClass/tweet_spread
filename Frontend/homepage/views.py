@@ -24,7 +24,7 @@ def home(request):
 			try:
 				mode = "Fetched from cassandra"
 				sentiment = process_search.get_sentiment(query)
-			except:
+			except IndexError:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
 				sentiment = process_search.get_sentiment(query)
