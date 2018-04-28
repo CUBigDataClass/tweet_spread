@@ -22,7 +22,7 @@ def home(request):
 		query = request.GET['search']
 		if query:
 			process_search.connect_kafka(query)
-			sentiment = process_search.get_sentiment()
+			sentiment = process_search.get_sentiment(query)
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment})
 
 
