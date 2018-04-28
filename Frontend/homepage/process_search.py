@@ -47,4 +47,3 @@ def get_sentiment():
 
 
 
-get_top_tweets('#nlproc')
