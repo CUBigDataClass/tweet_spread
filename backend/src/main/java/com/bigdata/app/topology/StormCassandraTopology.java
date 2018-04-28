@@ -32,7 +32,7 @@ public class StormCassandraTopology {
         // Second argument is the topic name
         // Third argument is the zookeeper root for Kafka
         // Fourth argument is consumer group id
-        SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "twitterData", "",
+        SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "tweet", "",
                 "id");
 
         // Specify that the kafka messages are String
