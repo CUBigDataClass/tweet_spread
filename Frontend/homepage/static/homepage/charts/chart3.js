@@ -10,7 +10,7 @@ function convert_milestone_to_datapoints(milestone_json) {
         alert(each_json["month"])
         alert(each_json["day"])
         alert(each_json["count"])     
-        datapoints.push( {x: new Date(each_json["year"], each_json["month"], each_json["day"]), each_json["count"]} );
+        datapoints.push( {x: new Date(each_json["year"], each_json["month"], each_json["day"]), y:each_json["count"]} );
     }
     /*var datapoints =  [
         { x: new Date(2017, 0, 3), y: 450 },
