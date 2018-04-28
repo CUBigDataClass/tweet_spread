@@ -29,15 +29,18 @@ class Producer(threading.Thread):
         destination = 'tweet'
         print("Run producer "+topic+", destination: "+destination)
         r = batch_search(topic, '0', {})
-        for i in r['results']:
-            producer.send(destination, key=topic.encode('ascii'), value=json.dumps(i))
-        # while not self.stop_event.is_set():
-        while 'next' in r:
-            n = r['next']
-            r = batch_search(topic, n, {})
+        if 'results' in r:
             for i in r['results']:
                 producer.send(destination, key=topic.encode('ascii'), value=json.dumps(i))
-
+        # while not self.stop_event.is_set():
+            while 'next' in r:
+                n = r['next']
+                r = batch_search(topic, n, {})
+                for i in r['results']:
+                    producer.send(destination, key=topic.encode('ascii'), value=json.dumps(i))
+        else:
+            for i in r:
+                print(r[i]) 
         producer.close()
 
 def produce(topic):

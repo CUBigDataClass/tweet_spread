@@ -33,7 +33,7 @@ public class StormCassandraTopology {
         // Second argument is the topic name
         // Third argument is the zookeeper root for Kafka
         // Fourth argument is consumer group id
-        SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "twitterData", "",
+        SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "tweet", "",
                 "id");
 
         // Specify that the kafka messages are String
@@ -42,9 +42,7 @@ public class StormCassandraTopology {
         // We want to consume all the first messages in the topic every time
         // we run the topology to help in debugging. In production, this
         // property should be false
-        kafkaConfig.startOffsetTime = kafka.api.OffsetRequest
-                .EarliestTime();
-
+        kafkaConfig.startOffsetTime = kafka.api.OffsetRequest.LatestTime();
 
         // Create storm topology
         TopologyBuilder builder = new TopologyBuilder();
@@ -78,13 +76,13 @@ public class StormCassandraTopology {
          **/
 
         // Create JSON parser bolt
-        builder.setBolt("json", new JSONParsingBolt()).shuffleGrouping("KafkaSpout");
+        builder.setBolt("json", new JSONParsingBolt(), 3).shuffleGrouping("KafkaSpout");
 
         /**
          * LEVEL 2
          **/
         // Create sentiment analysis bolt
-        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt")).shuffleGrouping("json");
+        builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt"), 3).shuffleGrouping("json");
 
         // Create geo parsing bolt
         builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
