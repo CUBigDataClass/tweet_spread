@@ -1,5 +1,5 @@
 
-
+function plot_pi_chart(my_json) {
 var pie = new d3pie("pieChart", {
   "header": {
     /*"title": {
@@ -30,17 +30,17 @@ var pie = new d3pie("pieChart", {
     "content": [
       {
         "label": "POS",
-        "value": 1,
+        "value": my_js["pos"],
         "color": "#2484c1"
       },
       {
         "label": "NEG",
-        "value": 2,
+        "value": my_js["neg"],
         "color": "#830909"
       },
       {
         "label": "NEU",
-        "value": 7,
+        "value": my_js["neu"],
         "color": "#4daa4b"
       }
     ]
@@ -84,3 +84,4 @@ var pie = new d3pie("pieChart", {
     }
   }
 });
+};

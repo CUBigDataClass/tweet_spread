@@ -28,11 +28,8 @@ def get_sentiment(topic):
 	final_res = []
 	for elem in result:
 		final_res.append(elem)
-	final = []
-	final.append(final_res[0][1])
-	final.append(final_res[0][2])
-	final.append(final_res[0][3])
-	return final
+	my_json = [{"pos": final_res[0][1] , "neg": final_res[0][2], "neu": final_res[0][3]}]
+	return my_json
 
 
 
