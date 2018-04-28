@@ -23,12 +23,13 @@ def connect_kafka(topic):
 def get_sentiment(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	result = session.execute("select * from tweetanalysis.sentiments where hashtag='english'")
+	query_string = "select * from tweetanalysis.sentiments where hashtag='"+topic+"'"
+	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = []
 	for elem in result:
 		final_res.append(elem)
-	my_json = [{"pos": final_res[0][1] , "neg": final_res[0][2], "neu": final_res[0][3]}]
+	my_json = [{"pos": final_res[0][1], "neg": final_res[0][2], "neu": final_res[0][3]}]
 	return my_json
 
 
