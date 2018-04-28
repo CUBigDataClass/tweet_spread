@@ -1,16 +1,33 @@
 function convert_milestone_to_datapoints(milestone_json) {
     //alert("in convert milestone");
     var datapoints = [];
+    min_index = -1
+    max_index = -1
+    min_value = 0
+    max_value = 0
+
+    for(var i=0; i< milestone_json.length; i++){
+        var curr_json = milestone_json[i];                             
+        
+        if(curr_json["count"] > max_value){
+            max_value = curr_json["count"];
+            max_index = i;
+        } else if(curr_json["count"] < min_value) {
+            min_value = curr_json["count"];
+            min_index = i;
+        }
+    }
+
 
     for(var i=0; i< milestone_json.length; i++){
         var each_json = milestone_json[i];
-        alert(each_json); 
-        temp = {}         
-        /*alert(each_json["year"])
-        alert(each_json["month"])
-        alert(each_json["day"])
-        alert(each_json["count"]) */    
-        datapoints.push( {x: new Date(each_json["year"], each_json["month"], each_json["day"]), y:each_json["count"]} );
+        if(i == max_index) {
+            datapoints.push( {x: new Date(each_json["year"], each_json["month"], each_json["day"]), y:each_json["count"], indexLabel:"highest", markerColor:"red", markerType: "triangle"} );
+        } else if(i == min_index) {
+           datapoints.push( {x: new Date(each_json["year"], each_json["month"], each_json["day"]), y:each_json["count"], indexLabel:"lowest", markerColor:"DarkSlateGrey", markerType: "cross"} ); 
+       }  else {
+            datapoints.push( {x: new Date(each_json["year"], each_json["month"], each_json["day"]), y:each_json["count"]} );
+        }                
     }
     /*var datapoints =  [
         { x: new Date(2017, 0, 3), y: 450 },
@@ -30,7 +47,7 @@ function convert_milestone_to_datapoints(milestone_json) {
 }
 
 function plot_milestones() {
-    milestone_json = [{year:2017, month:0, day:3, count:450}, {year:2018, month:1, day:2, count:350}];
+    milestone_json = [{year:2017, month:0, day:3, count:450}, {year:2018, month:1, day:2, count:250}, {year:2019, month:1, day:2, count:350}];
     var dp = convert_milestone_to_datapoints(milestone_json);
     alert(dp);
 
