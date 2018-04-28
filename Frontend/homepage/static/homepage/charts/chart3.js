@@ -1,10 +1,13 @@
 function convert_milestone_to_datapoints(milestone_json) {
     //alert("in convert milestone");
+    var datapoints = [];
+
     for(var i=0; i< milestone_json.length; i++){
         var each_json = milestone_json[i];
-        alert(each_json);
+        alert(each_json);        
+        datapoints.push( {x: new Date(each_json.year, each_json.month, each_json.day), each_json.count} );
     }
-    var datapoints =  [
+    /*var datapoints =  [
         { x: new Date(2017, 0, 3), y: 450 },
         { x: new Date(2017, 0, 4), y: 414},
         { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
@@ -17,7 +20,7 @@ function convert_milestone_to_datapoints(milestone_json) {
         { x: new Date(2017, 0, 12), y: 500 },
         { x: new Date(2017, 0, 13), y: 480 },
         { x: new Date(2017, 1, 14), y: 510 }
-    ]
+    ]*/
     return datapoints;
 }
 
