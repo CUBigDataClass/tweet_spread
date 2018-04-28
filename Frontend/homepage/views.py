@@ -26,7 +26,7 @@ def home(request):
 					sentiment = process_search.get_sentiment(query)
 					mode = "Fetched from cassandra"
 				except:
-					process_search.connect_kafka(query)
+					#process_search.connect_kafka(query)
 					sentiment = process_search.get_sentiment(query)
 					mode = "Fetched from kafka"
 				return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
