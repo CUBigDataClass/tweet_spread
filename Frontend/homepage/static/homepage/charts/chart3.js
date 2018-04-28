@@ -21,12 +21,12 @@ function plot_milestones() {
     milestone_json = [{"year":2017, "month":0, "day":3, "count":450}];
     var datapoints = convert_milestone_to_datapoints(milestone_json);
 
-    var chart = new CanvasJS.Chart("chart2", {
+    /*var chart = new CanvasJS.Chart("chart2", {
         animationEnabled: true,
         theme: "light2",
         /*title:{
             text: "MileStones"
-        },*/
+        },
         axisY:{
             includeZero: false
         },
@@ -45,9 +45,9 @@ function plot_milestones() {
                 { x: new Date(2017, 0, 12), y: 500 },
                 { x: new Date(2017, 0, 13), y: 480 },
                 { x: new Date(2017, 1, 14), y: 510 }
-            ]*/
+            ]
             dataPoints: datapoints;
         }]
     });
-    chart.render();
+    chart.render();*/
 }
