@@ -1,4 +1,4 @@
-convert_milestone_to_datapoints(milestone_json) {
+function convert_milestone_to_datapoints(milestone_json) {
     var datapoints =  [
         { x: new Date(2017, 0, 3), y: 450 },
         { x: new Date(2017, 0, 4), y: 414},
