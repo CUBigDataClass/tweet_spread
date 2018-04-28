@@ -56,8 +56,6 @@
 
 	function plot_pi_chart(my_json) {
 	my_json = JSON.parse(my_json);
-	alert(my_json[0]);
-	alert(my_json[0]["pos"]);
 	var pie = new d3pie("pieChart", {
 	  "header": {
 		/*"title": {
@@ -88,17 +86,17 @@
 		"content": [
 		  {
 			"label": "POS",
-			"value": my_js["pos"],
+			"value": my_json[0]["pos"],
 			"color": "#2484c1"
 		  },
 		  {
 			"label": "NEG",
-			"value": my_js["neg"],
+			"value": my_json[0]["neg"],
 			"color": "#830909"
 		  },
 		  {
 			"label": "NEU",
-			"value": my_js["neu"],
+			"value": my_json[0]["neu"],
 			"color": "#4daa4b"
 		  }
 		]
