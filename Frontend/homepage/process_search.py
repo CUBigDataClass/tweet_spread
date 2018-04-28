@@ -29,7 +29,7 @@ def get_sentiment(topic):
 	for elem in result:
 		final_res.append(elem)
 	final = []
-	final.append(final_res[0])
+	final.append(final_res[0][0])
 	return final
 
 
