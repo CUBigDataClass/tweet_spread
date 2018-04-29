@@ -265,7 +265,6 @@
                     	var sent =  {{ sentiment  | safe }};
 						//var stringify_sentiment = JSON.stringify(sent);
 						function getpiechart(datapoints){
-						alert(datapoints);
 						var chart = new CanvasJS.Chart("pieChart", {
 							//animationEnabled: true,
 							/*title: {
@@ -284,8 +283,6 @@
 						var updateCount = 0;
 						var sentiments = ["POS", "NEG", "NEU"];
 						var updateChart = function (datapoints) {
-						alert("iaminupdatechart")
-						alert(datapoints);
 						//updateCount++;
 						//for(var i=0; i<3; i++){
 						//	yVal = Math.round(5 + Math.random());
@@ -295,7 +292,6 @@
 						//console.log(datapoints);
 
 						var parsedJSON = JSON.parse(datapoints);
-						alert("parsed json: "+parsedJSON);
 						chart = new CanvasJS.Chart("pieChart", {
 							data: [{
 								type: "pie",
@@ -316,19 +312,14 @@
 							type: 'GET',
 							url: window.location.href,
 							 success: function(json) {
-								alert(json);
-								alert(typeof(json));
-								var myjs = {};
-								for (var i = 0, js; i < json.length; i++) {
-									myjs[ 'y' ] = json.y[i];
-									myjs[ 'label' ] = json.x[i];
-								}
-								updateChart(myjs);
+							 	var myjs = JSON.stringify(json);
+							 	var newjs = JSON.parse(myjs);
+								updateChart(newjs);
 							 }
 							});
 						}
 
-						setInterval(ajaxCall, 5000);
+						setInterval(ajaxCall, 2000);
 					</script>
         	    </div>
                 <div class="col-md-6">
