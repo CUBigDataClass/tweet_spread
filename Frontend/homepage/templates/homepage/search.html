@@ -93,7 +93,6 @@
          function get_data(id) {            
 			var myjs;
 			var json_new;
-            //var json_new_new;
             $.ajax({
 			type: 'GET',
 			async: false,
@@ -113,7 +112,9 @@
                 alert("I am null!");
             } else {
 
-                json_new = JSON.parse(topic_json);
+                str_new = JSON.stringify(topic_json);
+                alert(str_new);
+                json_new = JSON.parse(str_new);
                 //json_new_new = JSON.parse(json_new);
                 alert('json_new:' + json_new);
                 //alert('json_new:' + json_new_new);
