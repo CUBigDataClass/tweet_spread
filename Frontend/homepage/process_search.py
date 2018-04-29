@@ -46,7 +46,8 @@ def get_topics(topic):
 	cluster.shutdown()
 	final_res = []
 	for elem in result:
-		final_res.append(elem)
+		for i in elem:
+			final_res.append(i)
 	return final_res
 
 
