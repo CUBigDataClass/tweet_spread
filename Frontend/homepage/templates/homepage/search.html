@@ -187,7 +187,7 @@
 								type: "pie",
 								startAngle: 240,
 								yValueFormatString: "##0.00\"%\"",
-								indexLabel: "{'label'} {'y'}",
+								indexLabel: "{label} {y}",
 								dataPoints: datapoints
 							}]
 						});
@@ -202,7 +202,7 @@
 						for(var i=0; i<3; i++){
 							yVal = Math.round(5 + Math.random());
 							xVal = i;
-							datapoints.push({'y':yVal, 'x': sentiments[xVal]});
+							datapoints.push({y:yVal, x: sentiments[xVal]});
 						}
 						//console.log(datapoints);
 
@@ -212,7 +212,7 @@
 								type: "pie",
 								startAngle:240,
 								yValueFormatString: "##0.00\"%\"",
-								indexLabel: "{'label'} {'y'}",
+								indexLabel: "{label} {y}",
 								dataPoints: datapoints
 							}]
 						});
