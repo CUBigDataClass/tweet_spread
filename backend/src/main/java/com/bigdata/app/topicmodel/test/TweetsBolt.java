@@ -7,7 +7,6 @@ import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ public class TweetsBolt extends BaseRichBolt implements Serializable {
 
     public void execute(Tuple input) {
         try {
-            System.out.println("[bigdata] tweets bolt");
             String hashtag = (String) input.getValueByField("hashtag");
             String text = (String) input.getValueByField("text");
             tweets.add(text);
@@ -36,7 +34,6 @@ public class TweetsBolt extends BaseRichBolt implements Serializable {
             if (countTweet == NUM_TWEET) {
                 collector.emit(new Values(hashtag, tweets));
                 countTweet = 0;
-                System.out.println("[bigdata] tweets emit");
             }
             collector.ack(input);
         } catch (Exception exception) {

@@ -37,7 +37,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             save(tweetFilename, tweets);
 
             // Pipes: lowercase, tokenize, remove stopwords, map to features
-            System.out.println("[bigdata] pipeline begins");
             pipeList.add( new CharSequenceLowercase() );
             pipeList.add( new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")) );
             pipeList.add( new TokenSequenceRemoveStopwords(stopWords, "UTF-8", false, false, false) );
@@ -45,7 +44,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
 
             InstanceList instances = new InstanceList (new SerialPipes(pipeList));
 
-            System.out.println("[bigdata] reader");
             Reader fileReader = new InputStreamReader(new FileInputStream(tweetFilename), "UTF-8");
             instances.addThruPipe(new CsvIterator(fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"),
                     3, 2, 1)); // data, label, name fields
@@ -74,7 +72,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
             // Get top 10 words in topics with proportions for the first document
-            System.out.print("[bigdata] get top 10");
             int topicsToDisplay = 10;
             List<Map<String, Integer>> topicList = new ArrayList<>();
             for (int topic = 0; topic < numTopics; topic++) {
@@ -108,7 +105,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
     }
 
     private void save(String fileName, List<String> list) throws FileNotFoundException {
-        System.out.println("[bigdata] save file");
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
         for (int i = 0; i < list.size(); i++) {
             pw.println(i + "\tX\t" + list.get(i));
