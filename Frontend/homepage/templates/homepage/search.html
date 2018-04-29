@@ -284,6 +284,7 @@
 						var updateCount = 0;
 						var sentiments = ["POS", "NEG", "NEU"];
 						var updateChart = function (datapoints) {
+						alert("iaminupdatechart")
 						alert(datapoints);
 						updateCount++;
 						for(var i=0; i<3; i++){
@@ -315,7 +316,6 @@
 							url: window.location.href,
 							 success: function(json) {
 							 	var sent =  json['sentiment'];
-								alert(sent);
 								updateChart(sent);
 							 }
 							});
