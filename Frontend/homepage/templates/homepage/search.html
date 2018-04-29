@@ -97,7 +97,7 @@
          function get_data() { 
             var myjs;
             var newjs;
-
+			alert("ingetdata");
 			$.ajax({
 				type: 'POST',
 				url: window.location.href,
@@ -107,7 +107,7 @@
 				newjs = JSON.parse(myjs);
 			 }
 			});
-            alert(newjs)
+            alert(newjs);
             document.getElementById("cloud").innerHTML = "";
             /*alert('topic mod: ' + topic_mod);
             alert('type of : ' + typeof(topic_mod));
