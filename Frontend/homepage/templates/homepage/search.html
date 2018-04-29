@@ -283,9 +283,8 @@
 						}
 						var updateCount = 0;
 						var sentiments = ["POS", "NEG", "NEU"];
-						var updateChart = function () {
-							var datapoints = []
-
+						var updateChart = function (datapoints) {
+						alert(datapoints);
 						updateCount++;
 						for(var i=0; i<3; i++){
 							yVal = Math.round(5 + Math.random());
@@ -308,11 +307,19 @@
 
 						};
 						// update chart every 2 seconds
-						//setInterval(function(){updateChart()}, 2000);
-						getpiechart(sent);
-					</script>
-        	    </div>
 
+						getpiechart(sent);
+
+						setInterval(function(){
+    						$.ajax({
+    						  url: '{% url update_view %}',
+    						  success: function(data) {
+    						  updateChart(data)}, 2000);
+						  }
+						});
+						</script>
+            	   </div>
+                </div>
                 <div class="col-md-6">
                     <p class="category">Milestones</p>
                     <div class="ct-chart2 ct-golden-section" id="milestones"></div>
