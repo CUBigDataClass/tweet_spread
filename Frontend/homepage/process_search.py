@@ -3,6 +3,7 @@ import simplejson as json
 from cassandra.cluster import Cluster
 import requests
 from requests import put, get
+import re
 
 token = '76608965-qok8bHTPepS7k0gGtbBg7tNHVtS6XgpbCL7kT8TDt'
 token_secret = 'KvjPjxjRbuqs08dqABMgzkl5zCJIDGNt1sOuisdhMUEM0'
@@ -41,13 +42,32 @@ def get_sentiment(topic):
 def get_topics(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	query_string = "select dummytopic from tweetanalysis.hashtaganalysis where hashtag='trump'"
+	query_string = "select topic from tweetanalysis.topicmodeling where hashtag='"+topic+"'"
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = []
 	for elem in result:
 		for i in elem:
 			final_res.append(i)
+	return final_res
+
+
+def get_geoparse(topic):
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	query_string = "select locations from tweetanalysis.geoparsing where hashtag='ironman'"
+	result = session.execute(query_string)
+	cluster.shutdown()
+	final_res = ""
+	counter = 0
+	for elem in result:
+		for i in elem:
+			for j in i:
+				k = j.replace("{\"ironman\"", '"' + str(counter) + '"')
+				final_res = final_res + str(k) + ","
+				counter += 1
+	final_res = final_res.strip(",")
+	final_res = "{" + final_res + "}"
 	return final_res
 
 

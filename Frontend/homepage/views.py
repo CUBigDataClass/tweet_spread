@@ -29,17 +29,20 @@ def home(request):
 		if requester == "topicmodel":
 			topics = process_search.get_topics(query)
 			return HttpResponse(topics)
-		else:
-			mode = "Fetched from ajax"
+		elif requester == "setinterval":
 			sentiment = process_search.get_sentiment(query)
 			json_acceptable_string = sentiment.replace("'", "\"")
 			return HttpResponse(json_acceptable_string)
+		elif requester == "setgeointerval":
+			geoparsed = process_search.get_geoparse(query)
+			return HttpResponse(geoparsed)
 
 	if request.method == 'GET':
 		query = request.GET['search']
 		if query:
 			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
+			geoparsed = process_search.get_geoparse(query)
 			#top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
 			if sentiment is None:
@@ -48,11 +51,11 @@ def home(request):
 				#top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 				time.sleep(3)
 				sentiment = process_search.get_sentiment(query)
-				topic_models = process_search.get_topics(query)
+				geoparsed = process_search.get_geoparse(query)
 			#return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
 			#'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
-			 'topic_models': topic_models})
+			 'geoparsed': geoparsed})
 
 
 

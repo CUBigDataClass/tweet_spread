@@ -16,6 +16,7 @@ import org.apache.storm.kafka.KeyValueSchemeAsMultiScheme;
 import org.apache.storm.topology.TopologyBuilder;
 import static org.apache.storm.cassandra.DynamicStatementBuilder.*;
 import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
+import com.bigdata.app.bolt.MilestonesBolt;
 
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
@@ -94,6 +95,9 @@ public class StormCassandraTopology {
         builder.setBolt("tweets", new TweetsBolt(), 3).fieldsGrouping("json", new Fields("hashtag"));
         builder.setBolt("topic-modeling", new ModelingBolt(), 6).shuffleGrouping("tweets");
 
+        // Create milestones bolt
+        builder.setBolt("milestones", new MilestonesBolt(), 3).shuffleGrouping("json");
+
         /**
          * LEVEL 3
          **/
@@ -116,6 +120,12 @@ public class StormCassandraTopology {
         CassandraWriterBolt cassandraTopicBolt = new CassandraWriterBolt(async(
                 simpleQuery(query2).with(fields("topic", "hashtag"))));
         builder.setBolt("cassandraTopicBolt", cassandraTopicBolt, 3).shuffleGrouping("topic-modeling");
+
+        // create cassandra bolt for milestones
+        String query3 = "update milestones set count = count + ? where day = ? and month = ? and year = ? and hashtag = ?;";
+        CassandraWriterBolt cassandraMilestonesBolt = new CassandraWriterBolt(async(
+                simpleQuery(query3).with(fields("count", "day", "month", "year", "hashtag"))));
+        builder.setBolt("cassandraMilestonesBolt", cassandraMilestonesBolt, 3).shuffleGrouping("milestones");
 
         // Submit topology for execution
         try {
