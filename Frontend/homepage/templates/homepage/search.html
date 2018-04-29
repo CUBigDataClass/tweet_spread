@@ -93,12 +93,12 @@
          function get_data() {
 			var myjs;
 			$.ajax({
-			alert("intoajaxrequest");
 			type: 'POST',
 			url: window.location.href,
 			data : { requester : "topicmodel" }
 			success: function(json) {
 				myjs = json;
+				alert(myjs);
 			 }
 			});
 			alert(myjs);
