@@ -37,7 +37,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             save(tweetFilename, tweets);
 
             // Pipes: lowercase, tokenize, remove stopwords, map to features
-            System.out.println("[bigdata] pipeline begins");
             pipeList.add( new CharSequenceLowercase() );
             pipeList.add( new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")) );
             pipeList.add( new TokenSequenceRemoveStopwords(stopWords, "UTF-8", false, false, false) );
@@ -45,7 +44,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
 
             InstanceList instances = new InstanceList (new SerialPipes(pipeList));
 
-            System.out.println("[bigdata] reader");
             Reader fileReader = new InputStreamReader(new FileInputStream(tweetFilename), "UTF-8");
             instances.addThruPipe(new CsvIterator(fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"),
                     3, 2, 1)); // data, label, name fields
@@ -73,30 +71,29 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             // Get an array of sorted sets of word ID/count pairs
             ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
-            // Get top 10 words in topics with proportions for the first document
-            System.out.print("[bigdata] get top 10");
-            int topicsToDisplay = 10;
-            List<Map<String, Integer>> topicList = new ArrayList<>();
+            // Get top 20 words in topics with proportions for the first document
+            int topicsToDisplay = 20;
+            StringBuilder builder = new StringBuilder();
+            builder.append("{");
             for (int topic = 0; topic < numTopics; topic++) {
+                builder.append("t").append(topic + 1).append(":[");
                 Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
-                Map<String, Integer> map = new HashMap<>();
 
                 int rank = 0;
                 while (iterator.hasNext() && rank < topicsToDisplay) {
                     IDSorter idCountPair = iterator.next();
-                    map.put(dataAlphabet.lookupObject(idCountPair.getID()).toString(), (int) idCountPair.getWeight());
+                    builder.append("{\"text\":").append(idCountPair.getID()).append(",");
+                    builder.append("weight:").append(idCountPair.getWeight()).append("}");
+                    if (rank != topicsToDisplay - 1) {
+                        builder.append(",");
+                    }
                     rank++;
                 }
-                topicList.add(map);
+                builder.append("]");
             }
-            collector.emit(new Values(topicList, hashtag));
+            builder.append("}");
+            collector.emit(new Values(builder.toString(), hashtag));
             collector.ack(input);
-            for (Map<String, Integer> map : topicList) {
-                for (String key : map.keySet()) {
-                    System.out.print("[bigdata] topic: " + key + "(" + map.get(key) + ")");
-                }
-                System.out.println();
-            }
         } catch (Exception exception) {
             exception.printStackTrace();
             collector.fail(input);
@@ -108,7 +105,6 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
     }
 
     private void save(String fileName, List<String> list) throws FileNotFoundException {
-        System.out.println("[bigdata] save file");
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
         for (int i = 0; i < list.size(); i++) {
             pw.println(i + "\tX\t" + list.get(i));
