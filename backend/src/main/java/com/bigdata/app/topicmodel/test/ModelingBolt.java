@@ -10,6 +10,7 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Values;
 
 import java.io.*;
 import java.util.*;
@@ -65,41 +66,43 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             model.setNumIterations(50);
             model.estimate();
 
-            // Show the words and topics in the first instance
-
             // The data alphabet maps word IDs to strings
             Alphabet dataAlphabet = instances.getDataAlphabet();
-
-            // Estimate the topic distribution of the first instance,
-            //  given the current Gibbs state.
-            double[] topicDistribution = model.getTopicProbabilities(0);
 
             // Get an array of sorted sets of word ID/count pairs
             ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
             // Get top 10 words in topics with proportions for the first document
             int topicsToDisplay = 10;
+            List<Map<String, Integer>> topicList = new ArrayList<>();
             for (int topic = 0; topic < numTopics; topic++) {
                 Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
+                Map<String, Integer> map = new HashMap<>();
 
-                Formatter out = new Formatter(new StringBuilder(), Locale.US);
-                out.format("%d\t%.3f\t", topic, topicDistribution[topic]);
                 int rank = 0;
                 while (iterator.hasNext() && rank < topicsToDisplay) {
                     IDSorter idCountPair = iterator.next();
-                    out.format("%s (%.0f)  ", dataAlphabet.lookupObject(idCountPair.getID()), idCountPair.getWeight());
+                    map.put(dataAlphabet.lookupObject(idCountPair.getID()).toString(), (int) idCountPair.getWeight());
                     rank++;
                 }
+                topicList.add(map);
             }
-            this.collector.ack(input);
+            collector.emit(new Values(topicList, hashtag));
+            collector.ack(input);
+            for (Map<String, Integer> map : topicList) {
+                for (String key : map.keySet()) {
+                    System.out.print("[bigdata] topic: " + key + "(" + map.get(key) + ")");
+                }
+                System.out.println();
+            }
         } catch (Exception exception) {
             exception.printStackTrace();
-            this.collector.fail(input);
+            collector.fail(input);
         }
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("tweets", "hashtag"));
+        declarer.declare(new Fields("topics", "hashtag"));
     }
 
     private void save(String fileName, List<String> list) throws FileNotFoundException {
