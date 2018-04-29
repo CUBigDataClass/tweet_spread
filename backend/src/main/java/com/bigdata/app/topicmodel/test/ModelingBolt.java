@@ -38,6 +38,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             save(tweetFilename, tweets);
 
             // Pipes: lowercase, tokenize, remove stopwords, map to features
+            System.out.println("[bigdata] pipeline begins");
             pipeList.add( new CharSequenceLowercase() );
             pipeList.add( new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")) );
             pipeList.add( new TokenSequenceRemoveStopwords(stopWords, "UTF-8", false, false, false) );
@@ -45,6 +46,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
 
             InstanceList instances = new InstanceList (new SerialPipes(pipeList));
 
+            System.out.println("[bigdata] reader");
             Reader fileReader = new InputStreamReader(new FileInputStream(tweetFilename), "UTF-8");
             instances.addThruPipe(new CsvIterator(fileReader, Pattern.compile("^(\\S*)[\\s,]*(\\S*)[\\s,]*(.*)$"),
                     3, 2, 1)); // data, label, name fields
