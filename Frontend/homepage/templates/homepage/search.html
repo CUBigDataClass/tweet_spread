@@ -133,9 +133,8 @@
                     <script type="text/javascript">
                     	var sent =  {{ sentiment  | safe }};
 						var stringify_sentiment = JSON.stringify(sent);
-						getpiechart(stringify_sentiment)
                             function getpiechart(datapoints){
-                                var datapoints= my_json = JSON.parse(my_json);
+                                var datapoints=  JSON.parse(my_json);
 
                                 var chart = new CanvasJS.Chart("pieChart", {
                                     //animationEnabled: true,
@@ -179,7 +178,8 @@
 
                             };
                             // update chart every 2 seconds
-                            setInterval(function(){updateChart()}, 2000);
+                            //setInterval(function(){updateChart()}, 2000);
+                            getpiechart(stringify_sentiment);
 						</script>
             	</div>
             </div>
