@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.*;
-import java.lang.Float;
+import java.lang.Double;
 
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -101,7 +101,7 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                     LinkedHashMap geo = (LinkedHashMap) o.get("geo");
                                     if (geo.get("coordinates") != null) {
                                         ArrayList<Object> loc = (ArrayList<Object>) geo.get("coordinates");
-                                        collector.emit(new Values((Float)(loc.get(0)), (Float)loc.get(1), hashtag));
+                                        collector.emit(new Values((Double)(loc.get(0)), (Double)loc.get(1), hashtag));
                                     }
                                 }
                             }
