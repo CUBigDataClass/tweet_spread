@@ -417,9 +417,7 @@
                         alert("updatingmap");
                         var map = {{ geoparsed | safe }};
                         alert(map);
-                        var new_map = JSON.parse(map);
-                        alert(new_map);
-                        get_map(new_map);
+                        get_map(map);
 
 						function ajaxGeoCall() {
 							$.ajax({
