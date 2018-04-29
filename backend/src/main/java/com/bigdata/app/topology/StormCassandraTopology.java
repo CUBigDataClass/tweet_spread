@@ -1,7 +1,7 @@
 package com.bigdata.app.topology;
 
-import com.bigdata.app.topicmodel.test.ModelingBolt;
-import com.bigdata.app.topicmodel.test.TweetsBolt;
+import com.bigdata.app.topicmodel.ModelingBolt;
+import com.bigdata.app.topicmodel.TweetsBolt;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
