@@ -316,6 +316,9 @@
 							url: window.location.href,
 							 success: function(json) {
 							 	var sent =  json['sentiment'];
+							 	alert(sent);
+							 	var stringify_sentiment = JSON.stringify(sent);
+							 	alert(stringify_sentiment)
 								updateChart(sent);
 							 }
 							});
