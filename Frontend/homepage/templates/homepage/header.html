@@ -261,6 +261,7 @@
                     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                     <script type="text/javascript">
                         var datapoints=  [{y: 50, label: "POS"}, {y: 40, label: "NEG"}, {y: 10, label: "NEU"}]
+
                             function getpiechart(){
                                 var datapoints=  [{y: 50, label: "POS"}, {y: 40, label: "NEG"}, {y: 10, label: "NEU"}]
                                     
@@ -305,7 +306,7 @@
                                 chart.render();     
                                 
                             };
-                            // update chart every second
+                            // update chart every 2 seconds
                             setInterval(function(){updateChart()}, 2000);                                                    
                     </script>
                     <script type="text/javascript">getpiechart();</script>
@@ -320,18 +321,19 @@
                     <script type="text/javascript">
                             function load_milestones() {
                             var dps = [
-                                        { x: new Date(2017, 0, 3), y: 450 },
-                                        { x: new Date(2017, 0, 4), y: 414},
-                                        { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
-                                        { x: new Date(2017, 0, 6), y: 460 },
-                                        { x: new Date(2017, 0, 7), y: 450 },
-                                        { x: new Date(2017, 0, 8), y: 500 },
-                                        { x: new Date(2017, 0, 9), y: 480 },
-                                        { x: new Date(2017, 0, 10), y: 480 },
-                                        { x: new Date(2017, 0, 11), y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
-                                        { x: new Date(2017, 0, 12), y: 500 },
-                                        { x: new Date(2017, 0, 13), y: 480 },
-                                        { x: new Date(2017, 0, 14), y: 510 }
+                                        { x: new Date(2017, 0, 14), y: 450 },
+                                        { x: new Date(2017, 0, 13), y: 414},
+                                        { x: new Date(2017, 0, 12), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
+                                        { x: new Date(2017, 0, 11), y: 460 },
+                                        { x: new Date(2017, 0, 10), y: 450 },
+                                        { x: new Date(2017, 0, 9), y: 500 },
+                                        { x: new Date(2017, 0, 8), y: 480 },
+                                        { x: new Date(2017, 0, 7), y: 480 },
+                                        { x: new Date(2017, 0, 6), y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
+                                        { x: new Date(2017, 0, 5), y: 500 },
+                                        { x: new Date(2017, 0, 4), y: 480 },
+                                        { x: new Date(2017, 0, 3), y: 510 }
+
                                     ];
 
                             var chart = new CanvasJS.Chart("milestones", {
@@ -358,9 +360,9 @@
                             var months = 0
 
                             var updateChart = function() {      
-                                days = days + 1;
-                                if(days == 31){
-                                    months += 1
+                                days = days - 1;
+                                if(days == 1){
+                                    months -= 1
                                 }
                                 var yVal = Math.round(Math.random()*100);
                                 dps.push({x: new Date(2017,months,days), y: yVal});
