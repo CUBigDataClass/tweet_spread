@@ -32,7 +32,7 @@ import org.json.simple.JSONObject;
 public final class GeoParsingBolt extends BaseRichBolt {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(GeoParsingBolt.class);
-    private static final long serialVersionUID = -5094673458112825122L;
+    private static final long serialVersionUID = -5094673458112835122L;
     private OutputCollector collector;
     private String path;
 
@@ -67,13 +67,15 @@ public final class GeoParsingBolt extends BaseRichBolt {
                     Collection<Float> loc = (Collection) geo.get("coordinates");
                     if ((String) geo.get("type") == "point") {
                         collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                        LOGGER.info("..... geo is " + geo);
                     }
                 }
+                LOGGER.info("........... geo is null.............");
             }
-
 
             this.collector.ack(input);
         } catch (Exception exception) {
+            LOGGER.info("............... collector is null............");
             exception.printStackTrace();
             this.collector.fail(input);
         }
