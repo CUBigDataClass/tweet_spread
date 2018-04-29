@@ -25,8 +25,7 @@ def home(request):
 		mode = "Fetched from ajax"
 		sentiment = process_search.get_sentiment(query)
 		json_acceptable_string = sentiment.replace("'", "\"")
-		new_sentiment = json.loads(json_acceptable_string)
-		return HttpResponse(new_sentiment)
+		return HttpResponse(json_acceptable_string)
 
 	if request.method == 'GET':
 		query = request.GET['search']
