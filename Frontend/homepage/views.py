@@ -36,7 +36,7 @@ def home(request):
 			if sentiment is None:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
-				time.sleep(5)
+				time.sleep(2)
 				sentiment = process_search.get_sentiment(query)
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 
