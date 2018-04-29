@@ -311,17 +311,10 @@
 						getpiechart(sent);
 
 						setInterval(function(){
-<<<<<<< HEAD
 						$.ajax({
 						  url: '{% url home %}',
 						  success: function(data) {
 						  updateChart(data)}, 2000);
-=======
-    						$.ajax({
-    						  url: '{% url update_view %}',
-    						  success: function(data) {
-    						  updateChart(data)}, 2000);
->>>>>>> d1f4ce73196a8c03eec440d77d6b0ff82c8c4b17
 						  }
 						});
 						</script>
