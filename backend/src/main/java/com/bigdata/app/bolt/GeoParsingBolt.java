@@ -23,9 +23,8 @@ import com.google.common.base.Splitter;
 import org.json.simple.JSONObject;
 
 /**
- * Breaks each tweet into words and calculates the sentiment of each tweet and
- * assocaites the sentiment value to the State and logs the same to the console
- * and also logs to the file.
+ * Breaks each tweet into words and gets the location of each tweet and
+ * assocaites its value to hashtag
  *
  * @author - centos
  */
@@ -37,7 +36,7 @@ public final class GeoParsingBolt extends BaseRichBolt {
     private String path;
 
     public GeoParsingBolt() {
-
+        LOGGER.info("geoparsing bolt is initialized...........");
     }
 
     private Map<String, Integer> afinnSentimentMap = new HashMap<String, Integer>();
@@ -62,12 +61,14 @@ public final class GeoParsingBolt extends BaseRichBolt {
             Boolean geo_enabled = (Boolean) input.getValueByField("geo_enabled");
             Collection<Float> location = new ArrayList<Float>();
             if (geo_enabled) {
-                JSONObject geo = (JSONObject) input.getValueByField("geo");
-                if (geo != null) {
-                    Collection<Float> loc = (Collection) geo.get("coordinates");
-                    if ((String) geo.get("type") == "point") {
-                        collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
-                        LOGGER.info("..... geo is " + geo);
+                if (input.getValueByField("geo") != null) {
+                    JSONObject geo = (JSONObject) input.getValueByField("geo");
+                    if (geo != null) {
+                        Collection<Float> loc = (Collection) geo.get("coordinates");
+                        if ((String) geo.get("type") == "point") {
+                            collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                            LOGGER.info("..... geo is " + geo);
+                        }
                     }
                 }
                 LOGGER.info("........... geo is null.............");
