@@ -41,7 +41,7 @@ def get_sentiment(topic):
 def get_topics(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	query_string = "select dummyTopic from hashtaganalysis where hashtag=trump"
+	query_string = "select * from hashtaganalysis where hashtag=trump;"
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = []
