@@ -3,6 +3,7 @@ import simplejson as json
 from cassandra.cluster import Cluster
 import requests
 from requests import put, get
+import re
 
 token = '76608965-qok8bHTPepS7k0gGtbBg7tNHVtS6XgpbCL7kT8TDt'
 token_secret = 'KvjPjxjRbuqs08dqABMgzkl5zCJIDGNt1sOuisdhMUEM0'
@@ -58,10 +59,13 @@ def get_geoparse(topic):
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = ""
+	counter = 0
 	for elem in result:
 		for i in elem:
 			for j in i:
+				j = re.sub("^\"\{ironman\}\"", str(counter), j)
 				final_res = final_res + str(j) + ","
+				counter += 1
 	return final_res
 
 
