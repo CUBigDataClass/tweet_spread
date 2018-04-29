@@ -23,13 +23,10 @@ def index(request):
 def home(request):
 
 	if request.is_ajax() and request.method == 'POST':
-		query = request.GET['search']
-		if query:
-			return HttpResponse(query)
-		else:
-			sentiment = process_search.get_sentiment(query)
-			json_acceptable_string = sentiment.replace("'", "\"")
-			return HttpResponse(json_acceptable_string)
+		query = request.POST['search']
+		sentiment = process_search.get_sentiment(query)
+		json_acceptable_string = sentiment.replace("'", "\"")
+		return HttpResponse(json_acceptable_string)
 
 	if request.is_ajax():
 		query = request.GET['search']
