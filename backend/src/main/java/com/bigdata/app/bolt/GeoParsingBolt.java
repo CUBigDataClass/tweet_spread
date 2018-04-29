@@ -103,8 +103,11 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                         ArrayList<Object> loc = (ArrayList<Object>) geo.get("coordinates");
                                         Double lat = (Double)(loc.get(0));
                                         Double lon = (Double)(loc.get(1));
-                                        String str = String.valueOf(lat);
-                                        collector.emit(new Values(str, hashtag));
+                                        String str = "{\"" + hashtag + "\": {latitude: " + String.valueOf(lat) + ", longitude: " +
+                                                String.valueOf(lon) + "}";
+                                        ArrayList<String> s = new ArrayList<String>();
+                                        s.add(str);
+                                        collector.emit(new Values(s, hashtag));
                                     }
                                 }
                             }

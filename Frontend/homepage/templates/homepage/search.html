@@ -90,9 +90,9 @@
 
 
 	<script type="text/javascript">
-         function get_data() {
+         function get_data(id) {            
 			var myjs;
-			
+			var json_new;
             $.ajax({
 			type: 'GET',
 			async: false,
@@ -105,24 +105,21 @@
 			 }
 			});
 
-			alert("this is outof getdata alert");
-			alert("this is outof getdata alert" + myjs);
 			document.getElementById("cloud").innerHTML = "";
-			alert('this.id: ' + this.id);
-			var id = this.id;
 			var topic_json = myjs;
 			alert('topic json type: ' + typeof(topic_json));
             if(topic_json == null){
                 alert("I am null!");
             } else {
 
-                for(var ob=0; ob < topic_json.length;ob++) {
-                    alert("ob: "+ ob+"  " + topic_json[ob]);
-                }
+                var str_new = JSON.stringify(topic_json)
+                alert(str_new);
+                json_new = JSON.parse(str_new)
+                alert(json_new)
 			}
-			//word_data = topic_json[id];
-			//alert('word_data:' + word_data);
-			// alert("calling jQCloud .... word_data="+word_data);
+			word_data = json_new['t1'];
+			alert('word_data:' + word_data);
+			alert("calling jQCloud .... word_data="+word_data);
 
 			/*$(function() {
 			  // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
@@ -525,7 +522,7 @@
                                 <div class="tab-pane active" id="home" role="tabpanel">
                                     <div class="row">
 
-                                        <button class="btn btn-link topic-class" onclick="get_data(this)" id="t1">Topic 1</button>
+                                        <button class="btn btn-link topic-class" onclick="get_data(this.id)" id="t1">Topic 1</button>
                                         <!--<button class="btn btn-link btn-primary topic-class"onclick="get_data(this,{{ topic_models | safe }})" id="t2">Topic 2</button>
                                         <button class="btn btn-link btn-info topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t3">Topic 3</button>
                                         <button class="btn btn-link btn-success topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t4">Topic 4</button>

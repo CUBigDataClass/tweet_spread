@@ -87,7 +87,7 @@ public class StormCassandraTopology {
         builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt"), 3).shuffleGrouping("json");
 
         // Create geo parsing bolt
-//        builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
+        builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
 
         // Create topic modeling bolt
         builder.setBolt("tweets", new TweetsBolt(), 3).shuffleGrouping("json");
@@ -105,10 +105,10 @@ public class StormCassandraTopology {
         builder.setBolt("cassandraSentimentBolt", cassandraSentimentBolt, 3).shuffleGrouping("sentiment");
 
         // create cassandra bolt for geo parsing
-//        String query1 = "update geoparsing set longitude =  longitude + [?], latitude =  latitude + [?] where hashtag = ?;";
-//        CassandraWriterBolt cassandraGeoParsingBolt = new CassandraWriterBolt(async(
-//                simpleQuery(query1).with(fields("longitude", "latitude", "hashtag"))));
-//        builder.setBolt("cassandraGeoParsingBolt", cassandraGeoParsingBolt, 3).shuffleGrouping("geoparsing");
+        String query1 = "update geoparsing set locations = locations + ? where hashtag = ?;";
+        CassandraWriterBolt cassandraGeoParsingBolt = new CassandraWriterBolt(async(
+                simpleQuery(query1).with(fields("locations", "hashtag"))));
+        builder.setBolt("cassandraGeoParsingBolt", cassandraGeoParsingBolt, 3).shuffleGrouping("geoparsing");
 
         // create cassandra bolt for topic modeling
         String query2 = "update topicmodeling set topic = ? where hashtag = ?;";
