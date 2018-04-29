@@ -316,8 +316,6 @@
 							url: window.location.href,
 							 success: function(json) {
 							 	alert(json);
-							 	var stringify_sentiment = JSON.parse(json);
-							 	alert(stringify_sentiment)
 								updateChart(json);
 							 }
 							});
