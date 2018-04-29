@@ -38,6 +38,18 @@ def get_sentiment(topic):
 		return None
 
 
+def get_topics(topic):
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	query_string = "select dummyTopic from tweetanalysis.sentiments where hashtag=trump"
+	result = session.execute(query_string)
+	cluster.shutdown()
+	final_res = []
+	for elem in result:
+		final_res.append(elem)
+	return final_res
+
+
 def get_top_tweets(search_string):
 	tweets_file_1 = t.search.tweets(q=search_string, result_type='recent', lang='en', count=5)
 	tweets_file_2 = t.search.tweets(q=search_string, result_type='popular', lang='en', count=5)
