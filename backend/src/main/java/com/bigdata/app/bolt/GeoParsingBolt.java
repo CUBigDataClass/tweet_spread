@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.lang.Float;
 
 import org.apache.storm.task.OutputCollector;
@@ -20,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
-import org.json.simple.JSONObject;
+import javax.json.*;
 
 /**
  * Breaks each tweet into words and gets the location of each tweet and
@@ -59,23 +60,27 @@ public final class GeoParsingBolt extends BaseRichBolt {
         try {
             String hashtag = (String) input.getValueByField("hashtag");
             Collection<Float> location = new ArrayList<Float>();
-            if (input.getValueByField("geo_enabled") != null) {
-                Boolean geo_enabled = (Boolean) input.getValueByField("geo_enabled");
-                if (geo_enabled != false) {
-                    if (input.getValueByField("geo") != null) {
-                        JSONObject geo = (JSONObject) input.getValueByField("geo");
-                        if (geo != null) {
-                            Collection<Float> loc = (Collection) geo.get("coordinates");
-                            if ((String) geo.get("type") == "point") {
-                                collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
-                                LOGGER.info("..... geo is " + geo);
+            if (input.getValueByField("user") != null) {
+                JsonObject user = (JsonObject) input.getValueByField("user");
+                if (user.getJsonObject("derived") != null) {
+                    JsonObject derived = (JsonObject) user.getJsonObject("derived");
+                    if (derived.getJsonArray("locations") != null) {
+                        JsonArray locations = (JsonArray) derived.getJsonArray("locations");
+                        for (int i = 0; i < locations.size(); i++) {
+                            JsonObject o = locations.getJsonObject(i);
+                            if (o.getJsonObject("geo") != null) {
+                                JsonObject geo = (JsonObject) o.getJsonObject("geo");
+                                if (geo.get("coordinates") != null) {
+                                    Collection<Float> loc = (Collection) geo.get("coordinates");
+                                    collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                                }
                             }
                         }
                     }
-                    LOGGER.info("........... geo is null.............");
                 }
             }
 
+            LOGGER.info("........... geo is null.............");
             this.collector.ack(input);
         } catch (Exception exception) {
             LOGGER.info("............... collector is null............");

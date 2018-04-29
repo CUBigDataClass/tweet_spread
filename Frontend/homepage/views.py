@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from . import process_search
 import json
+import time
 
 
 def topic_model(request):
@@ -24,18 +25,25 @@ def home(request):
 		query = request.GET['search']
 		mode = "Fetched from ajax"
 		sentiment = process_search.get_sentiment(query)
-		return HttpResponse(json.dumps(sentiment), content_type='application/json')
+		json_acceptable_string = sentiment.replace("'", "\"")
+		return HttpResponse(json_acceptable_string)
 
 	if request.method == 'GET':
 		query = request.GET['search']
 		if query:
 			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
+			top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+			topic_models = process_search.get_topics(query)
 			if sentiment is None:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
+				top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+				time.sleep(3)
 				sentiment = process_search.get_sentiment(query)
-			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
+				topic_models = process_search.get_topics(query)
+			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
+			'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 
 
 

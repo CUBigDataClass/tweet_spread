@@ -38,16 +38,32 @@ def get_sentiment(topic):
 		return None
 
 
-# def get_top_tweets(search_string):
-# 	tweets_file = t.search.tweets(q=search_string, result_type='recent', lang='en', count=10)
-# 	print(tweets_file)
-# 	print(type(t))
-# 	status = tweets_file['statuses']
-# 	top_tweets = []
-# 	for tweet in status:
-# 		tweet_id = tweet['id']
-# 		top_tweets.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
-# 	return top_tweets
+def get_topics(topic):
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	query_string = "select dummytopic from tweetanalysis.hashtaganalysis where hashtag='trump'"
+	result = session.execute(query_string)
+	cluster.shutdown()
+	final_res = []
+	for elem in result:
+		final_res.append(elem)
+	return final_res
+
+
+def get_top_tweets(search_string):
+	tweets_file_1 = t.search.tweets(q=search_string, result_type='recent', lang='en', count=5)
+	tweets_file_2 = t.search.tweets(q=search_string, result_type='popular', lang='en', count=5)
+	status_1 = tweets_file_1['statuses']
+	status_2 = tweets_file_2['statuses']
+	top_tweets_1 = []
+	top_tweets_2 = []
+	for tweet in status_1:
+		tweet_id = tweet['id']
+		top_tweets_1.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+	for tweet in status_2:
+		tweet_id = tweet['id']
+		top_tweets_2.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+	return top_tweets_1, top_tweets_2
 
 
 
