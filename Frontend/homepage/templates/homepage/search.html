@@ -93,15 +93,18 @@
          function get_data(topic_mod) {
             
             document.getElementById("cloud").innerHTML = "";            
-            //alert('id is: '+ button_element.id);
+            alert('id is: '+ button_element.id);
             alert('topic mod: ' + topic_mod);
             alert('type of : ' + typeof(topic_mod));
             alert('this.id: ' + this.id);
-            var id = id;
+            var id = this.id;
             var topic_json = topic_mod;
             alert('topic json type: ' + typeof(topic_json));
-            word_data = topic_json.id;      
-            alert('word_data:' + word_data);
+            for(var ob=0; ob < topic_json.length;ob++) {
+                alert("ob: "+ ob+"  " + topic_json[ob]);
+            }
+            word_data = topic_json[id];      
+            //alert('word_data:' + word_data);
             // alert("calling jQCloud .... word_data="+word_data);
 
             /*$(function() {
@@ -118,10 +121,10 @@
                 // ...as many words as you want
             ];*/
 
-            $(function() {
+            /*$(function() {
               // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
               $("#cloud").jQCloud(word_data);
-            });
+            });*/
 
         }
         
