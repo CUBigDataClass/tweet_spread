@@ -92,7 +92,8 @@
 	<script type="text/javascript">
          function get_data() {
 			var myjs;
-			$.ajax({
+			
+            $.ajax({
 			type: 'GET',
 			url: window.location.href,
 			data : { requester : "topicmodel" },
@@ -102,6 +103,7 @@
 				alert(typeof(myjs));
 			 }
 			});
+
 			alert("this is outof getdata alert");
 			alert("this is outof getdata alert" + myjs);
 			document.getElementById("cloud").innerHTML = "";
@@ -109,6 +111,11 @@
 			var id = this.id;
 			var topic_json = myjs;
 			alert('topic json type: ' + typeof(topic_json));
+            if(topic_json == null){
+                alert("I am null!");
+            } else {
+                // do what ever.
+            }
 			//for(var ob=0; ob < topic_json.length;ob++) {
 			//    alert("ob: "+ ob+"  " + topic_json[ob]);
 			//}
