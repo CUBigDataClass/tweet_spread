@@ -317,6 +317,7 @@
 							url: window.location.href,
 							 success: function(json) {
 							 	alert(json);
+							 	jj = JSON.parse(json);
 								updateChart(json);
 							 }
 							});
