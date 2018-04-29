@@ -133,52 +133,52 @@
                     <script type="text/javascript">
                     	var sent =  {{ sentiment  | safe }};
 						var stringify_sentiment = JSON.stringify(sent);
-						 function getpiechart(datapoints){
+						function getpiechart(datapoints){
 
-							var chart = new CanvasJS.Chart("pieChart", {
-								//animationEnabled: true,
-								/*title: {
-									text: "Sentiment Analysis"
-								},*/
-								data: [{
-									type: "pie",
-									startAngle: 240,
-									yValueFormatString: "##0.00\"%\"",
-									indexLabel: "{'label'} {'y'}",
-									dataPoints: datapoints
-								}]
-							});
-							chart.render();
+						var chart = new CanvasJS.Chart("pieChart", {
+							//animationEnabled: true,
+							/*title: {
+								text: "Sentiment Analysis"
+							},*/
+							data: [{
+								type: "pie",
+								startAngle: 240,
+								yValueFormatString: "##0.00\"%\"",
+								indexLabel: "{'label'} {'y'}",
+								dataPoints: datapoints
+							}]
+						});
+						chart.render();
 						}
-							var updateCount = 0;
-							var sentiments = ["POS", "NEG", "NEU"];
-							var updateChart = function () {
-								var datapoints = []
+						var updateCount = 0;
+						var sentiments = ["POS", "NEG", "NEU"];
+						var updateChart = function () {
+							var datapoints = []
 
-							updateCount++;
-							for(var i=0; i<3; i++){
-								yVal = Math.round(5 + Math.random());
-								xVal = i;
-								datapoints.push({'y':yVal, 'x': sentiments[xVal]});
-							}
-							//console.log(datapoints);
+						updateCount++;
+						for(var i=0; i<3; i++){
+							yVal = Math.round(5 + Math.random());
+							xVal = i;
+							datapoints.push({'y':yVal, 'x': sentiments[xVal]});
+						}
+						//console.log(datapoints);
 
 
-							chart = new CanvasJS.Chart("pieChart", {
-								data: [{
-									type: "pie",
-									startAngle:240,
-									yValueFormatString: "##0.00\"%\"",
-									indexLabel: "{'label'} {'y'}",
-									dataPoints: datapoints
-								}]
-							});
-							chart.render();
+						chart = new CanvasJS.Chart("pieChart", {
+							data: [{
+								type: "pie",
+								startAngle:240,
+								yValueFormatString: "##0.00\"%\"",
+								indexLabel: "{'label'} {'y'}",
+								dataPoints: datapoints
+							}]
+						});
+						chart.render();
 
 						};
-                            // update chart every 2 seconds
-                            //setInterval(function(){updateChart()}, 2000);
-                            getpiechart(stringify_sentiment);
+						// update chart every 2 seconds
+						//setInterval(function(){updateChart()}, 2000);
+						getpiechart(stringify_sentiment);
 						</script>
             	</div>
             </div>
