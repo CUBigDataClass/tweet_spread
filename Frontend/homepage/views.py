@@ -24,7 +24,7 @@ def home(request):
 
 	if request.is_ajax() and request.method == 'POST':
 		return HttpResponse("This is my response")
-	
+
 	if request.is_ajax():
 		query = request.GET['search']
 		mode = "Fetched from ajax"
