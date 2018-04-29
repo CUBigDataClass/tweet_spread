@@ -312,7 +312,7 @@
 
 						setInterval(function(){
 						$.ajax({
-						  url: '{% url home %}',
+						  url: '{% url 'home' %}',
 						  success: function(data) {
 						  updateChart(data)}, 2000);
 						  }
