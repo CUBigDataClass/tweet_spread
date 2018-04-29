@@ -103,38 +103,39 @@
 			 }
 			});
 			alert("iamoutofgetdata")
-			alert("this is outof getdata alert" + myjs);
-            document.getElementById("cloud").innerHTML = "";
-            alert('this.id: ' + this.id);
-            //var id = this.id;
-            //var topic_json = myjs;
-            //alert('topic json type: ' + typeof(topic_json));
-            //for(var ob=0; ob < topic_json.length;ob++) {
-            //    alert("ob: "+ ob+"  " + topic_json[ob]);
-            //}
-            //word_data = topic_json[id];
-            //alert('word_data:' + word_data);
-            // alert("calling jQCloud .... word_data="+word_data);
+			if (myjs){
+				alert("this is outof getdata alert" + myjs);
+				document.getElementById("cloud").innerHTML = "";
+				alert('this.id: ' + this.id);
+				//var id = this.id;
+				//var topic_json = myjs;
+				//alert('topic json type: ' + typeof(topic_json));
+				//for(var ob=0; ob < topic_json.length;ob++) {
+				//    alert("ob: "+ ob+"  " + topic_json[ob]);
+				//}
+				//word_data = topic_json[id];
+				//alert('word_data:' + word_data);
+				// alert("calling jQCloud .... word_data="+word_data);
 
-            /*$(function() {
-              // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-              $("#cloud").jQCloud(word_data);
-            });
+				/*$(function() {
+				  // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+				  $("#cloud").jQCloud(word_data);
+				});
 
-            var word_array = [
-                {text: "Lorem", weight: 15},
-                {text: "Ipsum", weight: 9, link: "http://jquery.com/"},
-                {text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
-                {text: "Sit", weight: 7},
-                {text: "Amet", weight: 5}
-                // ...as many words as you want
-            ];*/
+				var word_array = [
+					{text: "Lorem", weight: 15},
+					{text: "Ipsum", weight: 9, link: "http://jquery.com/"},
+					{text: "Dolor", weight: 6, html: {title: "I can haz any html attribute"}},
+					{text: "Sit", weight: 7},
+					{text: "Amet", weight: 5}
+					// ...as many words as you want
+				];*/
 
-            /*$(function() {
-              // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-              $("#cloud").jQCloud(word_data);
-            });*/
-
+				/*$(function() {
+				  // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+				  $("#cloud").jQCloud(word_data);
+				});*/
+				}
         }
         
         // $(".topic-class").click(get_data);
