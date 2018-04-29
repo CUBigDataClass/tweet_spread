@@ -92,6 +92,7 @@
 	<script type="text/javascript">
          function get_data(id) {            
 			var myjs;
+			var json_new;
             $.ajax({
 			type: 'GET',
 			async: false,
@@ -113,11 +114,11 @@
 
                 var str_new = JSON.stringify(topic_json)
                 alert(str_new);
-                var json_new = JSON.parse(str_new)
+                json_new = JSON.parse(str_new)
                 alert(json_new)
 			}
 			word_data = topic_json[id];
-            alert('id is: '+ id);
+            alert('id is: '+ id);			
 			alert('word_data:' + word_data);
 			alert("calling jQCloud .... word_data="+word_data);
 
