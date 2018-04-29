@@ -25,8 +25,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
     public void prepare(Map stormConf, TopologyContext context,
                         OutputCollector collector) {
         this.collector = collector;
-        ClassLoader classLoader = ModelingBolt.class.getClassLoader();
-        stopWords = new File(classLoader.getResource("en.txt").getFile());
+        stopWords = new File("/home/ec2-user/tweet_spread/backend/src/main/resources/en.txt");
     }
 
     public void execute(Tuple input) {
