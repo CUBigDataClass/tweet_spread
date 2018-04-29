@@ -14,6 +14,7 @@ def topic_model(request):
 
 
 def index(request):
+	# This below json is wrong.. this is not how we accept it now. We need a new format, as shown in the JS
 	my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
 	#my_json  = {"test":123};
 	#js_data = json.dumps(my_json)		
