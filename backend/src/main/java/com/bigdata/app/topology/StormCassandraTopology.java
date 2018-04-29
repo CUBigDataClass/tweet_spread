@@ -20,6 +20,7 @@ import org.apache.storm.cassandra.bolt.CassandraWriterBolt;
 import com.bigdata.app.bolt.JSONParsingBolt;
 import com.bigdata.app.sentiments.SentimentBolt;
 import com.bigdata.app.bolt.GeoParsingBolt;
+import org.apache.storm.tuple.Fields;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,7 +91,7 @@ public class StormCassandraTopology {
         builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
 
         // Create topic modeling bolt
-        builder.setBolt("tweets", new TweetsBolt(), 3).shuffleGrouping("json");
+        builder.setBolt("tweets", new TweetsBolt(), 3).fieldsGrouping("json", new Fields("hashtag"));
         builder.setBolt("topic-modeling", new ModelingBolt(), 6).shuffleGrouping("tweets");
 
         /**
