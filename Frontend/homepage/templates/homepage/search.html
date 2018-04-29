@@ -316,14 +316,15 @@
 							type: 'GET',
 							url: window.location.href,
 							 success: function(json) {
-								alert(json);
-								alert(typeof(json));
-								var myjs = {};
-								for (var i = 0, js; i < json.length; i++) {
-									myjs[ 'y' ] = json.y[i];
-									myjs[ 'label' ] = json.x[i];
-								}
-								updateChart(myjs);
+							 	alert(json);
+							 	alert(typeof(json));
+							 	var myjs = JSON.stringify(json);
+							 	alert(myjs);
+							 	alert(typeof(myjs));
+							 	var newjs = JSON.parse(myjs);
+							 	alert(newjs);
+							 	alert(typeof(newjs));
+								updateChart(newjs);
 							 }
 							});
 						}
