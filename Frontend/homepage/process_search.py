@@ -55,7 +55,7 @@ def get_topics(topic):
 def get_geoparse(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	query_string = "select locations from tweetanalysis.geoparsing where hashtag='ironman'"
+	query_string = "select locations from tweetanalysis.geoparsing where hashtag='music' limit 1000"
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = ""
@@ -63,7 +63,7 @@ def get_geoparse(topic):
 	for elem in result:
 		for i in elem:
 			for j in i:
-				k = j.replace("{\"ironman\"", '"' + str(counter) + '"')
+				k = j.replace("{\"music\"", '"' + str(counter) + '"')
 				final_res = final_res + str(k) + ","
 				counter += 1
 	final_res = final_res.strip(",")
