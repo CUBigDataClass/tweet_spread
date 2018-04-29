@@ -95,6 +95,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
                 }
             }
             builder.append("}");
+            System.out.println("[bigdata] topic hashtag: " + hashtag);
             collector.emit(new Values(builder.toString(), hashtag));
             collector.ack(input);
         } catch (Exception exception) {
