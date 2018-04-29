@@ -314,9 +314,8 @@
 							type: 'GET',
 							url: window.location.href,
 							 success: function(json) {
-							 	var sent =  json;
-							 	var stringify_sentiment = JSON.stringify(sent);
-								alert(stringify_sentiment)
+							 	var sent =  json['sentiment'];
+								alert(sent)
 							 }
 							});
 						}
