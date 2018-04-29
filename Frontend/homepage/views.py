@@ -38,6 +38,7 @@ def home(request):
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
 				top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+				time.sleep(3)
 				sentiment = process_search.get_sentiment(query)
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
 			'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2})
