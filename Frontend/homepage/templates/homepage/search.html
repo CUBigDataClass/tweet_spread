@@ -202,7 +202,7 @@
 	        <div class="row">
 				<div> {{ sentiment }} </div>
 				<div> {{ mode }} </div>
-	            <div class="col-md-6 twitter-timeline">
+	            <div class="col-md-6 twitter-timeline pre-scrollable">
 					<p class="category" id="toptweets">Recent tweets for {{ query }}</p>
 					{% block content %}
 						{% for content in top_tweets_1 %}
@@ -210,7 +210,7 @@
 						{% endfor %}
 					{% endblock %}
 				</div>
-				<div class="col-md-6 offset-md-4 twitter-timeline">
+				<div class="col-md-6 offset-md-4 twitter-timeline pre-scrollable">
 					<p class="category" id="topblueticktweets">Popular tweets for {{ query }}</p>
 					{% block new_content %}
 						{% for content in top_tweets_2 %}
