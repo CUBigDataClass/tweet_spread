@@ -175,9 +175,9 @@
 					<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                     <script type="text/javascript">
                     	var sent =  {{ sentiment  | safe }};
-						var stringify_sentiment = JSON.stringify(sent);
+						//var stringify_sentiment = JSON.stringify(sent);
 						function getpiechart(datapoints){
-						alert("iamcalled");
+						alert(datapoints);
 						var chart = new CanvasJS.Chart("pieChart", {
 							//animationEnabled: true,
 							/*title: {
@@ -221,7 +221,7 @@
 						};
 						// update chart every 2 seconds
 						//setInterval(function(){updateChart()}, 2000);
-						getpiechart(stringify_sentiment);
+						getpiechart(sent);
 						</script>
             	</div>
             </div>
