@@ -292,7 +292,6 @@
 						//console.log(datapoints);
 
 						var parsedJSON = JSON.parse(datapoints);
-						alert("parsed json: "+parsedJSON);
 						chart = new CanvasJS.Chart("pieChart", {
 							data: [{
 								type: "pie",
@@ -320,7 +319,7 @@
 							});
 						}
 
-						setInterval(ajaxCall, 5000);
+						setInterval(ajaxCall, 2000);
 					</script>
         	    </div>
                 <div class="col-md-6">
