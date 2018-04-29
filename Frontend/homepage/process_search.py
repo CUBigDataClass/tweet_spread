@@ -50,7 +50,7 @@ def get_top_tweets(search_string):
 		top_tweets_1.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
 	for tweet in status_2:
 		tweet_id = tweet['id']
-		tweets_file_2.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+		top_tweets_2.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
 	return top_tweets_1, top_tweets_2
 
 
