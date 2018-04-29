@@ -110,6 +110,12 @@ public class StormCassandraTopology {
                 simpleQuery(query1).with(fields("longitude", "latitude", "hashtag"))));
         builder.setBolt("cassandraGeoParsingBolt", cassandraGeoParsingBolt, 3).shuffleGrouping("geoparsing");
 
+        // create cassandra bolt for topic modeling
+        String query1 = "update geoparsing set loc =  loc + [{lon:'?', lat:'?'}] where hashtag = ?;";
+        CassandraWriterBolt cassandraGeoParsingBolt = new CassandraWriterBolt(async(
+                simpleQuery(query1).with(fields("longitude", "latitude", "hashtag"))));
+        builder.setBolt("cassandraGeoParsingBolt", cassandraGeoParsingBolt, 3).shuffleGrouping("geoparsing");
+
         // Submit topology for execution
         try {
             StormSubmitter.submitTopology("StormCassandraTopology", conf, builder.createTopology());
