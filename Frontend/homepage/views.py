@@ -23,15 +23,17 @@ def index(request):
 
 def home(request):
 
-	if request.is_ajax() and request.method == 'POST':
-		return HttpResponse("This is my response")
-
 	if request.is_ajax():
 		query = request.GET['search']
-		mode = "Fetched from ajax"
-		sentiment = process_search.get_sentiment(query)
-		json_acceptable_string = sentiment.replace("'", "\"")
-		return HttpResponse(json_acceptable_string)
+		requester = request.GET['requester']
+		if requester == "topicmodel":
+			topics = process_search.get_topics(query)
+			return HttpResponse(topics)
+		else:
+			mode = "Fetched from ajax"
+			sentiment = process_search.get_sentiment(query)
+			json_acceptable_string = sentiment.replace("'", "\"")
+			return HttpResponse(json_acceptable_string)
 
 	if request.method == 'GET':
 		query = request.GET['search']
