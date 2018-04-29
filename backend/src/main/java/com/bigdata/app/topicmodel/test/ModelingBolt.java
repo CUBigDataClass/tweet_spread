@@ -90,6 +90,9 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
                     rank++;
                 }
                 builder.append("]");
+                if (rank != numTopics - 1) {
+                    builder.append(",");
+                }
             }
             builder.append("}");
             collector.emit(new Values(builder.toString(), hashtag));
