@@ -73,6 +73,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
             // Get top 10 words in topics with proportions for the first document
+            System.out.print("[bigdata] get top 10");
             int topicsToDisplay = 10;
             List<Map<String, Integer>> topicList = new ArrayList<>();
             for (int topic = 0; topic < numTopics; topic++) {
@@ -106,6 +107,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
     }
 
     private void save(String fileName, List<String> list) throws FileNotFoundException {
+        System.out.println("[bigdata] save file");
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
         for (int i = 0; i < list.size(); i++) {
             pw.println(i + "\tX\t" + list.get(i));
