@@ -24,7 +24,7 @@ def home(request):
 		query = request.GET['search']
 		mode = "Fetched from ajax"
 		sentiment = process_search.get_sentiment(query)
-		return HttpResponse(json.dumps(sentiment), content_type='application/json')
+		return HttpResponse(json.loads(sentiment), content_type='application/json')
 
 	if request.method == 'GET':
 		query = request.GET['search']
