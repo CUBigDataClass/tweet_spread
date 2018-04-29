@@ -51,6 +51,19 @@ def get_topics(topic):
 	return final_res
 
 
+def get_geoparse(topic):
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	query_string = "select topic from tweetanalysis.geoparsing where hashtag='english'"
+	result = session.execute(query_string)
+	cluster.shutdown()
+	final_res = []
+	for elem in result:
+		for i in elem:
+			final_res.append(i)
+	return final_res
+
+
 def get_top_tweets(search_string):
 	tweets_file_1 = t.search.tweets(q=search_string, result_type='recent', lang='en', count=5)
 	tweets_file_2 = t.search.tweets(q=search_string, result_type='popular', lang='en', count=5)

@@ -169,19 +169,6 @@
         }
     }
 
-    function ajaxCall() {
-        $.ajax({
-        type: 'GET',
-        url: window.location.href,
-        data : { requester : "setinterval" },
-         success: function(json) {
-            var myjs = JSON.stringify(json);
-            var newjs = JSON.parse(myjs);
-            updateChart(newjs);
-         }
-        });
-    }
-
     </script>
 </head>
 
@@ -189,7 +176,7 @@
 	<div class="section section-tabs">
 		 <div class="container">
 	        <div class="row">
-				<div> {{ topic_models }} </div>
+				<div> {{ geoparsed }} </div>
 	            <div class="col-md-6 twitter-timeline pre-scrollable">
 					<p class="category" id="toptweets">Recent tweets for {{ query }}</p>
 					{% block content %}
@@ -295,7 +282,7 @@
 							});
 						}
 
-
+                        setInterval(ajaxCall, 2000);
 					</script>
         	    </div>
                 <div class="col-md-6">
@@ -435,7 +422,23 @@
                             }
                         }  
                     }
-                    setInterval(function(){updateMap(new_plots)}, 2000);
+
+
+						function ajaxGeoCall() {
+							$.ajax({
+							type: 'GET',
+							url: window.location.href,
+							data : { requester : "setgeointerval" },
+							 success: function(json) {
+							 	var myjs = JSON.stringify(json);
+							 	var newjs = JSON.parse(myjs);
+								updateChart(newjs);
+							 }
+							});
+						}
+
+                        setInterval(ajaxGeoCall, 2000);
+
                 </script>
 
                 <script type="text/javascript">
@@ -662,6 +665,6 @@ window.twttr = (function(d, s, id) {
 
   return t;
 }(document, "script", "twitter-wjs"));
-setInterval(ajaxCall, 2000);
+
 </script>
 </html>
