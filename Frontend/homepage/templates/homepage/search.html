@@ -95,6 +95,7 @@
 			
             $.ajax({
 			type: 'GET',
+			async: false,
 			url: window.location.href,
 			data : { requester : "topicmodel" },
 			success: function(json) {
