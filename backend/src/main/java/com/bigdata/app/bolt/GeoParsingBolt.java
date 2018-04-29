@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.lang.Float;
 
 import org.apache.storm.task.OutputCollector;
@@ -61,15 +61,15 @@ public final class GeoParsingBolt extends BaseRichBolt {
             String hashtag = (String) input.getValueByField("hashtag");
             Collection<Float> location = new ArrayList<Float>();
             if (input.getValueByField("user") != null) {
-                JsonObject user = (JsonObject) input.getValueByField("user");
-                if (user.getJsonObject("derived") != null) {
-                    JsonObject derived = (JsonObject) user.getJsonObject("derived");
-                    if (derived.getJsonArray("locations") != null) {
-                        JsonArray locations = (JsonArray) derived.getJsonArray("locations");
+                LinkedHashMap user = (LinkedHashMap) input.getValueByField("user");
+                if (user.get("derived") != null) {
+                    LinkedHashMap derived = (LinkedHashMap) user.get("derived");
+                    if (derived.get("locations") != null) {
+                        List<LinkedHashMap> locations = (List<LinkedHashMap>) derived.get("locations");
                         for (int i = 0; i < locations.size(); i++) {
-                            JsonObject o = locations.getJsonObject(i);
-                            if (o.getJsonObject("geo") != null) {
-                                JsonObject geo = (JsonObject) o.getJsonObject("geo");
+                            LinkedHashMap o = locations.get(i);
+                            if (o.get("geo") != null) {
+                                LinkedHashMap geo = (LinkedHashMap) o.get("geo");
                                 if (geo.get("coordinates") != null) {
                                     Collection<Float> loc = (Collection) geo.get("coordinates");
                                     collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));

@@ -90,17 +90,18 @@
 
 
 	<script type="text/javascript">
-         function get_data() {
-    
-            document.getElementById("cloud").innerHTML = "";
+         function get_data(topic_mod) {
             
-            var id = this.id;
-            // alert(this.id);
-            //amruta populate this
-            var topic_json = {"t1":[{"text":"donald", weight:10}, {"text":"president", weight:20}], "t2":[{"text":"hi", weight:5}], "t3" : {"text":"hiiiiiii", weight:15}};
-
-            word_data = topic_json[id];      
-            //alert(word_data)
+            document.getElementById("cloud").innerHTML = "";            
+            //alert('id is: '+ button_element.id);
+            alert('topic mod: ' + topic_mod);
+            alert('type of : ' + typeof(topic_mod));
+            alert('this.id: ' + this.id);
+            var id = id;
+            var topic_json = topic_mod;
+            alert('topic json type: ' + typeof(topic_json));
+            word_data = topic_json.id;      
+            alert('word_data:' + word_data);
             // alert("calling jQCloud .... word_data="+word_data);
 
             /*$(function() {
@@ -501,16 +502,16 @@
                             <div class="tab-content text-center">
                                 <div class="tab-pane active" id="home" role="tabpanel">
                                     <div class="row">
-                                        <button class="btn btn-link topic-class" onclick="get_data(this)" id="t1">Topic 1</button>
-                                        <button class="btn btn-link btn-primary topic-class"onclick="get_data(this)" id="t2">Topic 2</button>
-                                        <button class="btn btn-link btn-info topic-class"onclick="get_data(this)" id="t3">Topic 3</button>
-                                        <button class="btn btn-link btn-success topic-class"onclick="get_data(this)" id="t4">Topic 4</button>
-                                        <button class="btn btn-link btn-warning topic-class"onclick="get_data(this)" id="t5">Topic 5 </button>
-                                        <button class="btn btn-link btn-danger topic-class"onclick="get_data(this)" id="t6">Topic 6</button>
-                                        <button class="btn btn-link topic-class"onclick="get_data(this)" id="t7">Topic 7</button>
-                                        <button class="btn btn-link btn-primary topic-class" onclick="get_data(this)" id="t8">Topic 8</button>
-                                        <button class="btn btn-link btn-info topic-class" onclick="get_data(this)" id="t9">Topic 9</button>
-                                        <button class="btn btn-link btn-success topic-class" onclick="get_data(this)" id="t10">Topic 10</button>
+                                        <button class="btn btn-link topic-class" onclick="get_data(this, {{ topic_models | safe }})" id="t1">Topic 1</button>
+                                        <!--<button class="btn btn-link btn-primary topic-class"onclick="get_data(this,{{ topic_models | safe }})" id="t2">Topic 2</button>
+                                        <button class="btn btn-link btn-info topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t3">Topic 3</button>
+                                        <button class="btn btn-link btn-success topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t4">Topic 4</button>
+                                        <button class="btn btn-link btn-warning topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t5">Topic 5 </button>
+                                        <button class="btn btn-link btn-danger topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t6">Topic 6</button>
+                                        <button class="btn btn-link topic-class" onclick="get_data(this,my_topic_json)" id="t7">Topic 7</button>
+                                        <button class="btn btn-link btn-primary topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t8">Topic 8</button>
+                                        <button class="btn btn-link btn-info topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t9">Topic 9</button>
+                                        <button class="btn btn-link btn-success topic-class" onclick="get_data(this,{{ topic_models | safe }})" id="t10">Topic 10</button>-->
                                     </div>
                                 </div>
                             </div>
