@@ -91,17 +91,18 @@
 
 	<script type="text/javascript">
          function get_data(button_element, topic_mod) {
-    
+            
             document.getElementById("cloud").innerHTML = "";
-            alert(button_element.id);
-            alert(topic_mod);
-            alert(typeof(topic_mod));
+            alert('button_element is: ' + button_element);
+            alert('id is: '+ button_element.id);
+            alert('topic mod: ' + topic_mod);
+            alert('type of : ' + typeof(topic_mod));
 
             var id = id;
             var topic_json = topic_mod;
 
             word_data = topic_json[id];      
-            alert(word_data)
+            alert(word_data);
             // alert("calling jQCloud .... word_data="+word_data);
 
             /*$(function() {
