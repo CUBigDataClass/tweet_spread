@@ -77,14 +77,14 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             StringBuilder builder = new StringBuilder();
             builder.append("{");
             for (int topic = 0; topic < numTopics; topic++) {
-                builder.append("t").append(topic + 1).append(":[");
+                builder.append("\"t").append(topic + 1).append("\":[");
                 Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
 
                 int rank = 0;
                 while (iterator.hasNext() && rank < topicsToDisplay) {
                     IDSorter idCountPair = iterator.next();
                     builder.append("{\"text\":\"").append(dataAlphabet.lookupObject(idCountPair.getID())).append("\",");
-                    builder.append("weight:").append((int)idCountPair.getWeight()).append("}");
+                    builder.append("\"weight\":").append((int)idCountPair.getWeight()).append("}");
                     if (rank != topicsToDisplay - 1) {
                         builder.append(",");
                     }
