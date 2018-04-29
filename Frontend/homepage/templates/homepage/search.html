@@ -175,7 +175,7 @@
 					<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                     <script type="text/javascript">
                     	var sent =  {{ sentiment  | safe }};
-						var stringify_sentiment = JSON.stringify(sent);
+						//var stringify_sentiment = JSON.stringify(sent);
 						function getpiechart(datapoints){
 						alert(datapoints);
 						var chart = new CanvasJS.Chart("pieChart", {
@@ -187,7 +187,7 @@
 								type: "pie",
 								startAngle: 240,
 								yValueFormatString: "##0.00\"%\"",
-								indexLabel: "{"label"} {"y"}",
+								indexLabel: "{'label'} {'y'}",
 								dataPoints: datapoints
 							}]
 						});
@@ -202,15 +202,17 @@
 						for(var i=0; i<3; i++){
 							yVal = Math.round(5 + Math.random());
 							xVal = i;
-							datapoints.push({"y":yVal, "x": sentiments[xVal]});
+							datapoints.push({'y':yVal, 'x': sentiments[xVal]});
 						}
+						//console.log(datapoints);
+
 
 						chart = new CanvasJS.Chart("pieChart", {
 							data: [{
 								type: "pie",
 								startAngle:240,
 								yValueFormatString: "##0.00\"%\"",
-								indexLabel: "{"label"} {"y"}",
+								indexLabel: "{'label'} {'y'}",
 								dataPoints: datapoints
 							}]
 						});
@@ -219,7 +221,7 @@
 						};
 						// update chart every 2 seconds
 						//setInterval(function(){updateChart()}, 2000);
-						getpiechart(stringify_sentiment);
+						getpiechart(sent);
 						</script>
             	</div>
             </div>
