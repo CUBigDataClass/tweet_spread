@@ -60,7 +60,7 @@ public final class GeoParsingBolt extends BaseRichBolt {
             String hashtag = (String) input.getValueByField("hashtag");
             Boolean geo_enabled = (Boolean) input.getValueByField("geo_enabled");
             Collection<Float> location = new ArrayList<Float>();
-            if (geo_enabled != null or geo_enabled != false) {
+            if (geo_enabled != null || geo_enabled != false) {
                 if (input.getValueByField("geo") != null) {
                     JSONObject geo = (JSONObject) input.getValueByField("geo");
                     if (geo != null) {
