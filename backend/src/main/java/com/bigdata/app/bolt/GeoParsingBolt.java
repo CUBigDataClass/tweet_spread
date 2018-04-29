@@ -59,32 +59,6 @@ public final class GeoParsingBolt extends BaseRichBolt {
     }
 
     public final void execute(final Tuple input) {
-//        try {
-//            String hashtag = (String) input.getValueByField("hashtag");
-//            Collection<Float> location = new ArrayList<Float>();
-//            if (input.getValueByField("user") != null) {
-//                JSONObject user = (JSONObject) input.getValueByField("user");
-//                if (user.get("derived") != null) {
-//                    JSONObject derived = (JSONObject) user.get("derived");
-//                    System.out.println("derived ... "+user.get("derived"));
-//                    if (derived.get("locations") != null) {
-//                        JSONArray locations = (JSONArray) derived.get("locations");
-//                        System.out.println("locations ... "+derived.get("locations"));
-//                        for (int i = 0; i < locations.size(); i++) {
-//                            JSONObject o = (JSONObject) locations.get(i);
-//                            if (o.get("geo") != null) {
-//                                JSONObject geo = (JSONObject) o.get("geo");
-//                                System.out.println("geo ... "+o.get("geo"));
-//                                if (geo.get("coordinates") != null) {
-//                                    Collection<Float> loc = (Collection) geo.get("coordinates");
-//                                    System.out.println("coordinates ... "+geo.get("coordinates"));
-//                                    collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
 
             try {
                 String hashtag = (String) input.getValueByField("hashtag");
@@ -103,28 +77,20 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                         ArrayList<Object> loc = (ArrayList<Object>) geo.get("coordinates");
                                         Double lat = (Double)(loc.get(0));
                                         Double lon = (Double)(loc.get(1));
-                                        String str = "{\"" + hashtag + "\": {latitude: " + String.valueOf(lat) + ", longitude: " +
+                                        String str = "{\"" + hashtag + "\": {\"latitude\": " + String.valueOf(lat) + ", \"longitude\": " +
                                                 String.valueOf(lon) + "}";
                                         ArrayList<String> s = new ArrayList<String>();
                                         s.add(str);
-                                        System.out.println("...... geo parse " + s);
                                         collector.emit(new Values(s, hashtag));
                                     }
-                                    System.out.println("...... coordinates is null .......");
                                 }
-                                System.out.println("...... geo is null .......");
                             }
-                            System.out.println("...... location is null .......");
                         }
-                        System.out.println("...... locations is null .......");
                     }
-                    System.out.println("...... derived is null .......");
                 }
 
-            LOGGER.info("........... geo is null final .............");
             this.collector.ack(input);
         } catch (Exception exception) {
-            LOGGER.info("............... collector is null............");
             exception.printStackTrace();
             this.collector.fail(input);
         }
