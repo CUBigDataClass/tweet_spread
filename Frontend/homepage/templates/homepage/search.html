@@ -92,6 +92,8 @@
 	<script type="text/javascript">
          function get_data() {
 			var myjs;
+            var id = this.id;
+            alert('id in the begin is: ' + id);
 			
             $.ajax({
 			type: 'GET',
@@ -108,8 +110,8 @@
 			alert("this is outof getdata alert");
 			alert("this is outof getdata alert" + myjs);
 			document.getElementById("cloud").innerHTML = "";
-			alert('this.id: ' + this.id);
-			var id = this.id;
+			//alert('this.id: ' + this.id);
+			//var id = this.id;
 			var topic_json = myjs;
 			alert('topic json type: ' + typeof(topic_json));
             if(topic_json == null){
