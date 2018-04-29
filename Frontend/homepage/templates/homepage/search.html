@@ -107,26 +107,26 @@
 
 			document.getElementById("cloud").innerHTML = "";
 			var topic_json = myjs;
-			alert('topic json type: ' + typeof(topic_json));
+			//alert('topic json type: ' + typeof(topic_json));
             if(topic_json == null){
-                alert("I am null!");
+                //alert("I am null!");
             } else {
 
                 //str_new = JSON.stringify(topic_json);
                 
                 json_new = JSON.parse(topic_json);
                 //json_new_new = JSON.parse(json_new);
-                alert('json_new:' + json_new);
+                //alert('json_new:' + json_new);
                 //alert('json_new:' + json_new_new);
-                alert('new: '+ typeof(json_new));
+                //alert('new: '+ typeof(json_new));
                 //alert('new_new: ' + typeof(json_new_new));
 			}
-            alert('id is: '+ id);
-			alert(typeof(id));
+            //alert('id is: '+ id);
+			//alert(typeof(id));
 			word_data = json_new[id];
 
-			alert('word_data:' + word_data);
-			alert("calling jQCloud .... word_data="+word_data);
+			//alert('word_data:' + word_data);
+			//alert("calling jQCloud .... word_data="+word_data);
 
 			$(function() {
 			  // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
