@@ -26,9 +26,8 @@ def home(request):
 		query = request.GET['search']
 		requester = request.GET['requester']
 		if requester == "topicmodel":
-			sentiment = process_search.get_sentiment(query)
-			json_acceptable_string = sentiment.replace("'", "\"")
-			return HttpResponse(json_acceptable_string)
+			topics = process_search.get_topics(query)
+			return HttpResponse(topics)
 		else:
 			mode = "Fetched from ajax"
 			sentiment = process_search.get_sentiment(query)
