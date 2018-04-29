@@ -28,12 +28,13 @@ public class JSONParsingBolt extends BaseRichBolt implements Serializable {
             String key = (String) inputMap.keySet().toArray()[0];
             String tweet = inputMap.get(key);
             Map<String, Object> map = new ObjectMapper().readValue(tweet, Map.class);
-            collector.emit(new Values(key, map.get("text"), map.get("lang"), map.get("user")));
+            collector.emit(new Values(key, map.get("text"), map.get("lang"), map.get("user"), map.get("created_at")));
             this.collector.ack(input);
             System.out.println("[bigdata] hashtag: " + key);
             System.out.println("[bigdata] text: " + map.get("text"));
             System.out.println("[bigdata] lang: " + map.get("lang"));
             System.out.println("[bigdata] user: " + map.get("user"));
+            System.out.println("[bigdata] user: " + map.get("created_at"));
         } catch (Exception exception) {
             exception.printStackTrace();
             this.collector.fail(input);
@@ -41,7 +42,7 @@ public class JSONParsingBolt extends BaseRichBolt implements Serializable {
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("hashtag", "text", "lang", "user"));
+        declarer.declare(new Fields("hashtag", "text", "lang", "user", "created_at"));
     }
 
 }
