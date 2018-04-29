@@ -55,7 +55,7 @@ public final class GeoParsingBolt extends BaseRichBolt {
 
     public final void declareOutputFields(
             final OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("longitude", "latitude", "hashtag"));
+        outputFieldsDeclarer.declare(new Fields("locations", "hashtag"));
     }
 
     public final void execute(final Tuple input) {
