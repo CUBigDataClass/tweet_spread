@@ -30,8 +30,7 @@ def home(request):
 				sentiment = process_search.get_sentiment(query)
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 
-
-def update_view(request):
-	return render(request, 'homepage/search.html', {'sentiment': [{'y': 50, 'label': "POS"}, {'y': 40, 'label': "NEG"}, {'y': 10, 'label': "NEU"}]})
+	if request.is_ajax():
+		return render(request, 'homepage/search.html')
 
 
