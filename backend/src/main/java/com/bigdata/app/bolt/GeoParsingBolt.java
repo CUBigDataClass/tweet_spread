@@ -75,8 +75,8 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                     LinkedHashMap geo = (LinkedHashMap) o.get("geo");
                                     if (geo.get("coordinates") != null) {
                                         ArrayList<Object> loc = (ArrayList<Object>) geo.get("coordinates");
-                                        Double lat = (Double)(loc.get(0));
-                                        Double lon = (Double)(loc.get(1));
+                                        Double lat = (Double)(loc.get(1));
+                                        Double lon = (Double)(loc.get(0));
                                         String str = "{\"" + hashtag + "\": {\"latitude\": " + String.valueOf(lat) + ", \"longitude\": " +
                                                 String.valueOf(lon) + "}";
                                         ArrayList<String> s = new ArrayList<String>();
