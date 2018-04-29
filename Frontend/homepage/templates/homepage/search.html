@@ -169,6 +169,19 @@
         }
     }
 
+    function ajaxCall() {
+        $.ajax({
+        type: 'GET',
+        url: window.location.href,
+        data : { requester : "setinterval" },
+         success: function(json) {
+            var myjs = JSON.stringify(json);
+            var newjs = JSON.parse(myjs);
+            updateChart(newjs);
+         }
+        });
+    }
+
     </script>
 </head>
 
@@ -282,7 +295,7 @@
 							});
 						}
 
-						setInterval(ajaxCall, 2000);
+
 					</script>
         	    </div>
                 <div class="col-md-6">
@@ -649,6 +662,6 @@ window.twttr = (function(d, s, id) {
 
   return t;
 }(document, "script", "twitter-wjs"));
-
+setInterval(ajaxCall, 2000);
 </script>
 </html>
