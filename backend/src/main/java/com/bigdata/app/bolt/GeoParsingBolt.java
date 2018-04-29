@@ -63,9 +63,11 @@ public final class GeoParsingBolt extends BaseRichBolt {
             Collection<Float> location = new ArrayList<Float>();
             if (geo_enabled) {
                 JSONObject geo = (JSONObject) input.getValueByField("geo");
-                Collection<Float> loc = (Collection)geo.get("coordinates");
-                if ((String)geo.get("type") == "point"){
-                    collector.emit(new Values(((Float[])loc.toArray())[0], ((Float[])loc.toArray())[1], hashtag));
+                if (geo != null) {
+                    Collection<Float> loc = (Collection) geo.get("coordinates");
+                    if ((String) geo.get("type") == "point") {
+                        collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                    }
                 }
             }
 
