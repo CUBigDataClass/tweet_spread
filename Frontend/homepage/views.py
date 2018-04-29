@@ -33,12 +33,12 @@ def home(request):
 		if query:
 			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
-			top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+			#top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
 			if sentiment is None:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
-				top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+				#top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 				time.sleep(3)
 				sentiment = process_search.get_sentiment(query)
 				topic_models = process_search.get_topics(query)
