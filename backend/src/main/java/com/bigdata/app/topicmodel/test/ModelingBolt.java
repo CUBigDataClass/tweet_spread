@@ -34,7 +34,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             String hashtag = (String) input.getValueByField("hashtag");
             // Begin by importing documents from text to feature sequences
             ArrayList<Pipe> pipeList = new ArrayList<Pipe>();
-            List<String> tweets = (List<String>) input.getValue(0);
+            List<String> tweets = (List<String>) input.getValueByField("tweets");
             save(tweetFilename, tweets);
 
             // Pipes: lowercase, tokenize, remove stopwords, map to features
