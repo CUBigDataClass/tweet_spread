@@ -63,8 +63,8 @@ def get_geoparse(topic):
 	for elem in result:
 		for i in elem:
 			for j in i:
-				j.replace("\"\{ironman\}\"", "\"" + str(counter) + "\"")
-				final_res = final_res + str(j) + ","
+				k = j.replace("ironman", str(counter))
+				final_res = final_res + str(k) + ","
 				counter += 1
 	return final_res
 
