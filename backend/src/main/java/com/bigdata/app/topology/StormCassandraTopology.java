@@ -91,7 +91,7 @@ public class StormCassandraTopology {
 
         // Create topic modeling bolt
         builder.setBolt("tweets", new TweetsBolt(), 3).shuffleGrouping("json");
-        builder.setBolt("topic-modeling", new ModelingBolt(), 3).shuffleGrouping("tweets");
+        builder.setBolt("topic-modeling", new ModelingBolt(), 6).shuffleGrouping("tweets");
 
         /**
          * LEVEL 3
