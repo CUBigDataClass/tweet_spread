@@ -42,8 +42,10 @@ def home(request):
 				time.sleep(3)
 				sentiment = process_search.get_sentiment(query)
 				topic_models = process_search.get_topics(query)
+			#return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
+			#'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
-			'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
+			 'topic_models': topic_models})
 
 
 
