@@ -29,11 +29,14 @@ public class TweetsBolt extends BaseRichBolt implements Serializable {
         try {
             String hashtag = (String) input.getValueByField("hashtag");
             String text = (String) input.getValueByField("text");
-            tweets.add(text);
-            countTweet++;
-            if (countTweet == NUM_TWEET) {
-                collector.emit(new Values(hashtag, tweets));
-                countTweet = 0;
+            String lang = (String) input.getValueByField("lang");
+            if (lang.equals("en")) {
+                tweets.add(text);
+                countTweet++;
+                if (countTweet == NUM_TWEET) {
+                    collector.emit(new Values(hashtag, tweets));
+                    countTweet = 0;
+                }
             }
             collector.ack(input);
         } catch (Exception exception) {
