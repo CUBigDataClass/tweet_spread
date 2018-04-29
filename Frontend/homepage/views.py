@@ -14,6 +14,7 @@ def topic_model(request):
 
 
 def index(request):
+	# This below json is wrong.. this is not how we accept it now. We need a new format, as shown in the JS
 	my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
 	#my_json  = {"test":123};
 	#js_data = json.dumps(my_json)		
@@ -22,15 +23,17 @@ def index(request):
 
 def home(request):
 
-	if request.is_ajax() and request.method == 'POST':
-		return HttpResponse("This is my response")
-
 	if request.is_ajax():
 		query = request.GET['search']
-		mode = "Fetched from ajax"
-		sentiment = process_search.get_sentiment(query)
-		json_acceptable_string = sentiment.replace("'", "\"")
-		return HttpResponse(json_acceptable_string)
+		requester = request.GET['requester']
+		if requester == "topicmodel":
+			topics = process_search.get_topics(query)
+			return HttpResponse(topics)
+		else:
+			mode = "Fetched from ajax"
+			sentiment = process_search.get_sentiment(query)
+			json_acceptable_string = sentiment.replace("'", "\"")
+			return HttpResponse(json_acceptable_string)
 
 	if request.method == 'GET':
 		query = request.GET['search']
