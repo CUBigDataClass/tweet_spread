@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from . import process_search
 import json
 
@@ -10,6 +11,7 @@ def topic_model(request):
 	'''
 	pass
 
+
 def index(request):
 	my_json = [{"coords": [-63.2425206, -32.4079042],"frequency": 9},{"coords": [12.57994249, 55.68087366],"frequency": 3}];
 	#my_json  = {"test":123};
@@ -18,13 +20,23 @@ def index(request):
 
 
 def home(request):
+	if request.is_ajax():
+		query = request.GET['search']
+		mode = "Fetched from ajax"
+		sentiment = process_search.get_sentiment(query)
+		return HttpResponse({'sentiment': sentiment})
+
 	if request.method == 'GET':
 		query = request.GET['search']
 		if query:
-			process_search.connect_kafka(query)
+			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
-			mode = "Fetched from kafka"
+			if sentiment is None:
+				mode = "Fetched from kafka"
+				process_search.connect_kafka(query)
+				sentiment = process_search.get_sentiment(query)
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
+
 
 
 
