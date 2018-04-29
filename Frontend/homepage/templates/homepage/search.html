@@ -90,14 +90,14 @@
 
 
 	<script type="text/javascript">
-         function get_data(topic_mod) {
+         function get_data(id, topic_mod) {
     
             document.getElementById("cloud").innerHTML = "";
-            alert(this.id);
+            alert(id);
             alert(topic_mod);
             alert(typeof(topic_mod);
 
-            var id = this.id;
+            var id = id;
             var topic_json = topic_mod;
 
             word_data = topic_json[id];      
