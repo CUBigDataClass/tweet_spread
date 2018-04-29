@@ -306,7 +306,6 @@
 						chart.render();
 
 						};
-						// update chart every 2 seconds
 
 						getpiechart(sent);
 
@@ -316,7 +315,7 @@
 						  url: '{% url 'home' %}',
 						  success: function(data) {
 						  alert(data);
-						  updateChart(data)}, 2000);
+						  updateChart(data, 2000)};
 						  }
 						});
 						</script>
