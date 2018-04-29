@@ -309,15 +309,16 @@
 
 						getpiechart(sent);
 
-						setInterval(function(){
-						alert("iamisetinterval")
-						$.ajax({
-						  url: '{% url 'home' %}',
-						  success: function(data) {
-						  alert(data);
-						  updateChart(data, 2000)}
-						  });
-						});
+						function ajaxCall() {
+							$.ajax({
+							url: '{% url 'home' %}',
+							success: function(data) {
+							alert(data);
+							updateChart(data)}
+							});
+						}
+
+						setInterval(ajax_call, 5000);
 						</script>
             	   </div>
                 </div>
