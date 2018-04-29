@@ -311,7 +311,8 @@
 
 						function ajaxCall() {
 							$.ajax({
-							url: '{% url 'home' %}',
+							type: 'GET',
+							url: "/crm/request_access/",
 							success: function(data) {
 							alert(data);
 							updateChart(data)}
