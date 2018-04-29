@@ -59,23 +59,24 @@ public final class GeoParsingBolt extends BaseRichBolt {
         try {
             String hashtag = (String) input.getValueByField("hashtag");
             Collection<Float> location = new ArrayList<Float>();
-            if (input.getValueByField("geo_enabled") != null) {
-                Boolean geo_enabled = (Boolean) input.getValueByField("geo_enabled");
-                if (geo_enabled != false) {
-                    if (input.getValueByField("geo") != null) {
-                        JSONObject geo = (JSONObject) input.getValueByField("geo");
-                        if (geo != null) {
-                            Collection<Float> loc = (Collection) geo.get("coordinates");
-                            if ((String) geo.get("type") == "point") {
+            if (input.getValueByField("user") != null) {
+                JSONObject user = (JSONObject) input.getValueByField("user");
+                if (user.getJSONObject("derived") != null) {
+                    JSONObject derived = (JSONObject) user.getJSONObject("derived");
+                    if (derived.getJSONArray("locations") != null) {
+                        JSONObject locations = ((JSONArray) derived.getJSONArray("locations"))[0];
+                        if (locations.getJSONObject("geo") != null) {
+                            JSONObject geo = (JSONObject) locations.getJSONObject("geo");
+                            if (geo.get("coordinates") != null) {
+                                Collection<Float> loc = (Collection) geo.get("coordinates");
                                 collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
-                                LOGGER.info("..... geo is " + geo);
                             }
                         }
                     }
-                    LOGGER.info("........... geo is null.............");
                 }
             }
 
+            LOGGER.info("........... geo is null.............");
             this.collector.ack(input);
         } catch (Exception exception) {
             LOGGER.info("............... collector is null............");
