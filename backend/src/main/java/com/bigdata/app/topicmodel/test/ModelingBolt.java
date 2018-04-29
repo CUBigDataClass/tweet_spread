@@ -71,29 +71,29 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
             // Get an array of sorted sets of word ID/count pairs
             ArrayList<TreeSet<IDSorter>> topicSortedWords = model.getSortedWords();
 
-            // Get top 10 words in topics with proportions for the first document
-            int topicsToDisplay = 10;
-            List<Map<String, Integer>> topicList = new ArrayList<>();
+            // Get top 20 words in topics with proportions for the first document
+            int topicsToDisplay = 20;
+            StringBuilder builder = new StringBuilder();
+            builder.append("{");
             for (int topic = 0; topic < numTopics; topic++) {
+                builder.append("t").append(topic + 1).append(":[");
                 Iterator<IDSorter> iterator = topicSortedWords.get(topic).iterator();
-                Map<String, Integer> map = new HashMap<>();
 
                 int rank = 0;
                 while (iterator.hasNext() && rank < topicsToDisplay) {
                     IDSorter idCountPair = iterator.next();
-                    map.put(dataAlphabet.lookupObject(idCountPair.getID()).toString(), (int) idCountPair.getWeight());
+                    builder.append("{\"text\":").append(idCountPair.getID()).append(",");
+                    builder.append("weight:").append(idCountPair.getWeight()).append("}");
+                    if (rank != topicsToDisplay - 1) {
+                        builder.append(",");
+                    }
                     rank++;
                 }
-                topicList.add(map);
+                builder.append("]");
             }
-            collector.emit(new Values(topicList, hashtag));
+            builder.append("}");
+            collector.emit(new Values(builder.toString(), hashtag));
             collector.ack(input);
-            for (Map<String, Integer> map : topicList) {
-                for (String key : map.keySet()) {
-                    System.out.print("[bigdata] topic: " + key + "(" + map.get(key) + ")");
-                }
-                System.out.println();
-            }
         } catch (Exception exception) {
             exception.printStackTrace();
             collector.fail(input);
