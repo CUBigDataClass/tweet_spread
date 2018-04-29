@@ -90,7 +90,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
                     rank++;
                 }
                 builder.append("]");
-                if (rank != numTopics - 1) {
+                if (topic != numTopics - 1) {
                     builder.append(",");
                 }
             }
