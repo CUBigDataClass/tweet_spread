@@ -58,20 +58,22 @@ public final class GeoParsingBolt extends BaseRichBolt {
     public final void execute(final Tuple input) {
         try {
             String hashtag = (String) input.getValueByField("hashtag");
-            Boolean geo_enabled = (Boolean) input.getValueByField("geo_enabled");
             Collection<Float> location = new ArrayList<Float>();
-            if (geo_enabled != null || geo_enabled != false) {
-                if (input.getValueByField("geo") != null) {
-                    JSONObject geo = (JSONObject) input.getValueByField("geo");
-                    if (geo != null) {
-                        Collection<Float> loc = (Collection) geo.get("coordinates");
-                        if ((String) geo.get("type") == "point") {
-                            collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
-                            LOGGER.info("..... geo is " + geo);
+            if (input.getValueByField("geo_enabled") != null) {
+                Boolean geo_enabled = (Boolean) input.getValueByField("geo_enabled");
+                if (geo_enabled != false) {
+                    if (input.getValueByField("geo") != null) {
+                        JSONObject geo = (JSONObject) input.getValueByField("geo");
+                        if (geo != null) {
+                            Collection<Float> loc = (Collection) geo.get("coordinates");
+                            if ((String) geo.get("type") == "point") {
+                                collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                                LOGGER.info("..... geo is " + geo);
+                            }
                         }
                     }
+                    LOGGER.info("........... geo is null.............");
                 }
-                LOGGER.info("........... geo is null.............");
             }
 
             this.collector.ack(input);
