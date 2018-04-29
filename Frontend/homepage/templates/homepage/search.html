@@ -261,6 +261,7 @@
 							$.ajax({
 							type: 'GET',
 							url: window.location.href,
+							data : { requester : "setinterval" },
 							 success: function(json) {
 							 	var myjs = JSON.stringify(json);
 							 	var newjs = JSON.parse(myjs);
