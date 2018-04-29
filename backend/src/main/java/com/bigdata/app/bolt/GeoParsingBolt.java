@@ -100,8 +100,8 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                 if (o.get("geo") != null) {
                                     LinkedHashMap geo = (LinkedHashMap) o.get("geo");
                                     if (geo.get("coordinates") != null) {
-                                        Collection<Float> loc = (Collection) geo.get("coordinates");
-                                        collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                                        ArrayList<Object> loc = (ArrayList<Object>) geo.get("coordinates");
+                                        collector.emit(new Values((Float)(loc.get(0)), (Float)loc.get(1), hashtag));
                                     }
                                 }
                             }
