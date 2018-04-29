@@ -19,6 +19,8 @@ import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.google.common.base.Splitter;
 import javax.json.*;
@@ -61,17 +63,21 @@ public final class GeoParsingBolt extends BaseRichBolt {
             String hashtag = (String) input.getValueByField("hashtag");
             Collection<Float> location = new ArrayList<Float>();
             if (input.getValueByField("user") != null) {
-                LinkedHashMap user = (LinkedHashMap) input.getValueByField("user");
+                JSONObject user = (JSONObject) input.getValueByField("user");
                 if (user.get("derived") != null) {
-                    LinkedHashMap derived = (LinkedHashMap) user.get("derived");
+                    JSONObject derived = (JSONObject) user.get("derived");
+                    System.out.println("derived ... "+user.get("derived"));
                     if (derived.get("locations") != null) {
-                        List<LinkedHashMap> locations = (List<LinkedHashMap>) derived.get("locations");
+                        JSONArray locations = (JSONArray) derived.get("locations");
+                        System.out.println("locations ... "+derived.get("locations"));
                         for (int i = 0; i < locations.size(); i++) {
-                            LinkedHashMap o = locations.get(i);
+                            JSONObject o = (JSONObject) locations.get(i);
                             if (o.get("geo") != null) {
-                                LinkedHashMap geo = (LinkedHashMap) o.get("geo");
+                                JSONObject geo = (JSONObject) o.get("geo");
+                                System.out.println("geo ... "+o.get("geo"));
                                 if (geo.get("coordinates") != null) {
                                     Collection<Float> loc = (Collection) geo.get("coordinates");
+                                    System.out.println("coordinates ... "+geo.get("coordinates"));
                                     collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
                                 }
                             }
@@ -79,6 +85,28 @@ public final class GeoParsingBolt extends BaseRichBolt {
                     }
                 }
             }
+//            try {
+//                String hashtag = (String) input.getValueByField("hashtag");
+//                Collection<Float> location = new ArrayList<Float>();
+//                if (input.getValueByField("user") != null) {
+//                    LinkedHashMap user = (LinkedHashMap) input.getValueByField("user");
+//                    if (user.get("derived") != null) {
+//                        LinkedHashMap derived = (LinkedHashMap) user.get("derived");
+//                        if (derived.get("locations") != null) {
+//                            List<LinkedHashMap> locations = (List<LinkedHashMap>) derived.get("locations");
+//                            for (int i = 0; i < locations.size(); i++) {
+//                                LinkedHashMap o = locations.get(i);
+//                                if (o.get("geo") != null) {
+//                                    LinkedHashMap geo = (LinkedHashMap) o.get("geo");
+//                                    if (geo.get("coordinates") != null) {
+//                                        Collection<Float> loc = (Collection) geo.get("coordinates");
+//                                        collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
 
             LOGGER.info("........... geo is null.............");
             this.collector.ack(input);
