@@ -313,7 +313,9 @@
 							$.ajax({
 							type: 'GET',
 							url: window.location.href,
-							data: { query : {{ query }}}
+							 success: function(json) {
+								 alert(json);
+							 }
 							});
 						}
 
