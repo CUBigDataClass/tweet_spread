@@ -32,7 +32,7 @@ def get_sentiment(topic):
 			for i in range(1, 4):
 				final_res.append(elem[i])
 		final_res = [(x/float(sum(final_res)))*100 for x in final_res]
-		my_json = [{'y': final_res[2], 'label': "POS"}, {'y': final_res[0], 'label': "NEG"}, {'y': final_res[1], 'label': "NEU"}]
+		my_json = str([{'y': final_res[2], 'label': "POS"}, {'y': final_res[0], 'label': "NEG"}, {'y': final_res[1], 'label': "NEU"}])
 		return my_json
 	else:
 		return None
