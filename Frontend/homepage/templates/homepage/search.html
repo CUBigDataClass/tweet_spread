@@ -90,13 +90,8 @@
 
 
 	<script type="text/javascript">
-         function get_data(id) {
-            alert("param id: " + id);
+         function get_data(id) {            
 			var myjs;
-            alert('this is: '+ this);
-            var id = this.id;
-            alert('id in the begin is: ' + id);
-			
             $.ajax({
 			type: 'GET',
 			async: false,
@@ -109,11 +104,7 @@
 			 }
 			});
 
-			alert("this is outof getdata alert");
-			alert("this is outof getdata alert" + myjs);
 			document.getElementById("cloud").innerHTML = "";
-			//alert('this.id: ' + this.id);
-			//var id = this.id;
 			var topic_json = myjs;
 			alert('topic json type: ' + typeof(topic_json));
             if(topic_json == null){
@@ -125,7 +116,7 @@
                 var json_new = JSON.parse(str_new)
                 alert(json_new)
 			}
-			word_data = topic_json['t1'];
+			word_data = topic_json[id];
 			alert('word_data:' + word_data);
 			alert("calling jQCloud .... word_data="+word_data);
 
