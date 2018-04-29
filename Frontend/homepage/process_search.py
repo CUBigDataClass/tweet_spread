@@ -38,16 +38,20 @@ def get_sentiment(topic):
 		return None
 
 
-# def get_top_tweets(search_string):
-# 	tweets_file = t.search.tweets(q=search_string, result_type='recent', lang='en', count=10)
-# 	print(tweets_file)
-# 	print(type(t))
-# 	status = tweets_file['statuses']
-# 	top_tweets = []
-# 	for tweet in status:
-# 		tweet_id = tweet['id']
-# 		top_tweets.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
-# 	return top_tweets
+def get_top_tweets(search_string):
+	tweets_file_1 = t.search.tweets(q=search_string, result_type='recent', lang='en', count=5)
+	tweets_file_2 = t.search.tweets(q=search_string, result_type='popular', lang='en', count=5)
+	status_1 = tweets_file_1['statuses']
+	status_2 = tweets_file_2['statuses']
+	top_tweets_1 = []
+	top_tweets_2 = []
+	for tweet in status_1:
+		tweet_id = tweet['id']
+		top_tweets_1.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+	for tweet in status_2:
+		tweet_id = tweet['id']
+		tweets_file_2.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+	return top_tweets_1, top_tweets_2
 
 
 

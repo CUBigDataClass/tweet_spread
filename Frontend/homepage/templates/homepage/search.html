@@ -203,17 +203,17 @@
 				<div> {{ sentiment }} </div>
 				<div> {{ mode }} </div>
 	            <div class="col-md-6 twitter-timeline">
-					<p class="category" id="toptweets">Top tweets for {{ query }}</p>
+					<p class="category" id="toptweets">Recent tweets for {{ query }}</p>
 					{% block content %}
-						{% for content in top_tweets_html %}
+						{% for content in top_tweets_1 %}
 							{{ content| safe }}
 						{% endfor %}
 					{% endblock %}
 				</div>
 				<div class="col-md-6 offset-md-4 twitter-timeline">
-					<p class="category" id="topblueticktweets">Top celebrity tweets for {{ query }}</p>
+					<p class="category" id="topblueticktweets">Popular tweets for {{ query }}</p>
 					{% block new_content %}
-						{% for content in top_tweets_html %}
+						{% for content in top_tweets_2 %}
 							{{ content| safe }}
 						{% endfor %}
 					{% endblock %}
