@@ -315,11 +315,10 @@
 							type: 'GET',
 							url: window.location.href,
 							 success: function(json) {
-							 	var sent =  json['sentiment'];
-							 	alert(sent);
-							 	var stringify_sentiment = JSON.stringify(sent);
+							 	alert(json);
+							 	var stringify_sentiment = JSON.stringify(json);
 							 	alert(stringify_sentiment)
-								updateChart(sent);
+								updateChart(json);
 							 }
 							});
 						}
