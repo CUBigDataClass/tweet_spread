@@ -311,9 +311,11 @@
 						getpiechart(sent);
 
 						setInterval(function(){
+						alert("iamisetinterval")
 						$.ajax({
 						  url: '{% url 'home' %}',
 						  success: function(data) {
+						  alert(data);
 						  updateChart(data)}, 2000);
 						  }
 						});
