@@ -28,6 +28,7 @@ public class TweetsBolt extends BaseRichBolt implements Serializable {
     public void execute(Tuple input) {
         try {
             String hashtag = (String) input.getValueByField("hashtag");
+            System.out.println("[bigdata] get hashtag from json bolt: " + hashtag);
             String text = (String) input.getValueByField("text");
             String lang = (String) input.getValueByField("lang");
             if (lang.equals("en")) {
@@ -35,6 +36,7 @@ public class TweetsBolt extends BaseRichBolt implements Serializable {
                 countTweet++;
                 if (countTweet == NUM_TWEET) {
                     collector.emit(new Values(hashtag, tweets));
+                    System.out.println("[bigdata] emit hashtag: " + hashtag);
                     countTweet = 0;
                 }
             }

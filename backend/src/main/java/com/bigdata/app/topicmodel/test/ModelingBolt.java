@@ -31,6 +31,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
     public void execute(Tuple input) {
         try {
             String hashtag = (String) input.getValueByField("hashtag");
+            System.out.println("[bigdata] get hashtag from tweets bolt: " + hashtag);
             // Begin by importing documents from text to feature sequences
             ArrayList<Pipe> pipeList = new ArrayList<Pipe>();
             List<String> tweets = (List<String>) input.getValueByField("tweets");

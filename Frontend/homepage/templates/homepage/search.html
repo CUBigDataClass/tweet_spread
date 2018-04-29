@@ -93,6 +93,7 @@
          function get_data(id) {            
 			var myjs;
 			var json_new;
+            //var json_new_new;
             $.ajax({
 			type: 'GET',
 			async: false,
@@ -113,8 +114,11 @@
             } else {
 
                 json_new = JSON.parse(str_new);
+                //json_new_new = JSON.parse(json_new);
                 alert('json_new:' + json_new);
-                alert(typeof(json_new));
+                //alert('json_new:' + json_new_new);
+                alert('new: '+ typeof(json_new));
+                //alert('new_new: ' + typeof(json_new_new));
 			}
             alert('id is: '+ id);
 			alert(typeof(id));
