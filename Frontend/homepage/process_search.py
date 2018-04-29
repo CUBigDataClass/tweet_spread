@@ -60,7 +60,7 @@ def get_geoparse(topic):
 	final_res = ""
 	for elem in result:
 		for i in elem:
-			final_res = final_res + i
+			final_res = final_res + str(i)
 	return final_res
 
 
