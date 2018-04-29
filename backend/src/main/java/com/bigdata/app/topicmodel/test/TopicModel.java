@@ -1,5 +1,4 @@
 package com.bigdata.app.topicmodel.test;
-import cc.mallet.util.*;
 import cc.mallet.types.*;
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.*;

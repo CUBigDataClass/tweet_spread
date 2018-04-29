@@ -28,21 +28,22 @@ public class TweetsBolt extends BaseRichBolt implements Serializable {
 
     public void execute(Tuple input) {
         try {
-            String tweet = input.getString(0);
-            tweets.add(tweet);
+            String hashtag = (String) input.getValueByField("hashtag");
+            String text = (String) input.getValueByField("text");
+            tweets.add(text);
             countTweet++;
             if (countTweet == NUM_TWEET) {
-                collector.emit("topic-stream", new Values(tweets));
+                collector.emit(new Values(hashtag, tweets));
             }
-            this.collector.ack(input);
+            collector.ack(input);
         } catch (Exception exception) {
             exception.printStackTrace();
-            this.collector.fail(input);
+            collector.fail(input);
         }
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declareStream("topic-stream", new Fields("tweets"));
+        declarer.declare(new Fields("hashtag", "tweets"));
     }
 
 }
