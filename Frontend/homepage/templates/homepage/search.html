@@ -91,7 +91,17 @@
 
 	<script type="text/javascript">
          function get_data() {
-
+			var myjs;
+			$.ajax({
+			alert("intoajaxrequest")
+			type: 'POST',
+			url: window.location.href,
+			data : { requester : "topicmodel" }
+			success: function(json) {
+				myjs = json;
+			 }
+			});
+			alert(myjs);
             document.getElementById("cloud").innerHTML = "";
             //alert('topic mod: ' + topic_mod);
             //alert('type of : ' + typeof(topic_mod));
