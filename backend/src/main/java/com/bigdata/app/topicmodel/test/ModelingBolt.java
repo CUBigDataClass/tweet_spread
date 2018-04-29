@@ -82,8 +82,8 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
                 int rank = 0;
                 while (iterator.hasNext() && rank < topicsToDisplay) {
                     IDSorter idCountPair = iterator.next();
-                    builder.append("{\"text\":").append(idCountPair.getID()).append(",");
-                    builder.append("weight:").append(idCountPair.getWeight()).append("}");
+                    builder.append("{\"text\":").append(dataAlphabet.lookupObject(idCountPair.getID())).append(",");
+                    builder.append("weight:").append((int)idCountPair.getWeight()).append("}");
                     if (rank != topicsToDisplay - 1) {
                         builder.append(",");
                     }
@@ -101,7 +101,7 @@ public class ModelingBolt extends BaseRichBolt implements Serializable {
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("topics", "hashtag"));
+        declarer.declare(new Fields("topic", "hashtag"));
     }
 
     private void save(String fileName, List<String> list) throws FileNotFoundException {
