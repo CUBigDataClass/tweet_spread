@@ -113,11 +113,12 @@
             } else {
 
                 var str_new = JSON.stringify(topic_json)
-                alert(str_new);
+                alert('str_new:' + str_new);
                 json_new = JSON.parse(str_new)
-                alert(json_new)
+                alert('json_new:' + json_new)
 			}
-			word_data = json_new['t1'];
+			word_data = json_new[id];
+            alert('id is: '+ id);			
 			alert('word_data:' + word_data);
 			alert("calling jQCloud .... word_data="+word_data);
 

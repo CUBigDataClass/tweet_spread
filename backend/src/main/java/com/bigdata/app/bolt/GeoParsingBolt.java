@@ -107,15 +107,21 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                                 String.valueOf(lon) + "}";
                                         ArrayList<String> s = new ArrayList<String>();
                                         s.add(str);
+                                        System.out.println("...... geo parse " + str);
                                         collector.emit(new Values(s, hashtag));
                                     }
+                                    System.out.println("...... coordinates is null .......");
                                 }
+                                System.out.println("...... geo is null .......");
                             }
+                            System.out.println("...... location is null .......");
                         }
+                        System.out.println("...... locations is null .......");
                     }
+                    System.out.println("...... derived is null .......");
                 }
 
-            LOGGER.info("........... geo is null.............");
+            LOGGER.info("........... geo is null final .............");
             this.collector.ack(input);
         } catch (Exception exception) {
             LOGGER.info("............... collector is null............");
