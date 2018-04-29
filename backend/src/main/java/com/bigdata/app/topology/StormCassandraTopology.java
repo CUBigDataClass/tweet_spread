@@ -1,5 +1,7 @@
 package com.bigdata.app.topology;
 
+import com.bigdata.app.topicmodel.test.ModelingBolt;
+import com.bigdata.app.topicmodel.test.TweetsBolt;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
@@ -86,6 +88,10 @@ public class StormCassandraTopology {
 
         // Create geo parsing bolt
         builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
+
+        // Create topic modeling bolt
+        builder.setBolt("tweets", new TweetsBolt(), 3).shuffleGrouping("json");
+        builder.setBolt("topic-modeling", new ModelingBolt(), 3).shuffleGrouping("tweets");
 
         /**
          * LEVEL 3
