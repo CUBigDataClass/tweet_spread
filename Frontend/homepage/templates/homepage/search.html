@@ -265,7 +265,6 @@
                     	var sent =  {{ sentiment  | safe }};
 						//var stringify_sentiment = JSON.stringify(sent);
 						function getpiechart(datapoints){
-						alert(datapoints);
 						var chart = new CanvasJS.Chart("pieChart", {
 							//animationEnabled: true,
 							/*title: {
@@ -284,8 +283,6 @@
 						var updateCount = 0;
 						var sentiments = ["POS", "NEG", "NEU"];
 						var updateChart = function (datapoints) {
-						alert("iaminupdatechart")
-						alert(datapoints);
 						//updateCount++;
 						//for(var i=0; i<3; i++){
 						//	yVal = Math.round(5 + Math.random());
@@ -316,14 +313,8 @@
 							type: 'GET',
 							url: window.location.href,
 							 success: function(json) {
-							 	alert(json);
-							 	alert(typeof(json));
 							 	var myjs = JSON.stringify(json);
-							 	alert(myjs);
-							 	alert(typeof(myjs));
 							 	var newjs = JSON.parse(myjs);
-							 	alert(newjs);
-							 	alert(typeof(newjs));
 								updateChart(newjs);
 							 }
 							});
