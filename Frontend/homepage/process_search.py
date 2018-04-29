@@ -59,15 +59,15 @@ def get_geoparse(topic):
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = ""
-	counter = 0
-	for elem in result:
-		for i in elem:
-			for j in i:
-				k = j.replace("{\"music\"", '"' + str(counter) + '"')
-				final_res = final_res + str(k) + ","
-				counter += 1
-	final_res = final_res.strip(",")
-	final_res = "{" + final_res + "}"
+	# counter = 0
+	# for elem in result:
+	# 	for i in elem:
+	# 		for j in i:
+	# 			k = j.replace("{\"music\"", '"' + str(counter) + '"')
+	# 			final_res = final_res + str(k) + ","
+	# 			counter += 1
+	# final_res = final_res.strip(",")
+	# final_res = "{" + final_res + "}"
 	return final_res
 
 
