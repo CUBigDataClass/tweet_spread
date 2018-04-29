@@ -57,10 +57,10 @@ def get_geoparse(topic):
 	query_string = "select * from tweetanalysis.geoparsing where hashtag='ironman'"
 	result = session.execute(query_string)
 	cluster.shutdown()
-	final_res = []
+	final_res = ""
 	for elem in result:
 		for i in elem:
-			final_res.append(i)
+			final_res = final_res + i
 	return final_res
 
 
