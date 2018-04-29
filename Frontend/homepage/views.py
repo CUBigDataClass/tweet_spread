@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from . import process_search
 import json
 
@@ -19,6 +20,14 @@ def index(request):
 
 
 def home(request):
+	if request.is_ajax():
+		query = request.GET['search']
+		mode = "Fetched from ajax"
+		sentiment = process_search.get_sentiment(query)
+		json_response = {'mode': mode}
+
+		return HttpResponse(json.dumps(json_response), content_type='application/json')
+
 	if request.method == 'GET':
 		query = request.GET['search']
 		if query:
@@ -30,11 +39,7 @@ def home(request):
 				sentiment = process_search.get_sentiment(query)
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 
-	if request.is_ajax():
-		query = request.GET['search']
-		mode = "Fetched from cassandra"
-		sentiment = process_search.get_sentiment(query)
-		return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
+
 
 
 

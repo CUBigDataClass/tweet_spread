@@ -312,7 +312,8 @@
 						function ajaxCall() {
 							$.ajax({
 							type: 'GET',
-							url: window.location.href
+							url: window.location.href,
+							data: {{ query }}
 							});
 						}
 
