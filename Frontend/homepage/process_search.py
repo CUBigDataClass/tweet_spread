@@ -67,6 +67,7 @@ def get_geoparse(topic):
 				final_res = final_res + str(k) + ","
 				counter += 1
 	final_res = final_res.strip(",")
+	final_res = "{" + final_res + "}"
 	return final_res
 
 
