@@ -91,6 +91,7 @@
 
 	<script type="text/javascript">
          function get_data() {
+         	alert("iamingetdata")
 			var myjs;
 			$.ajax({
 			type: 'GET',
@@ -101,8 +102,8 @@
 				alert("this is getdata alert" + myjs);
 			 }
 			});
-
-			alert("this is getdata alert" + myjs);
+			alert("iamoutofgetdata")
+			alert("this is outof getdata alert" + myjs);
             document.getElementById("cloud").innerHTML = "";
             alert('this.id: ' + this.id);
             //var id = this.id;
