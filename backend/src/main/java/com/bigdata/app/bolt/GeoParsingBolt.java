@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.lang.Float;
 
 import org.apache.storm.task.OutputCollector;
@@ -20,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
-import org.json.simple.JSONObject;
+import javax.json.*;
 
 /**
  * Breaks each tweet into words and gets the location of each tweet and
@@ -60,16 +61,19 @@ public final class GeoParsingBolt extends BaseRichBolt {
             String hashtag = (String) input.getValueByField("hashtag");
             Collection<Float> location = new ArrayList<Float>();
             if (input.getValueByField("user") != null) {
-                JSONObject user = (JSONObject) input.getValueByField("user");
-                if (user.getJSONObject("derived") != null) {
-                    JSONObject derived = (JSONObject) user.getJSONObject("derived");
-                    if (derived.getJSONArray("locations") != null) {
-                        JSONObject locations = ((JSONArray) derived.getJSONArray("locations"))[0];
-                        if (locations.getJSONObject("geo") != null) {
-                            JSONObject geo = (JSONObject) locations.getJSONObject("geo");
-                            if (geo.get("coordinates") != null) {
-                                Collection<Float> loc = (Collection) geo.get("coordinates");
-                                collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                JsonObject user = (JsonObject) input.getValueByField("user");
+                if (user.getJsonObject("derived") != null) {
+                    JsonObject derived = (JsonObject) user.getJsonObject("derived");
+                    if (derived.getJsonArray("locations") != null) {
+                        JsonArray locations = (JsonArray) derived.getJsonArray("locations");
+                        for (int i = 0; i < locations.size(); i++) {
+                            JsonObject o = locations.getJsonObject(i);
+                            if (o.getJsonObject("geo") != null) {
+                                JsonObject geo = (JsonObject) o.getJsonObject("geo");
+                                if (geo.get("coordinates") != null) {
+                                    Collection<Float> loc = (Collection) geo.get("coordinates");
+                                    collector.emit(new Values(((Float[]) loc.toArray())[0], ((Float[]) loc.toArray())[1], hashtag));
+                                }
                             }
                         }
                     }
