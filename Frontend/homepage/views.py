@@ -31,5 +31,7 @@ def home(request):
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 
 
-
+def update_view(request, query):
+	sentiment = process_search.get_sentiment(query)
+	return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment})
 
