@@ -31,6 +31,10 @@ def home(request):
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
 
 	if request.is_ajax():
-		return render(request, 'homepage/search.html')
+		query = request.GET['search']
+		mode = "Fetched from cassandra"
+		sentiment = process_search.get_sentiment(query)
+		return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode})
+
 
 
