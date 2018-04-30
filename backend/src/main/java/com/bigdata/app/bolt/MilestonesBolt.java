@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.*;
 import java.lang.Double;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -68,9 +68,16 @@ public final class MilestonesBolt extends BaseRichBolt {
             String date = (String) input.getValueByField("created_at");
             System.out.println("..... date .... " + date);
             LocalDate localDate = LocalDate.parse(date);
-            int year = localDate.getYear();
-            int month = localDate.getMonthValue() - 1;
-            int day = localDate.getDayOfMonth();
+            
+//            int year = localDate.getYear();
+//            int month = localDate.getMonthValue() - 1;
+//            int day = localDate.getDayOfMonth();
+            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            String mo = date.substring(4, 3);
+            int month = months.indexOf(mo);
+            int day = (int) date.substring(8, 2);
+            int year = (int) date.substring(26, 4);
+
             System.out.println("..... date, month, year .... " + day + month + year);
             collector.emit(new Values(1, day, month, year, hashtag));
 
