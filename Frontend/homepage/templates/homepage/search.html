@@ -316,7 +316,7 @@
                             var days = 15;
                             var months = 0
 
-                            var updateMilesChart = function() {
+                            var updateMilesChart = function(data_) {
                                 days = days + 1;
                                 if(days == 31){
                                     months += 1
@@ -328,6 +328,8 @@
                                 }
                                 chart.render();
                             };
+
+
                         }
                     </script> 
                     <script type="text/javascript">
@@ -342,7 +344,7 @@
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
 							 	alert(json);
-								updateMilesChart(json);
+								load_milestones(json);
 							 }
 							});
 						}
