@@ -293,22 +293,23 @@
                     <script type="text/javascript"> plot_milestones();</script>-->
                     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                     <script type="text/javascript">
-                            function load_milestones() {
-                            var dps = [
-                                        { x: new Date(2017, 0, 3), y: 450 },
-                                        { x: new Date(2017, 0, 4), y: 414},
-                                        { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
-                                        { x: new Date(2017, 0, 6), y: 460 },
-                                        { x: new Date(2017, 0, 7), y: 450 },
-                                        { x: new Date(2017, 0, 8), y: 500 },
-                                        { x: new Date(2017, 0, 9), y: 480 },
-                                        { x: new Date(2017, 0, 10), y: 480 },
-                                        { x: new Date(2017, 0, 11), y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
-                                        { x: new Date(2017, 0, 12), y: 500 },
-                                        { x: new Date(2017, 0, 13), y: 480 },
-                                        { x: new Date(2017, 0, 14), y: 510 }
-                                    ];
+                            function load_milestones(data_mile) {
+                            //var dps = [
+                            //            { x: new Date(2017, 0, 3), y: 450 },
+                            //            { x: new Date(2017, 0, 4), y: 414},
+                            //           { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
+                            //            { x: new Date(2017, 0, 6), y: 460 },
+                            //            { x: new Date(2017, 0, 7), y: 450 },
+                            //            { x: new Date(2017, 0, 8), y: 500 },
+                            //            { x: new Date(2017, 0, 9), y: 480 },
+                            //            { x: new Date(2017, 0, 10), y: 480 },
+                            //           { x: new Date(2017, 0, 11), y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
+                            //            { x: new Date(2017, 0, 12), y: 500 },
+                            //            { x: new Date(2017, 0, 13), y: 480 },
+                            //            { x: new Date(2017, 0, 14), y: 510 }
+                            //        ];
 
+							var dps = data_mile
                             var chart = new CanvasJS.Chart("milestones", {
                                 animationEnabled: true,
                                 theme: "light2",
@@ -345,10 +346,12 @@
                                 chart.render();
                             };
 
-                            setInterval(function(){updateChart()}, updateInterval); 
+                            //setInterval(function(){updateChart()}, updateInterval);
                         }
                     </script> 
-                    <script type="text/javascript">load_milestones();</script>                  
+                    <script type="text/javascript">
+                    var data_milestones = {{ milestones }}
+                    load_milestones(data_milestones);</script>
                 </div>
             </div>
         </div>
