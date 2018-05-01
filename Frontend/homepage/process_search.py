@@ -104,7 +104,7 @@ def get_milestones(topic, mode = 0):
 				result = session.execute(query)
 				if result:
 					for elem in result:
-						result_dict = {"x": new Date(2018, 3, " + str(day) + ", " + str(hour)+" )", "y": elem[0]}
+						result_dict = {"x": "new Date(2018, 3, " + str(day) + ", " + str(hour)+" )", "y": elem[0]}
 						milestones.append(result_dict)
 		cluster.shutdown()
 		return milestones
