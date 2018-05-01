@@ -35,6 +35,7 @@ def home(request):
 			return HttpResponse(json_acceptable_string)
 		elif requester == "setgeointerval":
 			geoparsed = process_search.get_geoparse(query_topic)
+			return HttpResponse(geoparsed)
 		elif requester == "setmilesinterval":
 			milestones = process_search.get_milestones(query_topic)
 			return HttpResponse(json.dumps(milestones), content_type="application/json")
@@ -45,7 +46,7 @@ def home(request):
 		if query:
 			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
-			geoparsed = process_search.get_geoparse(query)
+			#geoparsed = process_search.get_geoparse(query)
 			# top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
 			milestones = process_search.get_milestones(query, 1)
@@ -61,7 +62,7 @@ def home(request):
 			# return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
 			# 'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
-			 'topic_models': topic_models, 'milestones': milestones, 'geoparsed':  geoparsed})
+			 'topic_models': topic_models, 'milestones': milestones})
 
 
 
