@@ -360,7 +360,10 @@
 							 success: function(json) {
 							 	alert(json);
 							 	for (var key in json) {
-							 	alert('key is: ' + key +"   " +json[key]);
+							 	//alert('key is: ' + key +"   " +json[key]);
+							 	for(var innerkey in json[key]){
+							 		alert('key is: ' + key +"   innerkey: "+innerkey+"    " +json[key][innerkey] );
+								}
 								}
 								updateMilesChart(json);
 							 }
