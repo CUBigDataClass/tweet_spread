@@ -2601,7 +2601,7 @@
                 },
                 defaultPlot: {
                     type: "circle",
-                    size: 1,
+                    size: 5,
                     attrs: {
                         fill: "#0088db",
                         stroke: "#fff",
