@@ -91,6 +91,7 @@ def get_milestones(topic):
 					result_string = "{x: new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), y: " + str(elem[0]) + "}"
 					milestone_json = milestone_json + result_string + ","
 	cluster.shutdown()
+	milestone_json = milestone_json.strip(",")
 	milestone_json = "[" + milestone_json + "]"
 	return milestone_json
 
