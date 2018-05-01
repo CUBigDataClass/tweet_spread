@@ -69,7 +69,8 @@ def get_geoparse(topic):
 def get_milestones(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	milestone_json = ""
+	milestone_json = []
+	results = ""
 	#{x: new Date(2017, 0, 3), y: 450}
 	for day in range(31, 25, -1):
 		for hour in range(23, -1, -1):
@@ -79,10 +80,10 @@ def get_milestones(topic):
 			result = session.execute(query)
 			if result:
 				for elem in result:
-					result_string = "\"x\": new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), \"y\": " + str(elem[0])
-					milestone_json = milestone_json + result_string
+					result_string = "{x: new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), y: " + str(elem[0]) + "}"
+					results = results + "," + result_string
 	cluster.shutdown()
-	milestone_json = "{" + milestone_json + "}"
+	milestone_json.append(result_string)
 	return milestone_json
 
 
