@@ -359,6 +359,9 @@
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
 							 	alert(json);
+							 	for (var key in json) {
+							 	alert(json[key]);
+								}
 								updateMilesChart(json);
 							 }
 							});
