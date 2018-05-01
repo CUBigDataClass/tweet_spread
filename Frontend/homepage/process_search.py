@@ -71,7 +71,7 @@ def get_geoparse(topic):
 	# 			counter += 1
 	# final_res = final_res.strip(",")
 	# final_res = "{" + final_res + "}"
-	return result[0][0]
+	return result[0][0][0]
 
 
 def get_top_tweets(search_string):
