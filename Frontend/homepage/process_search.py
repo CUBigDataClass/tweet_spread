@@ -72,7 +72,7 @@ def get_geoparse(topic):
 	# final_res = final_res.strip(",")
 	# final_res = "{" + final_res + "}"
 
-	final_res = ''.join(result[0][0])
+	final_res = ','.join(result[0][0])
 	return final_res
 
 
