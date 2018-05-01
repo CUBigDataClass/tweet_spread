@@ -335,9 +335,7 @@
     							}
                                 alert('charts is: '+ chart);
                                 alert('type charts is: '+ typeof(chart));
-                                for(var obj=0; obj < chart.length; obj++) {
-                                    alert('obj: '+ obj +"   " + chart[obj]);    
-                                }
+                                chart.options.data[0].dataPoints = dps;
                                 if(dps.length > data_length){
                                         dps.shift();
                                 }
