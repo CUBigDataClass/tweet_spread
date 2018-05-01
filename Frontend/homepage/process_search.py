@@ -60,9 +60,9 @@ def get_geoparse(topic):
 	cluster.shutdown()
 	final_res = []
 	counter = 0
-	for elem in result:
-		for i in elem:
-			final_res.append(i)
+	# for elem in result:
+	# 	for i in elem:
+	# 		final_res.append(i)
 		# for i in elem:
 		# 	final_res = final_res + i
 	# 		for j in i:
@@ -71,7 +71,7 @@ def get_geoparse(topic):
 	# 			counter += 1
 	# final_res = final_res.strip(",")
 	# final_res = "{" + final_res + "}"
-	return final_res[0][0]
+	return result[0][0]
 
 
 def get_top_tweets(search_string):
