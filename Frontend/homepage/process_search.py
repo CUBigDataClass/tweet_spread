@@ -58,6 +58,7 @@ def get_geoparse(topic):
 	query_string = "select locations from tweetanalysis.geoparsing where hashtag='"+topic+"'"
 	result = session.execute(query_string)
 	cluster.shutdown()
+	final_res = ""
 	if result:
 		final_res = ','.join(result[0][0])
 		final_res = "{" + final_res + "}"
