@@ -307,6 +307,7 @@
                                 }]
                             });
                             chart.render();
+                            return chart;
 							}
                             var dataLength = 20;
                             var updateInterval = 1000;
@@ -326,14 +327,14 @@
                                 chart.render();
                             }; */
 
-                            var updateMilesChart = function (dps) {
+                            var updateMilesChart = function (dps, chart) {
                             alert("updatemileschart");
                             var data_length = 10;
 							for (var key in dps) {
 								dps[key]["x"] = eval(dps[key]["x"]);
 							};
 
-							chart =new CanvasJS.Chart("milestones", {
+							/*chart =new CanvasJS.Chart("milestones", {
                                 animationEnabled: true,
                                 theme: "light2",
                                 axisY:{
@@ -344,7 +345,11 @@
                                     type: "line",
                                     dataPoints: dps
                                 }]
-                            });
+                            });*/
+                            alert('charts is: ', chart);
+                            for(var obj=0; obj < chart.length; obj++) {
+                                alert('obj: '+ obj +"   " + chart[obj]);    
+                            }
                             if(dps.length > data_length){
                                     dps.shift();
                                     }
@@ -358,7 +363,7 @@
                     alert(typeof(data_milestones[0]["x"]));
 					alert(typeof(data_milestones[0]["y"]));
                     alert(data_milestones);
-                    load_milestones(data_milestones);
+                    var original_chart = load_milestones(data_milestones);
 
 					function ajaxMileCall() {
 							$.ajax({
@@ -367,7 +372,7 @@
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
 							 	alert(json);
-								updateMilesChart(json);
+								updateMilesChart(json,original_chart);
 							 }
 							});
 						}
