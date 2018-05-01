@@ -24,18 +24,20 @@ def index(request):
 def home(request):
 
 	if request.is_ajax():
-		query = request.GET['search']
+		query_topic = request.GET['search']
 		requester = request.GET['requester']
 		if requester == "topicmodel":
-			topics = process_search.get_topics(query)
+			topics = process_search.get_topics(query_topic)
 			return HttpResponse(topics)
 		elif requester == "setinterval":
-			sentiment = process_search.get_sentiment(query)
-			json_acceptable_string = sentiment.replace("'", "\"")
+			sentiments = process_search.get_sentiment(query_topic)
+			json_acceptable_string = sentiments.replace("'", "\"")
 			return HttpResponse(json_acceptable_string)
 		elif requester == "setgeointerval":
-			geoparsed = process_search.get_geoparse(query)
-			return HttpResponse(geoparsed)
+			geoparsed = process_search.get_geoparse(query_topic)
+		elif requester == "setmilesinterval":
+			milestones = process_search.get_geoparse(query_topic)
+			return HttpResponse(milestones)
 
 	if request.method == 'GET':
 		query = request.GET['search']

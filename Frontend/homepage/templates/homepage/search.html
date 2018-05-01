@@ -333,7 +333,7 @@
                             var days = 15;
                             var months = 0
 
-                            var updateChart = function() {      
+                            var updateMilesChart = function() {
                                 days = days + 1;
                                 if(days == 31){
                                     months += 1
@@ -351,6 +351,19 @@
                     var data_milestones = {{ milestones | safe }};
                     alert(data_milestones);
                     load_milestones(data_milestones);</script>
+
+					function ajaxMileCall() {
+							$.ajax({
+							type: 'GET',
+							url: window.location.href,
+							data : { requester : "setmilesinterval" },
+							 success: function(json) {
+								updateMilesChart(json);
+							 }
+							});
+						}
+
+					setInterval(ajaxMileCall, 2000);
                 </div>
             </div>
         </div>
