@@ -330,9 +330,7 @@
                             alert("updatemileschart");
                             var data_length = 10;
 							for (var key in dps) {
-								alert(dps[key]["x"]);
 								dps[key]["x"] = eval(dps[key]["x"]);
-								alert(dps[key]["x"]);
 							};
 
 							chart =new CanvasJS.Chart("milestones", {
