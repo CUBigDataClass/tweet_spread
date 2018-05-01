@@ -49,7 +49,7 @@ def home(request):
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
 				# top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
-				while sentiment is not None or geoparsed is not None or topic_models is not None:
+				while sentiment is None or geoparsed is None or topic_models is None:
 					sentiment = process_search.get_sentiment(query)
 					geoparsed = process_search.get_geoparse(query)
 					topic_models = process_search.get_topics(query)
