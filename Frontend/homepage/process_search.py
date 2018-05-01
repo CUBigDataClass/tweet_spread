@@ -66,6 +66,22 @@ def get_geoparse(topic):
 	return final_res
 
 
+def get_milestones(topic):
+	cluster = Cluster(['54.245.62.87'])
+	session = cluster.connect()
+	milestone_json = []
+	for month in range(0, 11):
+		for day in range(1, 31):
+			for hour in range(0, 23):
+				query = "select count from hashtag_milestones where hashtag = techcrunch and" \
+				        " year = 2018 and month =" + str(month) +" and day =" + str(day)+\
+				        " and hour =" + str(hour)
+				result = session.execute(query)
+				if result:
+					milestone_json.append(result)
+	return milestone_json
+
+
 def get_top_tweets(search_string):
 	tweets_file_1 = t.search.tweets(q=search_string, result_type='recent', lang='en', count=5)
 	tweets_file_2 = t.search.tweets(q=search_string, result_type='popular', lang='en', count=5)

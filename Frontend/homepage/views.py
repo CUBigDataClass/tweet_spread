@@ -45,18 +45,20 @@ def home(request):
 			geoparsed = process_search.get_geoparse(query)
 			# top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
+			milestones = process_search.get_milestones(query)
 			if sentiment is None:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
 				# top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
-				while sentiment is None or geoparsed is None or topic_models is None:
+				while sentiment is None or geoparsed is None or topic_models is None or milestones is None:
 					sentiment = process_search.get_sentiment(query)
 					geoparsed = process_search.get_geoparse(query)
 					topic_models = process_search.get_topics(query)
+					milestones = process_search.get_milestones(query)
 			# return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
 			# 'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
-			 'geoparsed': geoparsed, 'topic_models': topic_models})
+			 'geoparsed': geoparsed, 'topic_models': topic_models, 'milestones': milestones})
 
 
 
