@@ -70,7 +70,7 @@ def get_milestones(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
 	milestone_json = []
-	for month in range(0, 11):
+	for month in range(3, -1, -1):
 		for day in range(1, 31):
 			for hour in range(0, 23):
 				query = "select count from tweetanalysis.hashtag_milestones where " \
