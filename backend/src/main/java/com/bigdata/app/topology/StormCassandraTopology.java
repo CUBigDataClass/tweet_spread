@@ -89,7 +89,7 @@ public class StormCassandraTopology {
         builder.setBolt("sentiment", new SentimentBolt("/home/ec2-user/tweet_spread/backend/src/main/resources/AFINN-111.txt"), 3).shuffleGrouping("json");
 
         // Create geo parsing bolt
-        builder.setBolt("geoparsing", new GeoParsingBolt()).shuffleGrouping("json");
+        builder.setBolt("geoparsing", new GeoParsingBolt(), 3).shuffleGrouping("json");
 
         // Create topic modeling bolt
         builder.setBolt("tweets", new TweetsBolt(), 3).fieldsGrouping("json", new Fields("hashtag"));

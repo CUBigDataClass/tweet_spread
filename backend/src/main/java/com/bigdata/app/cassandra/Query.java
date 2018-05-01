@@ -7,6 +7,10 @@ public class Query {
 
     public static void main(String args[]) {
 
+//        String date= "Sat Apr 28 18:20:57 +0000 2018";
+//        Date day = Date(date);
+//        System.out.println(day);
+
         //query
         String query = "update tweetanalysis.sentiments set positive_sentiments = positive_sentiments + 1, "+
                 "negative_sentiments = negative_sentiments + 2, neutral_sentiments = neutral_sentiments + 3 "+

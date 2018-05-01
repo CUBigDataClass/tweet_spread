@@ -62,6 +62,7 @@ public final class GeoParsingBolt extends BaseRichBolt {
 
             try {
                 String hashtag = (String) input.getValueByField("hashtag");
+                String date = (String) input.getValueByField("created_at");
                 Collection<Float> location = new ArrayList<Float>();
                 if (input.getValueByField("user") != null) {
                     LinkedHashMap user = (LinkedHashMap) input.getValueByField("user");
@@ -77,7 +78,7 @@ public final class GeoParsingBolt extends BaseRichBolt {
                                         ArrayList<Object> loc = (ArrayList<Object>) geo.get("coordinates");
                                         Double lat = (Double)(loc.get(1));
                                         Double lon = (Double)(loc.get(0));
-                                        String str = "{\"" + hashtag + "\": {\"latitude\": " + String.valueOf(lat) + ", \"longitude\": " +
+                                        String str = "\"" + date + "\": {\"latitude\": " + String.valueOf(lat) + ", \"longitude\": " +
                                                 String.valueOf(lon) + "}";
                                         ArrayList<String> s = new ArrayList<String>();
                                         s.add(str);

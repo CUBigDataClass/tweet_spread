@@ -9,7 +9,8 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.*;
 import java.lang.Double;
-import java.time.LocalDate;
+//import java.lang.Calendar;
+import java.text.*;
 
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -22,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-//import org.joda.time.LocalDate;
 
 
 import com.google.common.base.Splitter;
@@ -51,8 +51,6 @@ public final class MilestonesBolt extends BaseRichBolt {
                               final TopologyContext topologyContext,
                               final OutputCollector collector) {
         this.collector = collector;
-        // Bolt will read the AFINN Sentiment file [which is in the classpath]
-        // and stores the key, value pairs to a Map.
 
     }
 
@@ -65,12 +63,24 @@ public final class MilestonesBolt extends BaseRichBolt {
 
         try {
             String hashtag = (String) input.getValueByField("hashtag");
-            String date = (String) input.getValueByField("created_at");
-            System.out.println("..... date .... " + date);
-            LocalDate localDate = LocalDate.parse(date);
-            int year = localDate.getYear();
-            int month = localDate.getMonthValue() - 1;
-            int day = localDate.getDayOfMonth();
+            String dateStr = (String) input.getValueByField("created_at");
+            System.out.println("..... date .... " + dateStr);
+
+            DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            Date date = (Date)formatter.parse(dateStr);
+            System.out.println(date);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+//            String formatedDate = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+//            System.out.println("formatedDate : " + formatedDate);
+//            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+//            String mo = date.substring(4, 3);
+//
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DATE);
+            int year = cal.get(Calendar.YEAR);
+
             System.out.println("..... date, month, year .... " + day + month + year);
             collector.emit(new Values(1, day, month, year, hashtag));
 
