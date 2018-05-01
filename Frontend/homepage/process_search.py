@@ -58,10 +58,11 @@ def get_geoparse(topic):
 	query_string = "select locations from tweetanalysis.geoparsing where hashtag='cuboulder' limit 1000"
 	result = session.execute(query_string)
 	cluster.shutdown()
-	final_res = ""
+	final_res = []
 	counter = 0
 	for elem in result:
-		final_res = final_res + elem
+		for i in elem:
+			final_res.append(i)
 		# for i in elem:
 		# 	final_res = final_res + i
 	# 		for j in i:
