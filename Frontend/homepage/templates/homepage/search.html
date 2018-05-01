@@ -336,8 +336,8 @@
                                 alert('charts is: '+ chart);
                                 alert('type charts is: '+ typeof(chart));
                                 chart.options.data[0].dataPoints = dps;
-                                if(dps.length > data_length){
-                                        dps.shift();
+                                if(chart.options.data[0].dataPoints.length > data_length){
+                                        chart.options.data[0].dataPoints.shift();
                                 }
     							chart.render();
 							}
