@@ -74,8 +74,8 @@ def get_milestones(topic):
 		for day in range(1, 31):
 			for hour in range(0, 23):
 				query = "select count from tweetanalysis.hashtag_milestones where " \
-				        "hashtag = 'techcrunch' and year = '2018' and month ='" + str(month) + \
-				        "' and day = '" + str(day)+ "' and hour = '" + str(hour) + "'"
+				        "hashtag = 'techcrunch' and year = 2018 and month =" + str(month) + \
+				        " and day = " + str(day)+ " and hour = " + str(hour)
 				milestone_json.append("query fired")
 				result = session.execute(query)
 				if result:
