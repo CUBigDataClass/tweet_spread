@@ -39,7 +39,9 @@ def home(request):
 			milestones = process_search.get_milestones(query_topic)
 			json_milestones_string = milestones.replace("x", "\"x\"")
 			json_milestones_string = json_milestones_string.replace("y", "\"y\"")
-			return HttpResponse(json_milestones_string)
+			dump = json.dumps(json_milestones_string)
+			return HttpResponse(dump, content_type='application/json')
+
 
 	if request.method == 'GET':
 		query = request.GET['search']
