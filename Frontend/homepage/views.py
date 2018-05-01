@@ -46,7 +46,7 @@ def home(request):
 		if query:
 			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
-			#geoparsed = process_search.get_geoparse(query)
+			geoparsed = process_search.get_geoparse(query)
 			# top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
 			milestones = process_search.get_milestones(query, 1)
