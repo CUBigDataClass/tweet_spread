@@ -416,17 +416,18 @@
                         var getElemID = function(elem) {                
                             return $(elem.node).attr("data-id");
                         }
-                      $(".mapcontainer_equi").mapael({
-                          map: {
-                              name: "world_countries",
-                              defaultArea: {
-                                  tooltip: {
-                                      content: getElemID
+                      
+                          $(".mapcontainer_equi").mapael({
+                              map: {
+                                  name: "world_countries",
+                                  defaultArea: {
+                                      tooltip: {
+                                          content: getElemID
+                                      }
                                   }
-                              }
-                          },
-                          plots: new_plots
-                      }); 
+                              },
+                              plots: new_plots
+                          }); 
                        
                     }
 
