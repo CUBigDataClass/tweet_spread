@@ -359,7 +359,11 @@
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
 							 	alert(json);
-								updateMilesChart(json);
+							 	var map_data = JSON.stringify(json);
+							 	alert(map_data);
+							 	var new_data = JSON.parse(map_data);
+							 	alert(new_data);
+								updateMilesChart(new_data);
 							 }
 							});
 						}
