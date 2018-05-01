@@ -328,13 +328,13 @@
                             }; */
 
                             var updateMilesChart = function (dps, chart) {
-                                alert("updatemileschart");
+                                //alert("updatemileschart");
                                 var data_length = 10;
     							for (var key in dps) {
     								dps[key]["x"] = eval(dps[key]["x"]);
     							}
-                                alert('charts is: '+ chart);
-                                alert('type charts is: '+ typeof(chart));
+                                //alert('charts is: '+ chart);
+                                //alert('type charts is: '+ typeof(chart));
                                 chart.options.data[0].dataPoints = dps;
                                 if(chart.options.data[0].dataPoints.length > data_length){
                                         chart.options.data[0].dataPoints.shift();
@@ -345,10 +345,10 @@
                     </script> 
                     <script type="text/javascript">
                     var data_milestones = {{ milestones | safe }};
-                    alert(typeof(data_milestones));
+                    /*alert(typeof(data_milestones));
                     alert(typeof(data_milestones[0]["x"]));
 					alert(typeof(data_milestones[0]["y"]));
-                    alert(data_milestones);
+                    alert(data_milestones);*/
                     var original_chart = load_milestones(data_milestones);
 
 					function ajaxMileCall() {
@@ -357,7 +357,7 @@
 							url: window.location.href,
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
-							 	alert(json);
+							 	//alert(json);
 								updateMilesChart(json,original_chart);
 							 }
 							});
