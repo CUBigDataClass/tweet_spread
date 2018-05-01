@@ -79,7 +79,7 @@ def get_milestones(topic):
 			result = session.execute(query)
 			if result:
 				for elem in result:
-					result_string = "{x: new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), y: " + str(elem[0]) + "}"
+					result_string = "{\"x\": new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), \"y\": " + str(elem[0]) + "}"
 					milestone_json.append(result_string)
 	cluster.shutdown()
 	return milestone_json
