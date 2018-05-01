@@ -56,7 +56,7 @@ public final class MilestonesBolt extends BaseRichBolt {
 
     public final void declareOutputFields(
             final OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("count", "hour" "day", "month", "year", "hashtag"));
+        outputFieldsDeclarer.declare(new Fields("count", "hour", "day", "month", "year", "hashtag"));
     }
 
     public final void execute(final Tuple input) {
