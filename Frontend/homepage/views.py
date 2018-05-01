@@ -56,7 +56,7 @@ def home(request):
 					sentiment = process_search.get_sentiment(query)
 					geoparsed = process_search.get_geoparse(query)
 					topic_models = process_search.get_topics(query)
-					milestones = process_search.get_milestones(query)
+					milestones = process_search.get_milestones(query, 1)
 			# return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
 			# 'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
