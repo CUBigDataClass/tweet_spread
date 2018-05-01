@@ -328,6 +328,12 @@
 
                             var updateMilesChart = function (dps) {
                             var data_length = 10;
+							for (var key in dps) {
+								alert(dps[key][x]);
+								dps[key][x] = eval(dps[key][x]);
+								alert(dps[key][x]);
+							};
+
 							chart =new CanvasJS.Chart("milestones", {
                                 animationEnabled: true,
                                 theme: "light2",
@@ -362,15 +368,6 @@
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
 							 	alert(json);
-							 	alert(typeof(json));
-							 	for (var key in json) {
-							 	//alert('key is: ' + key +"   " +json[key]);
-							 	for(var innerkey in json[key]){
-							 		alert(typeof(innerkey));
-							 		alert(typeof(json[key][innerkey]));
-							 		alert('key is: ' + key +"   innerkey: "+innerkey+"    " +json[key][innerkey] );
-								}
-								}
 								updateMilesChart(json);
 							 }
 							});
