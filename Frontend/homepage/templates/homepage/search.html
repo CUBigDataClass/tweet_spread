@@ -396,7 +396,7 @@
                     function get_map(test_plots) {                       
                         var getElemID = function(elem) {                
                             return $(elem.node).attr("data-id");
-                        };
+                        }
                         
                         $(".mapcontainer_equi").mapael({
                             map: {
@@ -409,7 +409,7 @@
                             },
                             plots: test_plots
                         });
-                    };
+                    }
 
                     var updateMap = function(new_plots) {
                         //alert("in updatemap");
