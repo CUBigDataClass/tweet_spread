@@ -298,9 +298,6 @@
                             var chart = new CanvasJS.Chart("milestones", {
                                 animationEnabled: true,
                                 theme: "light2",
-                                /*title:{
-                                    text: "MileStones"
-                                },*/
                                 axisY:{
                                     includeZero: false
                                 },
@@ -310,12 +307,12 @@
                                 }]
                             });
                             chart.render();
-
+							}
                             var dataLength = 20;
                             var updateInterval = 1000;
                             var days = 15;
                             var months = 0
-
+							/*
                             var updateMilesChart = function(data_) {
                                 days = days + 1;
                                 if(days == 31){
@@ -327,10 +324,28 @@
                                     dps.shift();
                                 }
                                 chart.render();
-                            };
+                            }; */
 
+                            var updateMilesChart = function (dps) {
+                            var data_length = 10;
+							chart =new CanvasJS.Chart("milestones", {
+                                animationEnabled: true,
+                                theme: "light2",
+                                axisY:{
+                                    includeZero: false
+                                },
 
-                        }
+                                data: [{
+                                    type: "line",
+                                    dataPoints: dps
+                                }]
+                            });
+                            if(dps.length > data_length){
+                                    dps.shift();
+                                    }
+							chart.render();
+							};
+
                     </script> 
                     <script type="text/javascript">
                     var data_milestones = {{ milestones | safe }};
@@ -344,7 +359,7 @@
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
 							 	alert(json);
-								load_milestones(json);
+								updateMilesChart(json);
 							 }
 							});
 						}
