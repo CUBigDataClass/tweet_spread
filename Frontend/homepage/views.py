@@ -47,7 +47,7 @@ def home(request):
 			#geoparsed = process_search.get_geoparse(query)
 			# top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
-			milestones = process_search.get_milestones(query)
+			milestones = process_search.get_milestones(query, 1)
 			if sentiment is None:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
