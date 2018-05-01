@@ -62,7 +62,7 @@ def home(request):
 			# return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
 			# 'top_tweets_1': top_tweets_1, 'top_tweets_2': top_tweets_2, 'topic_models': topic_models})
 			return render(request, 'homepage/search.html', {'query': query, 'sentiment': sentiment, 'mode': mode,
-			 'topic_models': topic_models, 'milestones': milestones})
+			 'topic_models': topic_models, 'milestones': milestones, 'geoparsed':geoparsed})
 
 
 
