@@ -81,7 +81,7 @@ def get_milestones(topic):
 				if result:
 					milestone_json.append(result)
 				else:
-					milestone_json.append("result empty")
+					milestone_json.append(query)
 	return milestone_json
 
 
