@@ -55,7 +55,7 @@ def get_topics(topic):
 def get_geoparse(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
-	query_string = "select locations from tweetanalysis.geoparsing where hashtag='cuboulder' limit 1000"
+	query_string = "select locations from tweetanalysis.geoparsing where hashtag='cuboulder'"
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = ','.join(result[0][0])
