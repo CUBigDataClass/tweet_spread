@@ -81,7 +81,7 @@ def get_milestones(topic):
 			if result:
 				for elem in result:
 					result_string = "{x: new Date(2017, 0, 3), y: 450}"
-					milestone_json.append(elem)
+					milestone_json.append(elem[0])
 			else:
 				milestone_json.append(query)
 	cluster.shutdown()
