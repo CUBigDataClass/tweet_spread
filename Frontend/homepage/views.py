@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from . import process_search
 import json
 import time
@@ -37,7 +37,7 @@ def home(request):
 			geoparsed = process_search.get_geoparse(query_topic)
 		elif requester == "setmilesinterval":
 			milestones = process_search.get_milestones(query_topic)
-			return HttpResponse(json.dumps(milestones))
+			return JsonResponse(milestones, safe=False)
 
 	if request.method == 'GET':
 		query = request.GET['search']
