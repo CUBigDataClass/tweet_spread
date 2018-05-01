@@ -198,6 +198,451 @@
     }
 	</script>
 </head>
+
+<body class="index-page sidebar-collapse">
+    <div class="wrapper">
+        <div class="page-header clear-filter" filter-color="orange">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('{% static 'homepage/img/header.jpg' %}');">
+            </div>
+            <div class="container">
+
+                <div class="content-center brand">
+                    <form action="/search/" method = 'GET' class="search-form">
+                        <div class="form-group has-feedback">
+                            <label for="search" class="sr-only">Search Hashtag</label>
+                            <input type="text" class="form-control" name="search" id="search" placeholder="search">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </form>
+                    <br><br><br>
+                    <h3>HashTag Search</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="section section-tabs">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-10 col-lg-8 col-xl-6 ml-auto mr-auto">
+	                <p class="category" id="recommended">Recommended Hashtags</p>
+	                <!-- Nav tabs -->
+	                <div class="card">
+	                        <div class="card-body">
+	                            <!-- Tab panes -->
+	                            <div class="tab-content text-center">
+	                                <div class="tab-pane active" id="home" role="tabpanel">
+	                                    <div class="row">
+	                                            <button class="btn btn-link">#HashTag1</button>
+	                                            <button class="btn btn-link btn-primary ">#HashTag2</button>
+	                                            <button class="btn btn-link btn-info">#HashTag3</button>
+	                                            <button class="btn btn-link btn-success">#HashTag4</button>
+	                                            <button class="btn btn-link btn-warning">#HashTag5</button>
+	                                            <button class="btn btn-link btn-danger">#HashTag6</button>
+	                                            <button class="btn btn-link">#HashTag7</button>
+	                                            <button class="btn btn-link btn-primary ">#HashTag8</button>
+	                                            <button class="btn btn-link btn-info">#HashTag9</button>
+	                                            <button class="btn btn-link btn-success">#HashTag10</button>
+	                                    </div>
+	                                </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <br><br><br><br><br>
+	            </div>
+	        </div>
+	    </div>
+        <div class="container">
+            <div class="row">
+            	<div class="col-md-6">
+            		<p class="category">Sentiment Analysis</p>
+					<div class="ct-chart1 ct-golden-section" id="pieChart"></div>                    
+                    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.7.2/d3.min.js"></script>
+                    <script src="https://d3js.org/d3-path.v1.min.js"></script>
+                    <script src="https://d3js.org/d3-shape.v1.min.js"></script>                     
+                    <script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
+                    <script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
+                    <script type="text/javascript" src= "{% static 'homepage/charts/pichart.js' %}"></script>-->
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                    <script type="text/javascript">
+                        var datapoints=  [{y: 50, label: "POS"}, {y: 40, label: "NEG"}, {y: 10, label: "NEU"}]
+                            function getpiechart(){
+                                var datapoints=  [{y: 50, label: "POS"}, {y: 40, label: "NEG"}, {y: 10, label: "NEU"}]
+                                    
+                                var chart = new CanvasJS.Chart("pieChart", {
+                                    //animationEnabled: true,
+                                    /*title: {
+                                        text: "Sentiment Analysis"
+                                    },*/
+                                    data: [{
+                                        type: "pie",
+                                        startAngle: 240,
+                                        yValueFormatString: "##0.00\"%\"",
+                                        indexLabel: "{'label'} {'y'}",
+                                        dataPoints: datapoints
+                                    }]
+                                });
+                                chart.render();
+                            }
+                                var updateCount = 0;
+                                var sentiments = ["POS", "NEG", "NEU"];
+                                var updateChart = function () {
+                                    var datapoints = []
+                                
+                                updateCount++;
+                                for(var i=0; i<3; i++){
+                                    yVal = Math.round(5 + Math.random());
+                                    xVal = i;
+                                    datapoints.push({'y':yVal, 'x': sentiments[xVal]});
+                                }
+                                //console.log(datapoints);        
+                                
+
+                                chart = new CanvasJS.Chart("pieChart", {
+                                    data: [{
+                                        type: "pie",
+                                        startAngle:240,
+                                        yValueFormatString: "##0.00\"%\"",
+                                        indexLabel: "{'label'} {'y'}",
+                                        dataPoints: datapoints
+                                    }]
+                                });     
+                                chart.render();     
+                                
+                            };
+                            // update chart every second
+                            setInterval(function(){updateChart()}, 2000);                                                    
+                    </script>
+                    <script type="text/javascript">getpiechart();</script>
+            	</div>
+
+            	<div class="col-md-6">
+            		<p class="category">Milestones</p>
+            		<div class="ct-chart2 ct-golden-section" id="milestones"></div>
+            		<!--<script type="text/javascript" src="{% static 'homepage/charts/chart3.js' %}"></script>                  
+                    <script type="text/javascript"> plot_milestones();</script>-->
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+                    <script type="text/javascript">
+                            function load_milestones() {
+                            var dps = [
+                                        { x: new Date(2017, 0, 3), y: 450 },
+                                        { x: new Date(2017, 0, 4), y: 414},
+                                        { x: new Date(2017, 0, 5), y: 520, indexLabel: "highest",markerColor: "red", markerType: "triangle" },
+                                        { x: new Date(2017, 0, 6), y: 460 },
+                                        { x: new Date(2017, 0, 7), y: 450 },
+                                        { x: new Date(2017, 0, 8), y: 500 },
+                                        { x: new Date(2017, 0, 9), y: 480 },
+                                        { x: new Date(2017, 0, 10), y: 480 },
+                                        { x: new Date(2017, 0, 11), y: 410 , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
+                                        { x: new Date(2017, 0, 12), y: 500 },
+                                        { x: new Date(2017, 0, 13), y: 480 },
+                                        { x: new Date(2017, 0, 14), y: 510 }
+                                    ];
+
+                            var chart = new CanvasJS.Chart("milestones", {
+                                animationEnabled: true,
+                                theme: "light2",
+                                /*title:{
+                                    text: "MileStones"
+                                },*/
+                                axisY:{
+                                    includeZero: false
+                                },
+                                data: [{        
+                                    type: "line",       
+                                    dataPoints: dps
+                                }]
+                            });
+                            chart.render();
+
+                            
+
+                            var dataLength = 20;
+                            var updateInterval = 1000;
+                            var days = 15;
+                            var months = 0
+
+                            var updateChart = function() {      
+                                days = days + 1;
+                                if(days == 31){
+                                    months += 1
+                                }
+                                var yVal = Math.round(Math.random()*100);
+                                dps.push({x: new Date(2017,months,days), y: yVal});
+                                if(dps.length > dataLength){
+                                    dps.shift();
+                                }
+                                chart.render();
+                            };
+
+                            setInterval(function(){updateChart()}, updateInterval); 
+                        }
+
+                    </script> 
+                    <script type="text/javascript">load_milestones();</script>                  
+            	</div>
+            </div>
+
+        </div>
+        <br><br><br><br><br>
+        <div class="container">
+        	<div class="row">
+        		<p class="category">World Map</p>
+                <div class="mapcontainer_equi">
+                    <div class="map">
+                        <span>Alternative content for the map</span>
+                    </div>
+                </div>				
+				<!--<script src="{% static 'homepage/js/d3pie.min.js' %}" type="text/javascript"></script>
+				<script src="{% static 'homepage/js/d3pie.js' %}" type="text/javascript"></script>
+                <script type="text/javascript" src="{% static 'homepage/charts/new-worldmap.js' %}"></script>                
+				<script> 
+                    /*var plots = "{{ my_json }}";
+                    alert("plots is:"+plots);
+                    var parsed = JSON.parse(plots);
+                    alert("parsed String is: "+parsed);*/
+                    var data =  {{ my_json  | safe }}
+                    var stringified = JSON.stringify(data)
+
+                    //alert("data is: "+data);
+                    //alert("string is:"  + stringified);
+
+                plot_world_map(stringified   ,"/static/homepage/charts/world.json");</script>-->
+                <script type="text/javascript">
+                    function get_map(test_plots) {                       
+                        var getElemID = function(elem) {                
+                            return $(elem.node).attr("data-id");
+                        };
+                        
+                        $(".mapcontainer_equi").mapael({
+                            map: {
+                                name: "world_countries",
+                                defaultArea: {
+                                    tooltip: {
+                                        content: getElemID
+                                    }
+                                }
+                            },
+                            plots: test_plots
+                        });
+                    };
+
+                    var updateMap = function(new_plots) {
+                        //alert("in updatemap");
+                        var getElemID = function(elem) {                
+                            return $(elem.node).attr("data-id");
+                        };
+                      $(".mapcontainer_equi").mapael({
+                          map: {
+                              name: "world_countries",
+                              defaultArea: {
+                                  tooltip: {
+                                      content: getElemID
+                                  }
+                              }
+                          },
+                          plots: new_plots
+                      }); 
+                       
+                    };
+                    var new_plots = {
+                      "new delhi": {
+                            latitude: 28.6139,
+                            longitude: 77.2090,
+                            tooltip: {
+                                content: "New Delhi"
+                            }
+                        }  
+                    }
+                    setInterval(function(){updateMap(new_plots)}, 2000);
+                </script>
+
+                <script type="text/javascript">
+                    var test_plots = {
+                        "paris": {
+                            latitude: 48.86,
+                            longitude: 2.3444444444444,
+                            tooltip: {
+                                content: "Paris"
+                            }
+                        },
+                        "tokyo": {
+                            latitude: 35.689488,
+                            longitude: 139.691706,
+                            tooltip: {
+                                content: "Tokyo"
+                            }
+                        },
+                        "moscow": {
+                            latitude: 55.755786,
+                            longitude: 37.617633,
+                            tooltip: {
+                                content: "Moscow"
+                            }
+                        },
+                        "los_angeles": {
+                            latitude: 34.052234,
+                            longitude: -118.243685,
+                            tooltip: {
+                                content: "Los Angeles"
+                            }
+                        },
+                        "punta_arenas": {
+                            latitude: -53.163833,
+                            longitude: -70.917068,
+                            tooltip: {
+                                content: "Punta Arenas"
+                            }
+                        },
+                        "aukland": {
+                            latitude: -36.84846,
+                            longitude: 174.763332,
+                            tooltip: {
+                                content: "Aukland"
+                            }
+                        },
+                        "kiruna": {
+                            latitude: 67.855737,
+                            longitude: 20.225231,
+                            tooltip: {
+                                content: "Kiruna"
+                            }
+                        },
+                        "reykjavik": {
+                            latitude: 64.135338,
+                            longitude: -21.89521,
+                            tooltip: {
+                                content: "Reykjavík"
+                            }
+                        },
+                        "alert": {
+                            latitude: 82.516305,
+                            longitude: -62.308482,
+                            tooltip: {
+                                content: "Alert"
+                            }
+                        },
+                        "wales": {
+                            latitude: 65.609167,
+                            longitude: -168.0875,
+                            tooltip: {
+                                content: "Wales"
+                            }
+                        },
+                        "tiksi": {
+                            latitude: 71.625094,
+                            longitude: 128.872883,
+                            tooltip: {
+                                content: "Tiksi"
+                            }
+                        },
+                        "pretoria": {
+                            latitude: -25.746019,
+                            longitude: 28.18712,
+                            tooltip: {
+                                content: "Pretoria"
+                            }
+                        }
+                    };
+                    get_map(test_plots);
+
+                </script>
+
+        	</div>
+    	</div>
+	</div> 
+    <br><br><br><br><br>
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-6">
+                    <p class="category" id="recommended">Select Topic </p>
+                    <!-- Nav tabs -->
+                    <div class="card">
+                            <div class="card-body">
+                                <!-- Tab panes -->
+                                <div class="tab-content text-center">
+                                    <div class="tab-pane active" id="home" role="tabpanel">
+                                        <div class="row">
+                                                <button class="btn btn-link topic-class" onclick="get_data(this)" id="t1">Topic 1</button>
+                                                <button class="btn btn-link btn-primary topic-class"onclick="get_data(this)" id="t2">Topic 2</button>
+                                                <button class="btn btn-link btn-info topic-class"onclick="get_data(this)" id="t3">Topic 3</button>
+                                                <button class="btn btn-link btn-success topic-class"onclick="get_data(this)" id="t4">Topic 4</button>
+                                                <button class="btn btn-link btn-warning topic-class"onclick="get_data(this)" id="t5">Topic 5 </button>
+                                                <button class="btn btn-link btn-danger topic-class"onclick="get_data(this)" id="t6">Topic 6</button>
+                                                <button class="btn btn-link topic-class"onclick="get_data(this)" id="t7">Topic 7</button>
+                                                <button class="btn btn-link btn-primary topic-class" onclick="get_data(this)" id="t8">Topic 8</button>
+                                                <button class="btn btn-link btn-info topic-class" onclick="get_data(this)" id="t9">Topic 9</button>
+                                                <button class="btn btn-link btn-success topic-class" onclick="get_data(this)" id="t10">Topic 10</button>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div> 
+                     <script type="text/javascript"> 
+                        $(".topic-class").click(get_data);
+                    </script>
+                    <br><br><br><br><br>
+                </div>
+                    <div class="col-md-6">
+                        <p class="category" id="recommended">Topic Results</p>
+                        <div class="card-body">
+                            <div class="tab-content text-center">
+                                <div class="tab-pane active" id="home" role="tabpanel">
+                                    <div class="row">
+                                        <div id="cloud" style="width: 550px; height: 350px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+                               
+        </div>
+    </div>
+</div>    
+		<br><br><br><br><br>
+    <!--<div class="container">
+    	<div class="row">
+            <div class="col-md-10 col-lg-8 col-xl-6 ml-auto mr-auto">
+                <p class="category">News Articles</p>
+                <!-- Nav tabs 
+                <div class="card">
+                        <div class="card-body">
+                            <!-- Tab panes 
+							  <div class="list-group">
+							  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+							    <div class="d-flex w-100 justify-content-between">
+							      <h5 class="mb-1">First News Article Heading</h5>
+							      <small>3 days ago</small>
+							    </div>
+							    <p class="mb-1">Couple of Lines about the news article</p>
+							    <small>Something else cool.</small>
+							  </a>
+							  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							    <div class="d-flex w-100 justify-content-between">
+							      <h5 class="mb-1">Second News Article Heading</h5>
+							      <small class="text-muted">3 days ago</small>
+							    </div>
+							    <p class="mb-1">Couple of Lines about the news article</p>
+							    <small class="text-muted">Something else cool.</small>
+							  </a>
+							  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							    <div class="d-flex w-100 justify-content-between">
+							      <h5 class="mb-1">Third News Article Heading</h5>
+							      <small class="text-muted">3 days ago</small>
+							    </div>
+							    <p class="mb-1">Couple of Lines about the news article</p>
+							    <small class="text-muted">Something else cool.</small>
+							  </a>
+							</div>
+                    	</div>
+                </div>
+            </div>
+    	</div>
+	</div>-->
+
 </body>
 <!--   Core JS Files   -->
 <script type="text/javascript">
