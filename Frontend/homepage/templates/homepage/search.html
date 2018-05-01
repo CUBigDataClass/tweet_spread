@@ -426,10 +426,7 @@
 							url: window.location.href,
 							data : { requester : "setgeointerval" },
 							 success: function(json) {
-							    alert("insideupdatemap");
-							 	//var myjs = JSON.stringify(json);
 							 	var newjs = JSON.parse(json);
-							 	alert(newjs);
 								updateMap(newjs);
 							 }
 							});
