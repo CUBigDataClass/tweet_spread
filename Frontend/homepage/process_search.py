@@ -76,9 +76,12 @@ def get_milestones(topic):
 				query = "select count from hashtag_milestones where hashtag = techcrunch and" \
 				        " year = 2018 and month =" + str(month) +" and day =" + str(day)+\
 				        " and hour =" + str(hour)
+				milestone_json.append("query fired")
 				result = session.execute(query)
 				if result:
 					milestone_json.append(result)
+				else:
+					milestone_json.append("result empty")
 	return milestone_json
 
 
