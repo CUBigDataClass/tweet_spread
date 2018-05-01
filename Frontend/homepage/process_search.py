@@ -27,7 +27,7 @@ def get_sentiment(topic):
 	query_string = "select positive_sentiments, negative_sentiments, neutral_sentiments from tweetanalysis.sentiments where hashtag='"+topic+"'"
 	result = session.execute(query_string)
 	cluster.shutdown()
-	final_res = []
+	final_res = [0]*3
 	if result:
 		final_res[0] = result[0][0]
 		final_res[1] = result[0][1]
