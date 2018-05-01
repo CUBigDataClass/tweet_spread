@@ -29,12 +29,12 @@ def get_sentiment(topic):
 	cluster.shutdown()
 	final_res = []
 	if result:
-		# for elem in result:
-		#	for i in range(1, 4):
-		# 		final_res.append(elem[i])
-		# final_res = [(x/float(sum(final_res)))*100 for x in final_res]
-		# my_json = str([{'y': final_res[0], 'label': "POS"}, {'y': final_res[1], 'label': "NEG"}, {'y': final_res[2], 'label': "NEU"}])
-		return result[0]
+		for elem in result:
+			for i in range(0, 3):
+				final_res.append(elem[i])
+		final_res = [(x/float(sum(final_res)))*100 for x in final_res]
+		my_json = str([{'y': final_res[0], 'label': "POS"}, {'y': final_res[1], 'label': "NEG"}, {'y': final_res[2], 'label': "NEU"}])
+		return my_json
 	else:
 		return None
 
@@ -46,9 +46,10 @@ def get_topics(topic):
 	result = session.execute(query_string)
 	cluster.shutdown()
 	final_res = []
-	for elem in result:
-		for i in elem:
-			final_res.append(i)
+	if result:
+		for elem in result:
+			for i in elem:
+				final_res.append(i)
 	return final_res
 
 
@@ -68,17 +69,19 @@ def get_geoparse(topic):
 def get_top_tweets(search_string):
 	tweets_file_1 = t.search.tweets(q=search_string, result_type='recent', lang='en', count=5)
 	tweets_file_2 = t.search.tweets(q=search_string, result_type='popular', lang='en', count=5)
-	status_1 = tweets_file_1['statuses']
-	status_2 = tweets_file_2['statuses']
 	top_tweets_1 = []
 	top_tweets_2 = []
-	for tweet in status_1:
-		tweet_id = tweet['id']
-		top_tweets_1.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
-	for tweet in status_2:
-		tweet_id = tweet['id']
-		top_tweets_2.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
-	return top_tweets_1, top_tweets_2
+	if tweets_file_1:
+		status_1 = tweets_file_1['statuses']
+		for tweet in status_1:
+			tweet_id = tweet['id']
+			top_tweets_1.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+	if tweets_file_2:
+		status_2 = tweets_file_1['statuses']
+		for tweet in status_2:
+			tweet_id = tweet['id']
+			top_tweets_2.append(t.statuses.oembed(_id=tweet_id, omit_script=True)['html'])
+		return top_tweets_1, top_tweets_2
 
 
 
