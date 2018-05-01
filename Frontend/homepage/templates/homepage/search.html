@@ -333,21 +333,8 @@
     							for (var key in dps) {
     								dps[key]["x"] = eval(dps[key]["x"]);
     							}
-
-    							/*chart =new CanvasJS.Chart("milestones", {
-                                    animationEnabled: true,
-                                    theme: "light2",
-                                    axisY:{
-                                        includeZero: false
-                                    },
-
-                                    data: [{
-                                        type: "line",
-                                        dataPoints: dps
-                                    }]
-                                });*/
                                 alert('charts is: '+ chart);
-                                alert('type charts is: '+ typeof(chart);
+                                alert('type charts is: '+ typeof(chart));
                                 for(var obj=0; obj < chart.length; obj++) {
                                     alert('obj: '+ obj +"   " + chart[obj]);    
                                 }
