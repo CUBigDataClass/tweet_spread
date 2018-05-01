@@ -341,6 +341,7 @@
 							url: window.location.href,
 							data : { requester : "setmilesinterval" },
 							 success: function(json) {
+							 	alert(json);
 								updateMilesChart(json);
 							 }
 							});
