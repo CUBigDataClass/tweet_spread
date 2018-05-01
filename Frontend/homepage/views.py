@@ -36,7 +36,7 @@ def home(request):
 		elif requester == "setgeointerval":
 			geoparsed = process_search.get_geoparse(query_topic)
 		elif requester == "setmilesinterval":
-			milestones = process_search.get_geoparse(query_topic)
+			milestones = process_search.get_milestones(query_topic)
 			return HttpResponse(milestones)
 
 	if request.method == 'GET':
