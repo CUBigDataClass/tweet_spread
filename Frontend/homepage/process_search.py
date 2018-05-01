@@ -76,11 +76,10 @@ def get_milestones(topic):
 			query = "select count from tweetanalysis.hashtag_milestones where " \
 			        "hashtag = 'techcrunch' and year = 2018 and month = 3 and " \
 			        "day = " + str(day)+ " and hour = " + str(hour)
-			milestone_json.append("query fired")
 			result = session.execute(query)
 			if result:
 				for elem in result:
-					result_string = "{x: new Date(2018, 3," + str(day) + "," + str(hour)+" ), y:"+ str(elem[0]) + "}"
+					result_string = "{x: new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), y: " + str(elem[0]) + "}"
 					milestone_json.append(result_string)
 	cluster.shutdown()
 	return milestone_json
