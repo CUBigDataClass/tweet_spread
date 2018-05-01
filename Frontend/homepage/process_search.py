@@ -70,6 +70,7 @@ def get_milestones(topic):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
 	milestone_json = []
+	#{x: new Date(2017, 0, 3), y: 450}
 	for day in range(31, 20, -1):
 		for hour in range(23, -1, -1):
 			query = "select count from tweetanalysis.hashtag_milestones where " \
@@ -78,7 +79,9 @@ def get_milestones(topic):
 			milestone_json.append("query fired")
 			result = session.execute(query)
 			if result:
-				milestone_json.append(result)
+				for elem in result:
+					result_string = "{x: new Date(2017, 0, 3), y: 450}"
+					milestone_json.append(elem)
 			else:
 				milestone_json.append(query)
 	cluster.shutdown()
