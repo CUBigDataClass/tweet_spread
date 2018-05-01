@@ -71,30 +71,29 @@ def get_milestones(topic, mode = 0):
 	session = cluster.connect()
 	milestone_json = ""
 	milestones = []
-	if mode == 1 :
+	for hour in range(23, -1, -1):
+		query = "select count from tweetanalysis.hashtag_milestones where " \
+		        "hashtag = '" + topic + "' and year = 2018 and month = 4 and " \
+		                                "day = 1  and hour =" + str(hour)
+		result = session.execute(query)
+		if result:
+			for elem in result:
+				result_string = "{x: new Date(2018, 4, 1, " + str(hour) + " ), y: " + str(elem[0]) + "}"
+				milestone_json = milestone_json + result_string + ","
+
+	for day in range(31, 20, -1):
 		for hour in range(23, -1, -1):
 			query = "select count from tweetanalysis.hashtag_milestones where " \
-			        "hashtag = '" + topic + "' and year = 2018 and month = 4 and " \
-			                                "day = 1  and hour =" + str(hour)
+			        "hashtag = '"+topic+"' and year = 2018 and month = 3 and " \
+			        "day = " + str(day)+ " and hour = " + str(hour)
 			result = session.execute(query)
 			if result:
 				for elem in result:
-					result_string = "{x: new Date(2018, 4, 1, " + str(hour) + " ), y: " + str(elem[0]) + "}"
+					result_string = "{x: new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), y: " + str(elem[0]) + "}"
 					milestone_json = milestone_json + result_string + ","
-
-		for day in range(31, 20, -1):
-			for hour in range(23, -1, -1):
-				query = "select count from tweetanalysis.hashtag_milestones where " \
-				        "hashtag = '"+topic+"' and year = 2018 and month = 3 and " \
-				        "day = " + str(day)+ " and hour = " + str(hour)
-				result = session.execute(query)
-				if result:
-					for elem in result:
-						result_string = "{x: new Date(2018, 3, " + str(day) + ", " + str(hour)+" ), y: " + str(elem[0]) + "}"
-						milestone_json = milestone_json + result_string + ","
-		cluster.shutdown()
-		milestone_json = milestone_json.strip(",")
-		milestone_json = "[" + milestone_json + "]"
+	cluster.shutdown()
+	milestone_json = milestone_json.strip(",")
+	milestone_json = "[" + milestone_json + "]"
 	# else:
 	# 	for day in range(31, 20, -1):
 	# 		for hour in range(23, -1, -1):
