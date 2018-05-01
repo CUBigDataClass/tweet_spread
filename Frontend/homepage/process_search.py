@@ -118,7 +118,9 @@ def get_milestones(topic, mode = 0):
 						milestone_json = milestone_json + result_string + ","
 		cluster.shutdown()
 		milestone_json = milestone_json.strip(",")
-		milestone_json = list(milestone_json)
+		response = {}
+		response['key'] = milestone_json
+		return response
 
 	return milestone_json
 
