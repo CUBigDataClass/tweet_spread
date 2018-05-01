@@ -62,12 +62,13 @@ def get_geoparse(topic):
 	counter = 0
 	for elem in result:
 		for i in elem:
-			for j in i:
-				k = j.replace("{\"cuboulder\"", '"' + str(counter) + '"')
-				final_res = final_res + str(k) + ","
-				counter += 1
-	final_res = final_res.strip(",")
-	final_res = "{" + final_res + "}"
+			final_res = final_res + i
+	# 		for j in i:
+	# 			k = j.replace("{\"cuboulder\"", '"' + str(counter) + '"')
+	# 			final_res = final_res + str(k) + ","
+	# 			counter += 1
+	# final_res = final_res.strip(",")
+	# final_res = "{" + final_res + "}"
 	return final_res
 
 
