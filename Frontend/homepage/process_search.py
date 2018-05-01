@@ -29,12 +29,12 @@ def get_sentiment(topic):
 	cluster.shutdown()
 	final_res = []
 	if result:
-		for elem in result:
-			for i in range(1, 4):
-				final_res.append(elem[i])
-		final_res = [(x/float(sum(final_res)))*100 for x in final_res]
+		# for elem in result:
+		#	for i in range(1, 4):
+		# 		final_res.append(elem[i])
+		# final_res = [(x/float(sum(final_res)))*100 for x in final_res]
 		# my_json = str([{'y': final_res[0], 'label': "POS"}, {'y': final_res[1], 'label': "NEG"}, {'y': final_res[2], 'label': "NEU"}])
-		return final_res
+		return result[0]
 	else:
 		return None
 
