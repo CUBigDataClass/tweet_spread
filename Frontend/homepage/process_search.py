@@ -58,7 +58,7 @@ def get_geoparse(topic):
 	query_string = "select locations from tweetanalysis.geoparsing where hashtag='cuboulder' limit 1000"
 	result = session.execute(query_string)
 	cluster.shutdown()
-	final_res = []
+	final_res = ""
 	counter = 0
 	# for elem in result:
 	# 	for i in elem:
@@ -71,7 +71,9 @@ def get_geoparse(topic):
 	# 			counter += 1
 	# final_res = final_res.strip(",")
 	# final_res = "{" + final_res + "}"
-	return result[0][0]
+
+	final_res = ''.join(result[0][0])
+	return final_res
 
 
 def get_top_tweets(search_string):
