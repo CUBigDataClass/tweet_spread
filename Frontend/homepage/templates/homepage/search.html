@@ -348,7 +348,7 @@
                         }
                     </script> 
                     <script type="text/javascript">
-                    var data_milestones = {{ milestones }};
+                    var data_milestones = {{ milestones | safe }};
                     alert(data_milestones);
                     var new_mile = JSON.stringify(data_milestones);
                     alert(new_mile);
