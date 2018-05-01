@@ -328,34 +328,34 @@
                             }; */
 
                             var updateMilesChart = function (dps, chart) {
-                            alert("updatemileschart");
-                            var data_length = 10;
-							for (var key in dps) {
-								dps[key]["x"] = eval(dps[key]["x"]);
-							};
+                                alert("updatemileschart");
+                                var data_length = 10;
+    							for (var key in dps) {
+    								dps[key]["x"] = eval(dps[key]["x"]);
+    							};
 
-							/*chart =new CanvasJS.Chart("milestones", {
-                                animationEnabled: true,
-                                theme: "light2",
-                                axisY:{
-                                    includeZero: false
-                                },
+    							/*chart =new CanvasJS.Chart("milestones", {
+                                    animationEnabled: true,
+                                    theme: "light2",
+                                    axisY:{
+                                        includeZero: false
+                                    },
 
-                                data: [{
-                                    type: "line",
-                                    dataPoints: dps
-                                }]
-                            });*/
-                            alert('charts is: '+ chart);
-                            alert('type charts is: '+ typeof(chart);
-                            for(var obj=0; obj < chart.length; obj++) {
-                                alert('obj: '+ obj +"   " + chart[obj]);    
-                            }
-                            if(dps.length > data_length){
-                                    dps.shift();
-                                    }
-							chart.render();
-							};
+                                    data: [{
+                                        type: "line",
+                                        dataPoints: dps
+                                    }]
+                                });*/
+                                alert('charts is: '+ chart);
+                                alert('type charts is: '+ typeof(chart);
+                                for(var obj=0; obj < chart.length; obj++) {
+                                    alert('obj: '+ obj +"   " + chart[obj]);    
+                                }
+                                if(dps.length > data_length){
+                                        dps.shift();
+                                }
+    							chart.render();
+							}
 
                     </script> 
                     <script type="text/javascript">
