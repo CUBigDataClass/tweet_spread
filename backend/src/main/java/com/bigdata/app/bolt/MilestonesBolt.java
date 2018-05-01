@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.*;
 import java.lang.Double;
+//import java.lang.Calendar;
+import java.text.*;
 
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -61,15 +63,23 @@ public final class MilestonesBolt extends BaseRichBolt {
 
         try {
             String hashtag = (String) input.getValueByField("hashtag");
-            String date = (String) input.getValueByField("created_at");
-            System.out.println("..... date .... " + date);
+            String dateStr = (String) input.getValueByField("created_at");
+            System.out.println("..... date .... " + dateStr);
 
-            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-            String mo = date.substring(4, 3);
+            DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            Date date = (Date)formatter.parse(dateStr);
+            System.out.println(date);
 
-            int month = Arrays.asList(months).indexOf(mo);
-            int day = (int) Integer.parseInt(date.substring(8, 2));
-            int year = (int) Integer.parseInt(date.substring(26, 4));
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+//            String formatedDate = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+//            System.out.println("formatedDate : " + formatedDate);
+//            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+//            String mo = date.substring(4, 3);
+//
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DATE);
+            int year = cal.get(Calendar.YEAR);
 
             System.out.println("..... date, month, year .... " + day + month + year);
             collector.emit(new Values(1, day, month, year, hashtag));
