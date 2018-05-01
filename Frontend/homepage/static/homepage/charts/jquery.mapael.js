@@ -2575,8 +2575,8 @@
                 },
                 defaultArea: {
                     attrs: {
-                        fill: "#b28a74",
-                        stroke: "#5d5d5d",
+                        fill: "#e2a46c",
+                        stroke: "#c6976d",
                         "stroke-width": 1,
                         "stroke-linejoin": "round"
                     },
