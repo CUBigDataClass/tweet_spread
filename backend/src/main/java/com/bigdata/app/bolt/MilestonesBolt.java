@@ -36,7 +36,7 @@ import javax.json.*;
  */
 public final class MilestonesBolt extends BaseRichBolt {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(GeoParsingBolt.class);
+            .getLogger(MilestonesBolt.class);
     private static final long serialVersionUID = -5094673458112835122L;
     private OutputCollector collector;
     private String path;
@@ -72,17 +72,13 @@ public final class MilestonesBolt extends BaseRichBolt {
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-//            String formatedDate = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
-//            System.out.println("formatedDate : " + formatedDate);
-//            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-//            String mo = date.substring(4, 3);
-//
+
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DATE);
             int year = cal.get(Calendar.YEAR);
 
             System.out.println("..... date, month, year .... " + day + month + year);
-            collector.emit(new Values(1, day, month, year, hashtag));
+            collector.emit(new Values(1L, day, month, year, hashtag));
 
             this.collector.ack(input);
         } catch (Exception exception) {
