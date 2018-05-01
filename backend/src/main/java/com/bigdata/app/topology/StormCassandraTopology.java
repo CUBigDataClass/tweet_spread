@@ -122,9 +122,9 @@ public class StormCassandraTopology {
         builder.setBolt("cassandraTopicBolt", cassandraTopicBolt, 3).shuffleGrouping("topic-modeling");
 
         // create cassandra bolt for milestones
-        String query3 = "update milestones set count = count + ? where day = ? and month = ? and year = ? and hashtag = ?;";
+        String query3 = "update hashtag_milestones set count = count + ? where hour = ? and day = ? and month = ? and year = ? and hashtag = ?;";
         CassandraWriterBolt cassandraMilestonesBolt = new CassandraWriterBolt(async(
-                simpleQuery(query3).with(fields("count", "day", "month", "year", "hashtag"))));
+                simpleQuery(query3).with(fields("count", "hour", "day", "month", "year", "hashtag"))));
         builder.setBolt("cassandraMilestonesBolt", cassandraMilestonesBolt, 3).shuffleGrouping("milestones");
 
         // Submit topology for execution

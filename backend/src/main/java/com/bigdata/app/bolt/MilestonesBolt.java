@@ -56,7 +56,7 @@ public final class MilestonesBolt extends BaseRichBolt {
 
     public final void declareOutputFields(
             final OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("count", "day", "month", "year", "hashtag"));
+        outputFieldsDeclarer.declare(new Fields("count", "hour" "day", "month", "year", "hashtag"));
     }
 
     public final void execute(final Tuple input) {
@@ -76,9 +76,10 @@ public final class MilestonesBolt extends BaseRichBolt {
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DATE);
             int year = cal.get(Calendar.YEAR);
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
 
             System.out.println("..... date, month, year .... " + day + month + year);
-            collector.emit(new Values(1L, day, month, year, hashtag));
+            collector.emit(new Values(1L, hour, day, month, year, hashtag));
 
             this.collector.ack(input);
         } catch (Exception exception) {
