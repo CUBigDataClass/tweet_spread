@@ -66,7 +66,7 @@ def get_geoparse(topic):
 	return final_res
 
 
-def get_milestones(topic, mode = 0):
+def get_milestones(topic, mode=0):
 	cluster = Cluster(['54.245.62.87'])
 	session = cluster.connect()
 	milestone_json = ""
@@ -96,6 +96,16 @@ def get_milestones(topic, mode = 0):
 		milestone_json = milestone_json.strip(",")
 		milestone_json = "[" + milestone_json + "]"
 	else:
+		for day in range(2, 0, -1):
+			for hour in range(23, -1, -1):
+				query = "select count from tweetanalysis.hashtag_milestones where " \
+				        "hashtag = '" + topic + "' and year = 2018 and month = 4 and " \
+				                                "day = " + str(day) + " and hour = " + str(hour)
+				result = session.execute(query)
+				if result:
+					for elem in result:
+						result_dict = {"x": "new Date(2018, 4, " + str(day) + ", " + str(hour)+" )", "y": elem[0]}
+						milestones.append(result_dict)
 		for day in range(31, 20, -1):
 			for hour in range(23, -1, -1):
 				query = "select count from tweetanalysis.hashtag_milestones where " \
