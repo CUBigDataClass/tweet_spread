@@ -34,13 +34,13 @@ def home(request):
 			mode = "Fetched from cassandra"
 			sentiment = process_search.get_sentiment(query)
 			geoparsed = process_search.get_geoparse(query)
-			#top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+			top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 			topic_models = process_search.get_topics(query)
 			milestones = process_search.get_milestones(query, 1)
 			if sentiment is None:
 				mode = "Fetched from kafka"
 				process_search.connect_kafka(query)
-				#top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
+				top_tweets_1, top_tweets_2 = process_search.get_top_tweets(query)
 				while sentiment is None or geoparsed is None or topic_models is None or milestones is None:
 					sentiment = process_search.get_sentiment(query)
 					geoparsed = process_search.get_geoparse(query)
