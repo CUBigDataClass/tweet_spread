@@ -176,8 +176,8 @@
 	<div class="section section-tabs">
 		 <div class="container">
 	        <div class="row">
-				<div>{{ mode }}</div>
-				<div>{{ milestones }}</div>
+				<!--<div>{{ mode }}</div>
+				<div>{{ milestones }}</div>-->
 	            <div class="col-md-6 twitter-timeline pre-scrollable">
 					<p class="category" id="toptweets">Recent tweets for {{ query }}</p>
 					{% block content %}
@@ -427,30 +427,28 @@
                                   }
                               },
                               plots: new_plots
-                          }) 
+                          }); 
                        
                     }
 
+                    var map = {{ geoparsed | safe }};
+					var my_map = JSON.stringify(map);
+					var new_map = JSON.parse(my_map);
+                    get_map(new_map);
 
+					function ajaxGeoCall() {
+						$.ajax({
+						type: 'GET',
+						url: window.location.href,
+						data : { requester : "setgeointerval" },
+						 success: function(json) {
+						 	var newjs = JSON.parse(json);
+							updateMap(newjs);
+						 }
+						});
+					}
 
-                        var map = {{ geoparsed | safe }};
-						var my_map = JSON.stringify(map);
-						var new_map = JSON.parse(my_map);
-                        get_map(new_map);
-
-						function ajaxGeoCall() {
-							$.ajax({
-							type: 'GET',
-							url: window.location.href,
-							data : { requester : "setgeointerval" },
-							 success: function(json) {
-							 	var newjs = JSON.parse(json);
-								updateMap(newjs);
-							 }
-							});
-						}
-
-                        setInterval(ajaxGeoCall, 2000);
+                    setInterval(ajaxGeoCall, 2000);
 
                 </script>
             </div>
