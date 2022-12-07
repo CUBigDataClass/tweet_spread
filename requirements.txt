@@ -8,7 +8,7 @@ bcdoc==0.12.2
 bleach==2.1.1
 boto==2.33.0
 botocore==0.73.0
-certifi==2015.4.28
+certifi==2022.12.7
 chardet==3.0.4
 colorama==0.2.5
 configparser==3.5.0
